@@ -1,32 +1,25 @@
 import React from "react";
-import {
-   Switch,
-   Route,
-} from "react-router-dom";
-import Main from '../components/Main/Main';
-import Home from '../components/Home/Home';
-import SignIn from '../components/SignIn/SignIn';
+import { Switch, Route } from "react-router-dom";
+
+import Templates from '../pages/Templates/Templates';
+import Boards from '../pages/Boards/Boards';
+import SignIn from '../pages/SignIn/SignIn';
+import Home from '../pages/Home/Home';
 
 const ContentSwitch = () => {
    return (
       <Switch>
          <Route path="/templates">
-            <Main>
-               <p>Templates</p>
-            </Main>
+            <Templates />
          </Route>
          <Route path="/boards">
-            <Main>
-               <Home/>
-            </Main>
+            <Boards />
          </Route>
-         <Route path="/sign-in">
-            <SignIn/>
+         <Route path="/login">
+            <SignIn />
          </Route>
          <Route path="/">
-            <Main>
-               <Home/>
-            </Main>
+            <Home />
          </Route>
       </Switch>
    )

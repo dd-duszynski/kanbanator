@@ -18,7 +18,7 @@ function Copyright() {
    return (
       <Typography variant="body2" color="textSecondary" align="center">
          {'Copyright © '}
-         <LinkUI color="inherit" href="https://material-ui.com/">
+         <LinkUI color="inherit" href="/">
             Kanbanator
          </LinkUI>{' '}
          {new Date().getFullYear()}
@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
    submit: {
       margin: theme.spacing(3, 0, 2),
    },
-   link:{
+   link: {
       textDecoration: 'none',
    }
 }));
@@ -108,7 +108,6 @@ export default function SignIn() {
                      </LinkUI>
                   </Grid>
                   <Grid item>
-
                      <LinkUI href="#" variant="body2">
                         {"Don't have an account? Sign Up"}
                      </LinkUI>

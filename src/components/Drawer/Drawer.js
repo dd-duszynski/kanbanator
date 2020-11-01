@@ -16,6 +16,8 @@ import ListIcon from '@material-ui/icons/List';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import HomeIcon from '@material-ui/icons/Home';
+import SettingsIcon from '@material-ui/icons/Settings';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 const drawerWidth = 240;
 
@@ -51,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
       // necessary for content to be below app bar
       ...theme.mixins.toolbar,
    },
-   link:{
+   link: {
       color: 'rgba(0, 0, 0, 0.87)',
       textDecoration: 'none'
    }
@@ -94,7 +96,7 @@ const Drawer = ({ handleDrawerClose, isDrawerOpen }) => {
                   <ListItemIcon>
                      <AssignmentIcon />
                   </ListItemIcon>
-                  <ListItemText primary="Tablice" />
+                  <ListItemText primary="Boards" />
                </ListItem>
             </Link>
             <Link to="/templates" className={classes.link}>
@@ -102,7 +104,7 @@ const Drawer = ({ handleDrawerClose, isDrawerOpen }) => {
                   <ListItemIcon>
                      <AssignmentTurnedInIcon />
                   </ListItemIcon>
-                  <ListItemText primary="Szablony" />
+                  <ListItemText primary="Templates" />
                </ListItem>
             </Link>
          </List>
@@ -113,7 +115,7 @@ const Drawer = ({ handleDrawerClose, isDrawerOpen }) => {
                   <ListItemIcon>
                      <ListIcon />
                   </ListItemIcon>
-                  <ListItemText primary="Tablica 1" />
+                  <ListItemText primary="Board 1" />
                </ListItem>
             </Link>
             <Link to="/board/2" className={classes.link}>
@@ -121,7 +123,7 @@ const Drawer = ({ handleDrawerClose, isDrawerOpen }) => {
                   <ListItemIcon>
                      <ListIcon />
                   </ListItemIcon>
-                  <ListItemText primary="Tablica 2" />
+                  <ListItemText primary="Board 2" />
                </ListItem>
             </Link>
             <Link to="/board/3" className={classes.link}>
@@ -129,17 +131,29 @@ const Drawer = ({ handleDrawerClose, isDrawerOpen }) => {
                   <ListItemIcon>
                      <ListIcon />
                   </ListItemIcon>
-                  <ListItemText primary="Tablica 3" />
+                  <ListItemText primary="Board 3" />
                </ListItem>
             </Link>
+            <ListItem button>
+               <ListItemIcon>
+                  <AddIcon />
+               </ListItemIcon>
+               <ListItemText primary="Create new board" />
+            </ListItem>
          </List>
          <Divider />
          <List>
             <ListItem button>
                <ListItemIcon>
-                  <AddIcon />
+                  <SettingsIcon />
                </ListItemIcon>
-               <ListItemText primary="Utwórz tablicę" />
+               <ListItemText primary="Settings" />
+            </ListItem>
+            <ListItem button>
+               <ListItemIcon>
+                  <ExitToAppIcon />
+               </ListItemIcon>
+               <ListItemText primary="Logout" />
             </ListItem>
          </List>
       </SideDrawer>
