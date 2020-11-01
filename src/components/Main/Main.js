@@ -9,6 +9,7 @@ const useStyles = makeStyles((theme) => ({
       flexGrow: 1,
       paddingTop: '70px'
    },
+   
 }));
 
 const Main = ({ children }) => {

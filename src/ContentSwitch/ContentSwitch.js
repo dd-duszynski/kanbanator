@@ -18,6 +18,9 @@ const ContentSwitch = () => {
          <Route path="/login">
             <SignIn />
          </Route>
+         <Route path="/sign-up">
+            <SignIn />
+         </Route>
          <Route path="/">
             <Home />
          </Route>

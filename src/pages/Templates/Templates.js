@@ -4,7 +4,7 @@ import Main from '../../components/Main/Main'
 const Templates = () => {
    return (
       <Main>
-         <Typography variant="h5" component="h1">
+         <Typography variant="h6" component="h1">
             Templates
          </Typography>
       </Main>
