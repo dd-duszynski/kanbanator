@@ -52,6 +52,7 @@ const Home = () => {
                description="This impressive paella is a perfect party dish and a fun meal to cook together with your
                guests. Add 1 cup of frozen peas along with the mussels, if you like."
                image={`https://images.pexels.com/photos/4870969/pexels-photo-4870969.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260`}
+               starred
             />
             <BoardCard
                title="Board 2"

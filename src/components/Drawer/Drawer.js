@@ -26,15 +26,20 @@ const useStyles = makeStyles((theme) => ({
       width: drawerWidth,
       flexShrink: 0,
       whiteSpace: 'nowrap',
+      color: '#eee',
    },
    drawerOpen: {
       width: drawerWidth,
+      backgroundColor: theme.palette.primary.main,
+      color: '#eee',
       transition: theme.transitions.create('width', {
          easing: theme.transitions.easing.sharp,
          duration: theme.transitions.duration.enteringScreen,
       }),
    },
    drawerClose: {
+      backgroundColor: theme.palette.primary.main,
+      color: '#eee',
       transition: theme.transitions.create('width', {
          easing: theme.transitions.easing.sharp,
          duration: theme.transitions.duration.leavingScreen,
@@ -54,8 +59,11 @@ const useStyles = makeStyles((theme) => ({
       ...theme.mixins.toolbar,
    },
    link: {
-      color: 'rgba(0, 0, 0, 0.87)',
+      color: '#eee',
       textDecoration: 'none'
+   },
+   icon: {
+      color: '#eee'
    }
 }));
 
@@ -78,14 +86,14 @@ const Drawer = ({ handleDrawerClose, isDrawerOpen }) => {
          }}
       >
          <div className={classes.toolbar}>
-            <IconButton onClick={handleDrawerClose}>
+            <IconButton onClick={handleDrawerClose} className={classes.icon}>
                {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
             </IconButton>
          </div>
          <List>
             <Link exact to="/" className={classes.link}>
                <ListItem button>
-                  <ListItemIcon>
+                  <ListItemIcon className={classes.icon}>
                      <HomeIcon />
                   </ListItemIcon>
                   <ListItemText primary="Home" />
@@ -93,7 +101,7 @@ const Drawer = ({ handleDrawerClose, isDrawerOpen }) => {
             </Link>
             <Link to="/boards" className={classes.link}>
                <ListItem button>
-                  <ListItemIcon>
+                  <ListItemIcon className={classes.icon}>
                      <AssignmentIcon />
                   </ListItemIcon>
                   <ListItemText primary="Boards" />
@@ -101,7 +109,7 @@ const Drawer = ({ handleDrawerClose, isDrawerOpen }) => {
             </Link>
             <Link to="/templates" className={classes.link}>
                <ListItem button>
-                  <ListItemIcon>
+                  <ListItemIcon className={classes.icon}>
                      <AssignmentTurnedInIcon />
                   </ListItemIcon>
                   <ListItemText primary="Templates" />
@@ -112,7 +120,7 @@ const Drawer = ({ handleDrawerClose, isDrawerOpen }) => {
          <List>
             <Link to="/board/1" className={classes.link}>
                <ListItem button>
-                  <ListItemIcon>
+                  <ListItemIcon className={classes.icon}>
                      <ListIcon />
                   </ListItemIcon>
                   <ListItemText primary="Board 1" />
@@ -120,7 +128,7 @@ const Drawer = ({ handleDrawerClose, isDrawerOpen }) => {
             </Link>
             <Link to="/board/2" className={classes.link}>
                <ListItem button>
-                  <ListItemIcon>
+                  <ListItemIcon className={classes.icon}>
                      <ListIcon />
                   </ListItemIcon>
                   <ListItemText primary="Board 2" />
@@ -128,14 +136,14 @@ const Drawer = ({ handleDrawerClose, isDrawerOpen }) => {
             </Link>
             <Link to="/board/3" className={classes.link}>
                <ListItem button>
-                  <ListItemIcon>
+                  <ListItemIcon className={classes.icon}>
                      <ListIcon />
                   </ListItemIcon>
                   <ListItemText primary="Board 3" />
                </ListItem>
             </Link>
             <ListItem button>
-               <ListItemIcon>
+               <ListItemIcon className={classes.icon}>
                   <AddIcon />
                </ListItemIcon>
                <ListItemText primary="Create new board" />
@@ -145,12 +153,12 @@ const Drawer = ({ handleDrawerClose, isDrawerOpen }) => {
          <List>
             <ListItem button>
                <ListItemIcon>
-                  <SettingsIcon />
+                  <SettingsIcon className={classes.icon} />
                </ListItemIcon>
                <ListItemText primary="Settings" />
             </ListItem>
             <ListItem button>
-               <ListItemIcon>
+               <ListItemIcon className={classes.icon}>
                   <ExitToAppIcon />
                </ListItemIcon>
                <ListItemText primary="Logout" />

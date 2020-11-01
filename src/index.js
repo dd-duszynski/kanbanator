@@ -4,12 +4,13 @@ import {
    BrowserRouter as Router,
 } from "react-router-dom";
 import reportWebVitals from './reportWebVitals';
-import ContentSwitch from './ContentSwitch/ContentSwitch'
+import ContentSwitch from './ContentSwitch/ContentSwitch';
+import 'fontsource-roboto';
 
 ReactDOM.render(
    <React.StrictMode>
       <Router>
-         <ContentSwitch/>
+         <ContentSwitch />
       </Router>
    </React.StrictMode>,
    document.getElementById('root')

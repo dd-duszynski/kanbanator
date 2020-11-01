@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
    },
    //ok
    avatar: {
-      backgroundColor: red[500],
+      backgroundColor: theme.palette.primary.main,
    },
 }));
 
