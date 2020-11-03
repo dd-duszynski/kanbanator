@@ -6,13 +6,16 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
+import Popover from '@material-ui/core/Popover';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-const im = "https://images.pexels.com/photos/3046632/pexels-photo-3046632.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemText from '@material-ui/core/ListItemText'
 
 const useStyles = makeStyles((theme) => ({
    root: {
@@ -44,9 +47,18 @@ const useStyles = makeStyles((theme) => ({
 export default function BoardCard({ title, starred, image, description, link }) {
    const classes = useStyles();
    const [isStarred, setIsStarred] = useState(starred);
+   const [anchorEl, setAnchorEl] = useState(null);
 
    const handleIsStarred = () => {
       setIsStarred(!isStarred);
+   };
+
+   const handleClick = (event) => {
+      setAnchorEl(event.currentTarget);
+   };
+
+   const handleClose = () => {
+      setAnchorEl(null);
    };
 
    return (
@@ -59,9 +71,40 @@ export default function BoardCard({ title, starred, image, description, link }) 
                </Avatar>
             }
             action={
-               <IconButton aria-label="settings">
-                  <MoreVertIcon className={classes.whiteIcon}/>
-               </IconButton>
+               <>
+
+                  <IconButton aria-label="settings" onClick={handleClick}>
+                     <MoreVertIcon className={classes.whiteIcon} />
+                  </IconButton>
+                  <Popover
+                     anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'right',
+                     }}
+                     transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                     }}
+                     // id="simple-menu"
+                     anchorEl={anchorEl}
+                     open={Boolean(anchorEl)}
+                     onClose={handleClose}
+                  >
+                     <List>
+                        <ListItem button>
+                           <ListItemText primary="option 1" onClick={handleClose} />
+                        </ListItem>
+                        <ListItem button>
+                           <ListItemText primary="option 2" onClick={handleClose} />
+                        </ListItem>
+                        <ListItem button>
+                           <ListItemText primary="option 3" onClick={handleClose} />
+                        </ListItem>
+                     </List>
+                     {/* Poniżej przykład - pamiętaj o handleClose */}
+                     {/* <MenuItem onClick={handleClose}>Profile</MenuItem> */}
+                  </Popover>
+               </>
             }
             title={title}
             subheader="November 01, 2020"

@@ -150,6 +150,14 @@ const Drawer = ({ handleDrawerClose, isDrawerOpen }) => {
                   <ListItemText primary="Board 3" />
                </ListItem>
             </NavLink>
+            <NavLink to="/board/4" className={classes.link} activeClassName={classes.linkActive}>
+               <ListItem button>
+                  <ListItemIcon className={classes.icon}>
+                     <ListIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Board 4" />
+               </ListItem>
+            </NavLink>
             <ListItem button>
                <ListItemIcon className={classes.icon}>
                   <AddIcon />
