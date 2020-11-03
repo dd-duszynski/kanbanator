@@ -7,7 +7,10 @@ import Container from '@material-ui/core/Container';
 const useStyles = makeStyles((theme) => ({
    content: {
       flexGrow: 1,
-      paddingTop: '70px'
+      paddingTop: '80px',
+      paddingLeft: '50px',
+      paddingRight: '50px',
+
    },
    
 }));

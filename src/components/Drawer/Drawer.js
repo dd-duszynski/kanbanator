@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import SideDrawer from '@material-ui/core/Drawer';
@@ -21,51 +21,59 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 const drawerWidth = 240;
 
-const useStyles = makeStyles((theme) => ({
-   drawer: {
-      width: drawerWidth,
-      flexShrink: 0,
-      whiteSpace: 'nowrap',
-      color: '#eee',
-   },
-   drawerOpen: {
-      width: drawerWidth,
-      backgroundColor: theme.palette.primary.main,
-      color: '#eee',
-      transition: theme.transitions.create('width', {
-         easing: theme.transitions.easing.sharp,
-         duration: theme.transitions.duration.enteringScreen,
-      }),
-   },
-   drawerClose: {
-      backgroundColor: theme.palette.primary.main,
-      color: '#eee',
-      transition: theme.transitions.create('width', {
-         easing: theme.transitions.easing.sharp,
-         duration: theme.transitions.duration.leavingScreen,
-      }),
-      overflowX: 'hidden',
-      width: theme.spacing(7) + 1,
-      [theme.breakpoints.up('sm')]: {
-         width: theme.spacing(9) + 1,
+const useStyles = makeStyles((theme) => {
+   console.log(theme);
+   return ({
+      drawer: {
+         width: drawerWidth,
+         flexShrink: 0,
+         whiteSpace: 'nowrap',
+         color: '#eee',
       },
-   },
-   toolbar: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'flex-end',
-      padding: theme.spacing(0, 1),
-      // necessary for content to be below app bar
-      ...theme.mixins.toolbar,
-   },
-   link: {
-      color: '#eee',
-      textDecoration: 'none'
-   },
-   icon: {
-      color: '#eee'
-   }
-}));
+      drawerOpen: {
+         width: drawerWidth,
+         backgroundColor: '#333',
+         // backgroundColor: theme.palette.primary.main,
+         color: '#eee',
+         transition: theme.transitions.create('width', {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.enteringScreen,
+         }),
+      },
+      drawerClose: {
+         backgroundColor: '#333',
+         // backgroundColor: theme.palette.primary.main,
+         color: '#eee',
+         transition: theme.transitions.create('width', {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
+         }),
+         overflowX: 'hidden',
+         width: theme.spacing(7) + 1,
+         [theme.breakpoints.up('sm')]: {
+            width: theme.spacing(9) + 1,
+         },
+      },
+      toolbar: {
+         display: 'flex',
+         alignItems: 'center',
+         justifyContent: 'flex-end',
+         padding: theme.spacing(0, 1),
+         // necessary for content to be below app bar
+         ...theme.mixins.toolbar,
+      },
+      link: {
+         color: '#eee',
+         textDecoration: 'none'
+      },
+      linkActive: {
+         color: theme.palette.primary.light,
+      },
+      icon: {
+         color: '#eee'
+      }
+   })
+});
 
 const Drawer = ({ handleDrawerClose, isDrawerOpen }) => {
    const classes = useStyles();
@@ -91,57 +99,57 @@ const Drawer = ({ handleDrawerClose, isDrawerOpen }) => {
             </IconButton>
          </div>
          <List>
-            <Link exact to="/" className={classes.link}>
+            <NavLink exact to="/" className={classes.link} activeClassName={classes.linkActive}>
                <ListItem button>
                   <ListItemIcon className={classes.icon}>
                      <HomeIcon />
                   </ListItemIcon>
                   <ListItemText primary="Home" />
                </ListItem>
-            </Link>
-            <Link to="/boards" className={classes.link}>
+            </NavLink>
+            <NavLink to="/boards" className={classes.link} activeClassName={classes.linkActive}>
                <ListItem button>
                   <ListItemIcon className={classes.icon}>
                      <AssignmentIcon />
                   </ListItemIcon>
                   <ListItemText primary="Boards" />
                </ListItem>
-            </Link>
-            <Link to="/templates" className={classes.link}>
+            </NavLink>
+            <NavLink to="/templates" className={classes.link} activeClassName={classes.linkActive}>
                <ListItem button>
                   <ListItemIcon className={classes.icon}>
                      <AssignmentTurnedInIcon />
                   </ListItemIcon>
                   <ListItemText primary="Templates" />
                </ListItem>
-            </Link>
+            </NavLink>
          </List>
          <Divider />
          <List>
-            <Link to="/board/1" className={classes.link}>
+            <NavLink to="/board/1" className={classes.link} activeClassName={classes.linkActive}>
                <ListItem button>
                   <ListItemIcon className={classes.icon}>
                      <ListIcon />
                   </ListItemIcon>
                   <ListItemText primary="Board 1" />
                </ListItem>
-            </Link>
-            <Link to="/board/2" className={classes.link}>
+            </NavLink>
+            <NavLink to="/board/2" className={classes.link} activeClassName={classes.linkActive}>
                <ListItem button>
                   <ListItemIcon className={classes.icon}>
                      <ListIcon />
                   </ListItemIcon>
                   <ListItemText primary="Board 2" />
                </ListItem>
-            </Link>
-            <Link to="/board/3" className={classes.link}>
+            </NavLink>
+            <NavLink to="/board/3" className={classes.link} activeClassName={classes.linkActive}>
                <ListItem button>
                   <ListItemIcon className={classes.icon}>
                      <ListIcon />
                   </ListItemIcon>
                   <ListItemText primary="Board 3" />
                </ListItem>
-            </Link>
+            </NavLink>
             <ListItem button>
                <ListItemIcon className={classes.icon}>
                   <AddIcon />
@@ -151,18 +159,22 @@ const Drawer = ({ handleDrawerClose, isDrawerOpen }) => {
          </List>
          <Divider />
          <List>
-            <ListItem button>
-               <ListItemIcon>
-                  <SettingsIcon className={classes.icon} />
-               </ListItemIcon>
-               <ListItemText primary="Settings" />
-            </ListItem>
-            <ListItem button>
-               <ListItemIcon className={classes.icon}>
-                  <ExitToAppIcon />
-               </ListItemIcon>
-               <ListItemText primary="Logout" />
-            </ListItem>
+            <NavLink to="/settings" className={classes.link} activeClassName={classes.linkActive}>
+               <ListItem button>
+                  <ListItemIcon>
+                     <SettingsIcon className={classes.icon} />
+                  </ListItemIcon>
+                  <ListItemText primary="Settings" />
+               </ListItem>
+            </NavLink>
+            <NavLink to="/logout" className={classes.link} activeClassName={classes.linkActive}>
+               <ListItem button>
+                  <ListItemIcon className={classes.icon}>
+                     <ExitToAppIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Logout" />
+               </ListItem>
+            </NavLink>
          </List>
       </SideDrawer>
    );

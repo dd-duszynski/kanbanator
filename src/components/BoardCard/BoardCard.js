@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
       maxWidth: '300px',
       marginRight: '15px',
       marginBottom: '15px',
-      backgroundColor: '#444',
+      backgroundColor: '#333',
       color: '#fff'
    },
    media: {
@@ -31,10 +31,10 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: theme.palette.primary.main,
    },
    cardHeader: {
-      color: '#eee',
+      color: '#fff',
    },
    whiteIcon: {
-      color: '#eee',
+      color: '#fff',
    },
    redIcon: {
       color: '#e11',
