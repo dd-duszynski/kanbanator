@@ -75,9 +75,10 @@ const useStyles = makeStyles((theme) => {
    })
 });
 
-const Drawer = ({ handleDrawerClose, isDrawerOpen }) => {
+const Drawer = ({ handleDrawerClose, isDrawerOpen, handleIsModalOpen }) => {
    const classes = useStyles();
    const theme = useTheme();
+
 
    return (
       <SideDrawer
@@ -158,7 +159,7 @@ const Drawer = ({ handleDrawerClose, isDrawerOpen }) => {
                   <ListItemText primary="Board 4" />
                </ListItem>
             </NavLink>
-            <ListItem button>
+            <ListItem button onClick={handleIsModalOpen}>
                <ListItemIcon className={classes.icon}>
                   <AddIcon />
                </ListItemIcon>

@@ -14,6 +14,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
+import Modal from '../../components/Modal/Modal';
 
 const drawerWidth = 240;
 
@@ -121,8 +122,15 @@ const useStyles = makeStyles((theme) => ({
 const Navigation = () => {
    const classes = useStyles();
    const [open, setOpen] = useState(true);
+   const [isModalOpen, setModalOpen] = useState(false)
    const [anchorEl, setAnchorEl] = useState(null);
    const menuId = 'primary-search-account-menu';
+
+   const handleIsModalOpen = () => {
+      console.log(isModalOpen);
+      setModalOpen(!isModalOpen)
+   }
+
    const handleDrawerOpen = () => {
       setOpen(true);
    };
@@ -197,6 +205,11 @@ const Navigation = () => {
          <Drawer
             handleDrawerClose={handleDrawerClose}
             isDrawerOpen={open}
+            handleIsModalOpen={handleIsModalOpen}
+         />
+         <Modal
+            isModalOpen={isModalOpen}
+            handleIsModalOpen={handleIsModalOpen}
          />
       </>
    )
