@@ -1,29 +1,29 @@
 {
   "files": {
-    "main.css": "/kanbanator/static/css/main.ac5d3826.chunk.css",
-    "main.js": "/kanbanator/static/js/main.e785e021.chunk.js",
-    "main.js.map": "/kanbanator/static/js/main.e785e021.chunk.js.map",
-    "runtime-main.js": "/kanbanator/static/js/runtime-main.5ffdb34e.js",
-    "runtime-main.js.map": "/kanbanator/static/js/runtime-main.5ffdb34e.js.map",
+    "main.css": "/kanbanator/static/css/main.ba75b5ce.chunk.css",
+    "main.js": "/kanbanator/static/js/main.238d1dec.chunk.js",
+    "main.js.map": "/kanbanator/static/js/main.238d1dec.chunk.js.map",
+    "runtime-main.js": "/kanbanator/static/js/runtime-main.0fd5a512.js",
+    "runtime-main.js.map": "/kanbanator/static/js/runtime-main.0fd5a512.js.map",
     "static/css/2.f3fe3ad7.chunk.css": "/kanbanator/static/css/2.f3fe3ad7.chunk.css",
-    "static/js/2.a71326fa.chunk.js": "/kanbanator/static/js/2.a71326fa.chunk.js",
-    "static/js/2.a71326fa.chunk.js.map": "/kanbanator/static/js/2.a71326fa.chunk.js.map",
-    "static/js/3.3cfc2f91.chunk.js": "/kanbanator/static/js/3.3cfc2f91.chunk.js",
-    "static/js/3.3cfc2f91.chunk.js.map": "/kanbanator/static/js/3.3cfc2f91.chunk.js.map",
+    "static/js/2.0634e227.chunk.js": "/kanbanator/static/js/2.0634e227.chunk.js",
+    "static/js/2.0634e227.chunk.js.map": "/kanbanator/static/js/2.0634e227.chunk.js.map",
+    "static/js/3.37634ac2.chunk.js": "/kanbanator/static/js/3.37634ac2.chunk.js",
+    "static/js/3.37634ac2.chunk.js.map": "/kanbanator/static/js/3.37634ac2.chunk.js.map",
     "index.html": "/kanbanator/index.html",
     "static/css/2.f3fe3ad7.chunk.css.map": "/kanbanator/static/css/2.f3fe3ad7.chunk.css.map",
-    "static/css/main.ac5d3826.chunk.css.map": "/kanbanator/static/css/main.ac5d3826.chunk.css.map",
-    "static/js/2.a71326fa.chunk.js.LICENSE.txt": "/kanbanator/static/js/2.a71326fa.chunk.js.LICENSE.txt",
+    "static/css/main.ba75b5ce.chunk.css.map": "/kanbanator/static/css/main.ba75b5ce.chunk.css.map",
+    "static/js/2.0634e227.chunk.js.LICENSE.txt": "/kanbanator/static/js/2.0634e227.chunk.js.LICENSE.txt",
     "static/media/kanbanA.06225159.svg": "/kanbanator/static/media/kanbanA.06225159.svg",
     "static/media/kanbanB.f41d4037.svg": "/kanbanator/static/media/kanbanB.f41d4037.svg",
     "static/media/kanbanC.725ebe53.svg": "/kanbanator/static/media/kanbanC.725ebe53.svg",
     "static/media/index.css": "/kanbanator/static/media/roboto-vietnamese-400-normal.52cebac0.woff2"
   },
   "entrypoints": [
-    "static/js/runtime-main.5ffdb34e.js",
+    "static/js/runtime-main.0fd5a512.js",
     "static/css/2.f3fe3ad7.chunk.css",
-    "static/js/2.a71326fa.chunk.js",
-    "static/css/main.ac5d3826.chunk.css",
-    "static/js/main.e785e021.chunk.js"
+    "static/js/2.0634e227.chunk.js",
+    "static/css/main.ba75b5ce.chunk.css",
+    "static/js/main.238d1dec.chunk.js"
   ]
 }
