@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
 import Typography from '@material-ui/core/Typography'
 import Main from '../../components/Main/Main'
 import Grid from '@material-ui/core/Grid';
@@ -35,6 +35,23 @@ const useStyles = makeStyles((theme) => ({
 
 const Templates = () => {
    const classes = useStyles();
+   const [loadedTemplates, setLoadedTemplates] = useState();
+   console.log(loadedTemplates);
+
+   useEffect(() => {
+      const fetchTemplates = async () => {
+         try {
+            const responseData = await fetch('http://localhost:5000/api/templates')
+               .then(response => response.json())
+               .then(data => console.log(data));
+            setLoadedTemplates(responseData);
+         } catch (err) {
+            console.log(err);
+         }
+      };
+      fetchTemplates();
+   }, []);
+
    return (
       <Main>
          <Typography variant="h5" component="h1">

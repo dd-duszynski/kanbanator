@@ -3,6 +3,7 @@ import { Switch, Route } from "react-router-dom";
 
 import Templates from '../pages/Templates/Templates';
 import Boards from '../pages/Boards/Boards';
+import Board from '../pages/Board/Board';
 import SignIn from '../pages/SignIn/SignIn';
 import Home from '../pages/Home/Home';
 
@@ -14,6 +15,9 @@ const ContentSwitch = () => {
          </Route>
          <Route path="/boards">
             <Boards />
+         </Route>
+         <Route path="/board/1">
+            <Board />
          </Route>
          <Route path="/login">
             <SignIn />

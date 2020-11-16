@@ -143,7 +143,11 @@ const Drawer = ({ handleDrawerClose, isDrawerOpen, handleIsModalOpen }) => {
                   <ListItemText primary="Board 2" />
                </ListItem>
             </NavLink>
-            <NavLink to="/board/3" className={classes.link} activeClassName={classes.linkActive}>
+            <NavLink
+               to="/board/3"
+               className={classes.link}
+               activeClassName={classes.linkActive}
+            >
                <ListItem button>
                   <ListItemIcon className={classes.icon}>
                      <ListIcon />
@@ -151,7 +155,11 @@ const Drawer = ({ handleDrawerClose, isDrawerOpen, handleIsModalOpen }) => {
                   <ListItemText primary="Board 3" />
                </ListItem>
             </NavLink>
-            <NavLink to="/board/4" className={classes.link} activeClassName={classes.linkActive}>
+            <NavLink
+               to="/board/4"
+               className={classes.link}
+               activeClassName={classes.linkActive}
+            >
                <ListItem button>
                   <ListItemIcon className={classes.icon}>
                      <ListIcon />
@@ -159,7 +167,10 @@ const Drawer = ({ handleDrawerClose, isDrawerOpen, handleIsModalOpen }) => {
                   <ListItemText primary="Board 4" />
                </ListItem>
             </NavLink>
-            <ListItem button onClick={handleIsModalOpen}>
+            <ListItem 
+               button 
+               onClick={handleIsModalOpen}
+            >
                <ListItemIcon className={classes.icon}>
                   <AddIcon />
                </ListItemIcon>

@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
    },
 }))
 
-const Boards = () => {
+const Board = () => {
    const classes = useStyles();
    return (
       <Main>
@@ -78,4 +78,4 @@ const Boards = () => {
    )
 }
 
-export default Boards
+export default Board
