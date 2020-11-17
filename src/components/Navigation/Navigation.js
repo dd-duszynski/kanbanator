@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
 import Drawer from '../Drawer/Drawer';
 import clsx from 'clsx';
 import { makeStyles, fade } from '@material-ui/core/styles';
@@ -124,7 +123,7 @@ const Navigation = () => {
    const [open, setOpen] = useState(true);
    const [isModalOpen, setModalOpen] = useState(false)
    const [anchorEl, setAnchorEl] = useState(null);
-   const menuId = 'primary-search-account-menu';
+   // const menuId = 'primary-search-account-menu';
 
    const handleIsModalOpen = () => {
       console.log(isModalOpen);

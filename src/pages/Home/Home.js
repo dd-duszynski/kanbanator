@@ -5,9 +5,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import kanbanA from '../../assets/kanbanA.svg'
 import kanbanB from '../../assets/kanbanB.svg'
 import kanbanC from '../../assets/kanbanC.svg'
-import Main from '../../components/Main/Main';
-import Paper from '@material-ui/core/Paper';
-import BoardCard from '../../components/BoardCard/BoardCard';
 
 const useStyles = makeStyles((theme) => ({
    root: {
@@ -28,7 +25,6 @@ const useStyles = makeStyles((theme) => ({
 const Home = () => {
    const classes = useStyles();
    return (
-      <Main>
          <Grid
             container
             direction="column"
@@ -98,7 +94,6 @@ const Home = () => {
             </Grid>
 
          </Grid>
-      </Main>
    )
 }
 

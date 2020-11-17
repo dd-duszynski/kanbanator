@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import SideDrawer from '@material-ui/core/Drawer';
@@ -22,7 +22,6 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => {
-   console.log(theme);
    return ({
       drawer: {
          width: drawerWidth,

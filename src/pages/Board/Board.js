@@ -1,8 +1,7 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
-import Main from '../../components/Main/Main'
 import BoardCard from '../../components/BoardCard/BoardCard';
 
 const useStyles = makeStyles((theme) => ({
@@ -18,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 const Board = () => {
    const classes = useStyles();
    return (
-      <Main>
+      <>
          <Typography variant="h6" component="h1">
             Starred Boards
          </Typography>
@@ -74,7 +73,7 @@ const Board = () => {
             />
 
          </Grid>
-      </Main>
+      </>
    )
 }
 

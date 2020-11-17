@@ -62,7 +62,6 @@ export default function BoardCard({ title, starred, image, description, link }) 
    };
 
    return (
-
       <Card className={classes.root}>
          <CardHeader
             avatar={

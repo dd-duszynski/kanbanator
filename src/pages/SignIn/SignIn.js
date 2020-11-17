@@ -14,19 +14,6 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
-function Copyright() {
-   return (
-      <Typography variant="body2" color="textSecondary" align="center">
-         {'Copyright © '}
-         <LinkUI color="inherit" href="/">
-            Kanbanator
-         </LinkUI>{' '}
-         {new Date().getFullYear()}
-         {'.'}
-      </Typography>
-   );
-}
-
 const useStyles = makeStyles((theme) => ({
    paper: {
       marginTop: theme.spacing(8),
@@ -49,6 +36,19 @@ const useStyles = makeStyles((theme) => ({
       textDecoration: 'none',
    }
 }));
+
+function Copyright() {
+   return (
+      <Typography variant="body2" align="center">
+         {'Copyright © '}
+         <LinkUI color="inherit" href="/">
+            Kanbanator
+         </LinkUI>{' '}
+         {new Date().getFullYear()}
+         {'.'}
+      </Typography>
+   );
+}
 
 export default function SignIn() {
    const classes = useStyles();

@@ -5,27 +5,26 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import SpeedDial from '../SpeedDial/SpeedDial';
 
-
 const useStyles = makeStyles((theme) => ({
    content: {
       flexGrow: 1,
       paddingTop: '80px',
       paddingLeft: '50px',
       paddingRight: '50px',
+      minHeight: '100vh'
    }
 }));
 
 const Main = ({ children }) => {
    const classes = useStyles();
    return (
-      <div className={styles.Main}>
+      <main className={styles.Main}>
          <Navigation />
          <Container maxWidth="false" className={classes.content}>
             {children}
          </Container>
-
          <SpeedDial />
-      </div>
+      </main>
    );
 }
 
