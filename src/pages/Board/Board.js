@@ -1,8 +1,9 @@
-import React, {useState} from 'react'
+import React, { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
-import BoardCard from '../../components/BoardCard/BoardCard';
+// import BoardCard from '../../components/BoardCard/BoardCard';
 
 const useStyles = makeStyles((theme) => ({
    root: {
@@ -16,64 +17,46 @@ const useStyles = makeStyles((theme) => ({
 
 const Board = () => {
    const classes = useStyles();
-   return (
-      <>
-         <Typography variant="h6" component="h1">
-            Starred Boards
-         </Typography>
-         <Grid
-            container
-            direction="row"
-            justify="flex-start"
-            alignItems="flex-start"
-            className={classes.root}
-         >
-            <BoardCard
-               title="Board 1"
-               description="This impressive paella is a perfect party dish and a fun meal to cook together with your
-               guests. Add 1 cup of frozen peas along with the mussels, if you like."
-               image={`https://images.pexels.com/photos/4870969/pexels-photo-4870969.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260`}
-               starred
-            />
-         </Grid>
-         <Typography variant="h6" component="h1">
-            Boards
-         </Typography>
-         <Grid
-            container
-            direction="row"
-            justify="flex-start"
-            alignItems="flex-start"
-            className={classes.root}
-         >
-            <BoardCard
-               title="Board 1"
-               description="This impressive paella is a perfect party dish and a fun meal to cook together with your
-               guests. Add 1 cup of frozen peas along with the mussels, if you like."
-               image={`https://images.pexels.com/photos/4870969/pexels-photo-4870969.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260`}
-               starred
-            />
-            <BoardCard
-               title="Board 2"
-               description="This impressive paella is a perfect party dish and a fun meal to cook together with your
-               guests. Add 1 cup of frozen peas along with the mussels, if you like."
-               image={`https://images.pexels.com/photos/3966531/pexels-photo-3966531.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500`}
-            />
-            <BoardCard
-               title="Board 3"
-               description="This impressive paella is a perfect party dish and a fun meal to cook together with your
-               guests. Add 1 cup of frozen peas along with the mussels, if you like."
-               image={`https://images.pexels.com/photos/3605420/pexels-photo-3605420.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500`}
-            />
-            <BoardCard
-               title="Board 4"
-               description="This impressive paella is a perfect party dish and a fun meal to cook together with your
-               guests. Add 1 cup of frozen peas along with the mussels, if you like."
-               image={`https://images.pexels.com/photos/5653011/pexels-photo-5653011.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500`}
-            />
+   const templateURL = useParams().templateURL;
+   console.log('useParams', templateURL);
+   const [isLoading, setIsLoading] = useState(true);
+   const [loadedTemplate, setLoadedTemplate] = useState();
 
-         </Grid>
-      </>
+   useEffect(() => {
+      const fetchTemplates = async () => {
+         try {
+            const responseData = await fetch(`http://localhost:5000/api/templates/${templateURL}`)
+               .then(response => response.json())
+               .then((data) => {
+                  console.log(data[0]);
+                  return setLoadedTemplate(data[0])
+               })
+               .then(() => setIsLoading(false))
+         } catch (err) {
+            console.log(err);
+         }
+      };
+      fetchTemplates();
+   }, []);
+
+   return (
+      <div>
+         { !isLoading && (
+            <Box>
+               < Typography variant="h6" component="h1">
+                  {loadedTemplate.title}
+               </Typography>
+               < Typography variant="b1" >
+                  {loadedTemplate.description}
+               </Typography>
+               <Box>
+                  <img src={loadedTemplate.image_url} alt=""/>
+
+               </Box>
+
+            </Box>
+         )}
+      </div >
    )
 }
 

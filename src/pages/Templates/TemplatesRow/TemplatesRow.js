@@ -37,8 +37,8 @@ const TemplatesRow = ({ category, loadedTemplates, icon }) => {
                      title={item.title}
                      description={item.description}
                      image={item.image_url}
-                     link="/business1"
-                     key={item.title}
+                     link={item.link}
+                     key={item.link}
                   />
                )
             })}

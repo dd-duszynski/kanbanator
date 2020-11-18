@@ -33,9 +33,11 @@ const Templates = () => {
          try {
             const responseData = await fetch('http://localhost:5000/api/templates')
                .then(response => response.json())
-               .then((data) => setLoadedTemplates(data))
+               .then((data) => {
+                  console.log(data);
+                  return setLoadedTemplates(data)
+               })
                .then(() => setIsLoading(false))
-            console.log('responseData', responseData);
          } catch (err) {
             console.log(err);
          }
@@ -46,15 +48,12 @@ const Templates = () => {
    return (
       <Box>
          <Typography variant="h5" component="h1">
-            Feel free to use our templates.
-         </Typography>
-         <Typography variant="body1">
             Get going faster with one of the ready-to-use predefined templates.
          </Typography>
          {!isLoading && (
             <>
                <TemplatesRow
-                  category="Business Templates"
+                  category="Business"
                   loadedTemplates={loadedTemplates}
                   icon={<BusinessCenterIcon className={classes.icon} />}
                />

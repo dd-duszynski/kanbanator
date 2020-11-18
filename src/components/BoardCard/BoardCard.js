@@ -110,7 +110,7 @@ export default function BoardCard({ title, starred, image, description, link }) 
             subheaderTypographyProps={{ 'color': 'white' }}
             className={classes.cardHeader}
          />
-         <Link to={link ? link : "/"}>
+         <Link to={link ? `templates/${link}` : "/"}>
             <CardMedia
                className={classes.media}
                image={image}
