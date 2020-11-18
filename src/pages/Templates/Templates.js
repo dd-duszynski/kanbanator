@@ -31,7 +31,7 @@ const Templates = () => {
    useEffect(() => {
       const fetchTemplates = async () => {
          try {
-            const responseData = await fetch('http://localhost:5000/api/templates')
+            await fetch('http://localhost:5000/api/templates')
                .then(response => response.json())
                .then((data) => {
                   console.log(data);
@@ -92,10 +92,6 @@ const Templates = () => {
          }
       </Box>
    )
-
-   // return (
-   //    isLoading ? null : renderResult
-   // )
 }
 
 export default Templates

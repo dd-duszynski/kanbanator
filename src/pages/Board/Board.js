@@ -2,30 +2,28 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
-// import BoardCard from '../../components/BoardCard/BoardCard';
+import TaskCard from '../../components/TaskCard/TaskCard';
+import List from '../../components/List/List';
 
 const useStyles = makeStyles((theme) => ({
    root: {
-      display: 'flex',
-   },
-   toolbar: {
-      // keep right padding when drawer closed
-      paddingRight: 24,
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'cover',
    },
 }))
 
 const Board = () => {
    const classes = useStyles();
    const templateURL = useParams().templateURL;
-   console.log('useParams', templateURL);
    const [isLoading, setIsLoading] = useState(true);
    const [loadedTemplate, setLoadedTemplate] = useState();
 
    useEffect(() => {
       const fetchTemplates = async () => {
          try {
-            const responseData = await fetch(`http://localhost:5000/api/templates/${templateURL}`)
+            await fetch(`http://localhost:5000/api/templates/${templateURL}`)
                .then(response => response.json())
                .then((data) => {
                   console.log(data[0]);
@@ -40,23 +38,33 @@ const Board = () => {
    }, []);
 
    return (
-      <div>
-         { !isLoading && (
-            <Box>
+      !isLoading && (
+         <Grid
+            container
+            direction="column"
+            justify="center"
+            alignItems="start"
+            style={{ backgroundImage: `url(${loadedTemplate.image_url})` }}
+            className={classes.root}
+         >
+            <Grid item >
                < Typography variant="h6" component="h1">
                   {loadedTemplate.title}
                </Typography>
+            </Grid>
+            <Grid item>
                < Typography variant="b1" >
                   {loadedTemplate.description}
                </Typography>
-               <Box>
-                  <img src={loadedTemplate.image_url} alt=""/>
+            </Grid>
+            <Grid container>
+               <List />
+               <List />
+               <List addList/>
+            </Grid>
 
-               </Box>
-
-            </Box>
-         )}
-      </div >
+         </Grid>
+      )
    )
 }
 
