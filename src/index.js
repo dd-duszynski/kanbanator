@@ -1,4 +1,4 @@
-import React, { useState, Suspense } from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import Main from './components/Main/Main'
 import {

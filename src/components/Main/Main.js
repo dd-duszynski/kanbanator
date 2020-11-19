@@ -20,7 +20,7 @@ const Main = ({ children }) => {
    return (
       <main className={styles.Main}>
          <Navigation />
-         <Container maxWidth="false" className={classes.content}>
+         <Container className={classes.content}>
             {children}
          </Container>
          <SpeedDial />

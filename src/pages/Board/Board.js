@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
-import TaskCard from '../../components/TaskCard/TaskCard';
 import List from '../../components/List/List';
 
 const useStyles = makeStyles((theme) => ({
@@ -35,7 +33,7 @@ const Board = () => {
          }
       };
       fetchTemplates();
-   }, []);
+   }, [templateURL]);
 
    return (
       !isLoading && (
@@ -60,7 +58,7 @@ const Board = () => {
             <Grid container>
                <List />
                <List />
-               <List addList/>
+               <List addList />
             </Grid>
 
          </Grid>

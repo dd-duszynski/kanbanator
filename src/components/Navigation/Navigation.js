@@ -35,9 +35,6 @@ const useStyles = makeStyles((theme) => ({
          duration: theme.transitions.duration.enteringScreen,
       }),
    },
-   menuButton: {
-      marginRight: 36,
-   },
    hide: {
       display: 'none',
    },
@@ -122,7 +119,6 @@ const Navigation = () => {
    const classes = useStyles();
    const [open, setOpen] = useState(true);
    const [isModalOpen, setModalOpen] = useState(false)
-   const [anchorEl, setAnchorEl] = useState(null);
    // const menuId = 'primary-search-account-menu';
 
    const handleIsModalOpen = () => {
@@ -136,9 +132,6 @@ const Navigation = () => {
 
    const handleDrawerClose = () => {
       setOpen(false);
-   };
-   const handleProfileMenuOpen = (event) => {
-      setAnchorEl(event.currentTarget);
    };
    return (
       <>
@@ -193,7 +186,6 @@ const Navigation = () => {
                      aria-label="account of current user"
                      // aria-controls={menuId}
                      aria-haspopup="true"
-                     onClick={handleProfileMenuOpen}
                      color="inherit"
                   >
                      <AccountCircle />
