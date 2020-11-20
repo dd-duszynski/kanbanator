@@ -17,6 +17,7 @@ const Board = () => {
    const templateURL = useParams().templateURL;
    const [isLoading, setIsLoading] = useState(true);
    const [loadedTemplate, setLoadedTemplate] = useState();
+   const [loadedLists, setLoadedLists] = useState();
 
    useEffect(() => {
       const fetchTemplates = async () => {
@@ -27,6 +28,12 @@ const Board = () => {
                   console.log(data[0]);
                   return setLoadedTemplate(data[0])
                })
+            await fetch(`http://localhost:5000/api/templates/lists/${templateURL}`)
+               .then(response => response.json())
+               .then((data) => {
+                  console.log(data[0]);
+                  return setLoadedLists(data[0])
+               })
                .then(() => setIsLoading(false))
          } catch (err) {
             console.log(err);
@@ -34,6 +41,8 @@ const Board = () => {
       };
       fetchTemplates();
    }, [templateURL]);
+
+
 
    return (
       !isLoading && (
@@ -47,18 +56,21 @@ const Board = () => {
          >
             <Grid item >
                < Typography variant="h6" component="h1">
-                  {loadedTemplate.title}
+                  {loadedTemplate[0].title}
                </Typography>
             </Grid>
             <Grid item>
-               < Typography variant="b1" >
-                  {loadedTemplate.description}
+               < Typography variant="body1" >
+                  {loadedTemplate[1].description}
                </Typography>
             </Grid>
-            <Grid container>
-               <List />
-               <List />
-               <List addList />
+            <Grid container wrap="nowrap">
+               {loadedLists.map((item, index) => {
+                  return (
+                     <List key={index} data={item} cards={loadedTemplate} />
+                  )
+               })
+               }
             </Grid>
 
          </Grid>

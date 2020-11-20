@@ -5,6 +5,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import ListItem from '@material-ui/core/ListItem';
 import TaskCard from '../TaskCard/TaskCard';
+
 const useStyles = makeStyles((theme) => ({
    root: {
       width: '100%',
@@ -24,28 +25,25 @@ const useStyles = makeStyles((theme) => ({
    }
 }));
 
-export default function AlignItemsList({ children }) {
+const BoardList = ({ data, children, cards }) => {
    const classes = useStyles();
-
+   console.log("Cards", cards);
    return (
       <List className={classes.root}>
          <Paper className={classes.paper}>
             < Typography variant="h6" component="h1">
-               Lista 1
+               {data.list_title}
             </Typography>
          </Paper>
-         <ListItem alignItems="flex-start">
-            <TaskCard title="Task 1" description="Some default description." />
-         </ListItem>
-         <ListItem alignItems="flex-start">
-            <TaskCard title="Task 2" description="Some default description." />
-         </ListItem>
-         <ListItem alignItems="flex-start">
-            <TaskCard title="Task 3" description="Some default description." />
-         </ListItem>
-         <ListItem alignItems="flex-start">
-            <TaskCard title="Task 4" description="Some default description." />
-         </ListItem>
+         {cards.filter(i => i.list_id === data.id).map((item) => {
+            return (
+               <ListItem alignItems="flex-start">
+                  <TaskCard title={item.card_title} description={item.card_description} />
+               </ListItem>
+            )
+         })}
       </List>
    );
 }
+
+export default BoardList;
