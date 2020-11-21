@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Main from '../../components/Main/Main';
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
@@ -10,7 +11,6 @@ import HighlightIcon from '@material-ui/icons/Highlight';
 import AccountTreeIcon from '@material-ui/icons/AccountTree';
 import HomeWorkIcon from '@material-ui/icons/HomeWork';
 import TemplatesRow from './TemplatesRow/TemplatesRow';
-
 const useStyles = makeStyles((theme) => ({
    root: {
       display: 'flex',
@@ -46,51 +46,53 @@ const Templates = () => {
    }, []);
 
    return (
-      <Box>
-         <Typography variant="h5" component="h1">
-            Get going faster with one of the ready-to-use predefined templates.
-         </Typography>
-         {!isLoading && (
-            <>
-               <TemplatesRow
-                  category="Business"
-                  loadedTemplates={loadedTemplates}
-                  icon={<BusinessCenterIcon className={classes.icon} />}
-               />
-               <TemplatesRow
-                  category="Design"
-                  loadedTemplates={loadedTemplates}
-                  icon={<ColorLensIcon className={classes.icon} />}
-               />
-               <TemplatesRow
-                  category="Education"
-                  loadedTemplates={loadedTemplates}
-                  icon={<SchoolIcon className={classes.icon} />}
-               />
-               <TemplatesRow
-                  category={`Personal & Productivity`}
-                  loadedTemplates={loadedTemplates}
-                  icon={<DirectionsRunIcon className={classes.icon} />}
-               />
-               <TemplatesRow
-                  category="Marketing"
-                  loadedTemplates={loadedTemplates}
-                  icon={<HighlightIcon className={classes.icon} />}
-               />
-               <TemplatesRow
-                  category="Project Management"
-                  loadedTemplates={loadedTemplates}
-                  icon={<AccountTreeIcon className={classes.icon} />}
-               />
-               <TemplatesRow
-                  category="Remote Work"
-                  loadedTemplates={loadedTemplates}
-                  icon={<HomeWorkIcon className={classes.icon} />}
-               />
-            </>
-         )
-         }
-      </Box>
+      <Main>
+         <Box>
+            <Typography variant="h5" component="h1">
+               Get going faster with one of the ready-to-use predefined templates.
+            </Typography>
+            {!isLoading && (
+               <>
+                  <TemplatesRow
+                     category="Business"
+                     loadedTemplates={loadedTemplates}
+                     icon={<BusinessCenterIcon className={classes.icon} />}
+                  />
+                  <TemplatesRow
+                     category="Design"
+                     loadedTemplates={loadedTemplates}
+                     icon={<ColorLensIcon className={classes.icon} />}
+                  />
+                  <TemplatesRow
+                     category="Education"
+                     loadedTemplates={loadedTemplates}
+                     icon={<SchoolIcon className={classes.icon} />}
+                  />
+                  <TemplatesRow
+                     category={`Personal & Productivity`}
+                     loadedTemplates={loadedTemplates}
+                     icon={<DirectionsRunIcon className={classes.icon} />}
+                  />
+                  <TemplatesRow
+                     category="Marketing"
+                     loadedTemplates={loadedTemplates}
+                     icon={<HighlightIcon className={classes.icon} />}
+                  />
+                  <TemplatesRow
+                     category="Project Management"
+                     loadedTemplates={loadedTemplates}
+                     icon={<AccountTreeIcon className={classes.icon} />}
+                  />
+                  <TemplatesRow
+                     category="Remote Work"
+                     loadedTemplates={loadedTemplates}
+                     icon={<HomeWorkIcon className={classes.icon} />}
+                  />
+               </>
+            )
+            }
+         </Box>
+      </Main>
    )
 }
 

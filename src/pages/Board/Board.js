@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '../../components/List/List';
-
+import Main from '../../components/Main/Main';
 const useStyles = makeStyles((theme) => ({
    root: {
       backgroundRepeat: 'no-repeat',
@@ -45,36 +45,38 @@ const Board = () => {
 
 
    return (
-      !isLoading && (
-         <Grid
-            container
-            direction="column"
-            justify="center"
-            alignItems="start"
-            style={{ backgroundImage: `url(${loadedTemplate.image_url})` }}
-            className={classes.root}
-         >
-            <Grid item >
-               < Typography variant="h6" component="h1">
-                  {loadedTemplate[0].title}
-               </Typography>
-            </Grid>
-            <Grid item>
-               < Typography variant="body1" >
-                  {loadedTemplate[1].description}
-               </Typography>
-            </Grid>
-            <Grid container wrap="nowrap">
-               {loadedLists.map((item, index) => {
-                  return (
-                     <List key={index} data={item} cards={loadedTemplate} />
-                  )
-               })
-               }
-            </Grid>
+      <Main>
+         {!isLoading && (
+            <Grid
+               container
+               direction="column"
+               justify="center"
+               alignItems="start"
+               style={{ backgroundImage: `url(${loadedTemplate.image_url})` }}
+               className={classes.root}
+            >
+               <Grid item >
+                  < Typography variant="h6" component="h1">
+                     {loadedTemplate[0].title}
+                  </Typography>
+               </Grid>
+               <Grid item>
+                  < Typography variant="body1" >
+                     {loadedTemplate[1].description}
+                  </Typography>
+               </Grid>
+               <Grid container wrap="nowrap">
+                  {loadedLists.map((item, index) => {
+                     return (
+                        <List key={index} data={item} cards={loadedTemplate} />
+                     )
+                  })
+                  }
+               </Grid>
 
-         </Grid>
-      )
+            </Grid>
+         )}
+      </Main>
    )
 }
 

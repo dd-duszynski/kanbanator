@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
       maxWidth: '36ch',
       backgroundColor: theme.palette.background.paper,
       margin: '0 5px',
-      borderRadius: '5px'
+      borderRadius: '5px',
    },
    paper: {
       width: '260px',

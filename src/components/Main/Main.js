@@ -11,7 +11,8 @@ const useStyles = makeStyles((theme) => ({
       paddingTop: '80px',
       paddingLeft: '50px',
       paddingRight: '50px',
-      minHeight: '100vh'
+      minHeight: '100vh',
+      width: '100%'
    }
 }));
 

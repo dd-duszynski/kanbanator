@@ -3,6 +3,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import BoardCard from '../../components/BoardCard/BoardCard';
+import Main from '../../components/Main/Main';
 
 const useStyles = makeStyles((theme) => ({
    root: {
@@ -17,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 const Boards = () => {
    const classes = useStyles();
    return (
-      <>
+      <Main>
          <Typography variant="h5" component="h1">
             Favorites
          </Typography>
@@ -72,7 +73,7 @@ const Boards = () => {
                image={`https://images.pexels.com/photos/5653011/pexels-photo-5653011.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500`}
             />
          </Grid>
-      </>
+      </Main>
    )
 }
 

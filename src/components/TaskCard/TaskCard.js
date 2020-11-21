@@ -7,7 +7,10 @@ import Typography from '@material-ui/core/Typography';
 const useStyles = makeStyles({
    root: {
       width: '250px',
-      marginBottom: '8px'
+      marginBottom: '8px',
+      '&:hover':{
+         cursor: 'pointer'
+      }
    },
    bullet: {
       display: 'inline-block',
