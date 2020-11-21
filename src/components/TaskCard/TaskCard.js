@@ -8,7 +8,7 @@ const useStyles = makeStyles({
    root: {
       width: '250px',
       marginBottom: '8px',
-      '&:hover':{
+      '&:hover': {
          cursor: 'pointer'
       }
    },
@@ -31,11 +31,11 @@ export default function TaskCard({ title, description }) {
    return (
       <Card className={classes.root}>
          <CardContent>
-            <Typography variant="h6" component="h5">
-               {title}
+            <Typography variant="body1">
+               {title ? title : "Karta"}
             </Typography>
-            <Typography variant="body2" component="p">
-               {description}
+            <Typography variant="body2">
+               {description ? description : "Opis"}
             </Typography>
          </CardContent>
       </Card>

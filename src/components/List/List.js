@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: theme.palette.background.paper,
       margin: '0 5px',
       borderRadius: '5px',
+
    },
    paper: {
       width: '260px',
@@ -31,7 +32,7 @@ const BoardList = ({ data, children, cards }) => {
    return (
       <List className={classes.root}>
          <Paper className={classes.paper}>
-            < Typography variant="h6" component="h1">
+            < Typography variant="subtitle1">
                {data.list_title}
             </Typography>
          </Paper>

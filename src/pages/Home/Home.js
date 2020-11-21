@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import kanbanA from '../../assets/kanbanA.svg'
 import kanbanB from '../../assets/kanbanB.svg'
 import kanbanC from '../../assets/kanbanC.svg'
-import Main from '../../components/Main/Main';
+import Layout from '../../components/Layout/Layout';
 const useStyles = makeStyles((theme) => ({
    root: {
       padding: '10px 0',
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 const Home = () => {
    const classes = useStyles();
    return (
-      <Main>
+      <Layout>
 
          <Grid
             container
@@ -96,7 +96,7 @@ const Home = () => {
             </Grid>
 
          </Grid>
-      </Main>
+      </Layout>
    )
 }
 

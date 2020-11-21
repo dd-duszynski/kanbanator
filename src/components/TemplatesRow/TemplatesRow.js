@@ -2,7 +2,7 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
-import BoardCard from '../../../components/BoardCard/BoardCard';
+import BoardCard from '../BoardCard/BoardCard';
 import Box from '@material-ui/core/Box';
 
 const useStyles = makeStyles(() => ({
@@ -17,7 +17,7 @@ const useStyles = makeStyles(() => ({
 const TemplatesRow = ({ category, loadedTemplates, icon }) => {
    const classes = useStyles();
    return (
-      <>
+      <Grid>
          <Box className={classes.box}>
             {icon}
             <Typography variant="h6" component="h1">
@@ -43,7 +43,7 @@ const TemplatesRow = ({ category, loadedTemplates, icon }) => {
                )
             })}
          </Grid>
-      </>
+      </Grid>
    )
 }
 

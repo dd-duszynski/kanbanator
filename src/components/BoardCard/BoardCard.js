@@ -66,7 +66,7 @@ export default function BoardCard({ title, starred, image, description, link }) 
          <CardHeader
             avatar={
                <Avatar aria-label="recipe" className={classes.avatar}>
-                  D
+                  K
                </Avatar>
             }
             action={

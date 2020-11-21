@@ -4,6 +4,5 @@ import App from './components/App/App';
 import 'fontsource-roboto';
 
 ReactDOM.render(
-   <App />,
-   document.getElementById('root')
+   <App />, document.getElementById('root')
 );

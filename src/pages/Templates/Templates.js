@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import Main from '../../components/Main/Main';
+import Layout from '../../components/Layout/Layout';
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
+// import Grid from '@material-ui/core/Grid';
 import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 import ColorLensIcon from '@material-ui/icons/ColorLens';
 import SchoolIcon from '@material-ui/icons/School';
@@ -10,17 +11,12 @@ import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
 import HighlightIcon from '@material-ui/icons/Highlight';
 import AccountTreeIcon from '@material-ui/icons/AccountTree';
 import HomeWorkIcon from '@material-ui/icons/HomeWork';
-import TemplatesRow from './TemplatesRow/TemplatesRow';
-const useStyles = makeStyles((theme) => ({
-   root: {
-      display: 'flex',
-   },
-   toolbar: {
-      // keep right padding when drawer closed
-      paddingRight: 24,
-   },
+import TemplatesRow from '../../components/TemplatesRow/TemplatesRow';
+
+const useStyles = makeStyles(() => ({
    icon: {
       marginRight: '10px',
+      fontSize: '32px'
    },
 }))
 
@@ -46,13 +42,13 @@ const Templates = () => {
    }, []);
 
    return (
-      <Main>
+      <Layout>
          <Box>
-            <Typography variant="h5" component="h1">
+            <Typography variant="h5">
                Get going faster with one of the ready-to-use predefined templates.
             </Typography>
             {!isLoading && (
-               <>
+               <Box>
                   <TemplatesRow
                      category="Business"
                      loadedTemplates={loadedTemplates}
@@ -88,11 +84,11 @@ const Templates = () => {
                      loadedTemplates={loadedTemplates}
                      icon={<HomeWorkIcon className={classes.icon} />}
                   />
-               </>
+               </Box>
             )
             }
          </Box>
-      </Main>
+      </Layout>
    )
 }
 

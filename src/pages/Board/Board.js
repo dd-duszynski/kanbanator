@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '../../components/List/List';
-import Main from '../../components/Main/Main';
+import Layout from '../../components/Layout/Layout';
 const useStyles = makeStyles((theme) => ({
    root: {
       backgroundRepeat: 'no-repeat',
@@ -45,14 +45,14 @@ const Board = () => {
 
 
    return (
-      <Main>
+      <Layout>
          {!isLoading && (
             <Grid
                container
                direction="column"
                justify="center"
                alignItems="start"
-               style={{ backgroundImage: `url(${loadedTemplate.image_url})` }}
+               style={{ backgroundImage: `url(${loadedTemplate[0].image_url})` }}
                className={classes.root}
             >
                <Grid item >
@@ -73,10 +73,9 @@ const Board = () => {
                   })
                   }
                </Grid>
-
             </Grid>
          )}
-      </Main>
+      </Layout>
    )
 }
 
