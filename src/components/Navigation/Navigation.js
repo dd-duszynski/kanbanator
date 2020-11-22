@@ -117,7 +117,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Navigation = () => {
    const classes = useStyles();
-   const [open, setOpen] = useState(true);
+   const [isOpen, setIsOpen] = useState(true);
    const [isModalOpen, setModalOpen] = useState(false)
    // const menuId = 'primary-search-account-menu';
 
@@ -127,18 +127,18 @@ const Navigation = () => {
    }
 
    const handleDrawerOpen = () => {
-      setOpen(true);
+      setIsOpen(true);
    };
 
    const handleDrawerClose = () => {
-      setOpen(false);
+      setIsOpen(false);
    };
    return (
       <>
          <AppBar
             position="fixed"
             className={clsx(classes.appBar, {
-               [classes.appBarShift]: open,
+               [classes.appBarShift]: isOpen,
             })}
          >
             <Toolbar>
@@ -148,7 +148,7 @@ const Navigation = () => {
                   onClick={handleDrawerOpen}
                   edge="start"
                   className={clsx(classes.menuButton, {
-                     [classes.hide]: open,
+                     [classes.hide]: isOpen,
                   })}
                >
                   <MenuIcon />
@@ -195,7 +195,7 @@ const Navigation = () => {
          </AppBar>
          <Drawer
             handleDrawerClose={handleDrawerClose}
-            isDrawerOpen={open}
+            isDrawerOpen={isOpen}
             handleIsModalOpen={handleIsModalOpen}
          />
          <Modal

@@ -166,8 +166,8 @@ const Drawer = ({ handleDrawerClose, isDrawerOpen, handleIsModalOpen }) => {
                   <ListItemText primary="Board 4" />
                </ListItem>
             </NavLink>
-            <ListItem 
-               button 
+            <ListItem
+               button
                onClick={handleIsModalOpen}
             >
                <ListItemIcon className={classes.icon}>

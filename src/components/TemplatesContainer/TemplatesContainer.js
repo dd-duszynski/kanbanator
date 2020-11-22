@@ -1,12 +1,12 @@
 import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid';
-import { makeStyles } from '@material-ui/core/styles';
-import BoardCard from '../BoardCard/BoardCard';
 import Box from '@material-ui/core/Box';
+import BoardCard from '../BoardCard/BoardCard';
 
 const useStyles = makeStyles(() => ({
-   box: {
+   boxWithIcon: {
       display: 'flex',
       alignItems: 'center',
       marginBottom: '10px',
@@ -14,13 +14,13 @@ const useStyles = makeStyles(() => ({
    },
 }))
 
-const TemplatesRow = ({ category, loadedTemplates, icon }) => {
+const TemplatesContainer = ({ category, loadedTemplates, icon }) => {
    const classes = useStyles();
    return (
-      <Grid>
-         <Box className={classes.box}>
+      <Grid item>
+         <Box className={classes.boxWithIcon}>
             {icon}
-            <Typography variant="h6" component="h1">
+            <Typography variant="h6" component="h2">
                {category}
             </Typography>
          </Box>
@@ -29,7 +29,6 @@ const TemplatesRow = ({ category, loadedTemplates, icon }) => {
             direction="row"
             justify="flex-start"
             alignItems="flex-start"
-            className={classes.root}
          >
             {loadedTemplates.filter(item => item.category === category).map(item => {
                return (
@@ -47,4 +46,4 @@ const TemplatesRow = ({ category, loadedTemplates, icon }) => {
    )
 }
 
-export default TemplatesRow
+export default TemplatesContainer

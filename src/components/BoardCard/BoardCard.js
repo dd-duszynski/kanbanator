@@ -71,7 +71,6 @@ export default function BoardCard({ title, starred, image, description, link }) 
             }
             action={
                <>
-
                   <IconButton aria-label="settings" onClick={handleClick}>
                      <MoreVertIcon className={classes.whiteIcon} />
                   </IconButton>

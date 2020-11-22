@@ -6,38 +6,41 @@ import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles({
    root: {
-      width: '250px',
-      marginBottom: '8px',
+      width: '240px',
+      backgroundColor: '#555',
+      color: 'white',
       '&:hover': {
          cursor: 'pointer'
       }
    },
-   bullet: {
-      display: 'inline-block',
-      margin: '0 2px',
-      transform: 'scale(0.8)',
-   },
    title: {
-      fontSize: 14,
+      fontSize: '15px'
    },
-   pos: {
-      marginBottom: 12,
-   },
+   description: {
+      fontSize: '14px'
+   }
 });
 
-export default function TaskCard({ title, description }) {
+const TaskCard = ({ title, description }) => {
    const classes = useStyles();
-
    return (
       <Card className={classes.root}>
          <CardContent>
-            <Typography variant="body1">
-               {title ? title : "Karta"}
+            <Typography
+               variant="body1"
+               className={classes.title}
+            >
+               {title ? title : "Title"}
             </Typography>
-            <Typography variant="body2">
-               {description ? description : "Opis"}
+            <Typography
+               className={classes.description}
+               variant="body2"
+            >
+               {description ? description : "Description"}
             </Typography>
          </CardContent>
       </Card>
    );
 }
+
+export default TaskCard;

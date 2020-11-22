@@ -15,6 +15,9 @@ const ContentSwitch = () => {
          <Route exact path="/templates">
             <Templates />
          </Route>
+         <Route path="/board/:boardURL">
+            <Board />
+         </Route>
          <Route path="/boards">
             <Boards />
          </Route>

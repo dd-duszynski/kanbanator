@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import Layout from '../../components/Layout/Layout';
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
-// import Grid from '@material-ui/core/Grid';
+import Grid from '@material-ui/core/Grid';
 import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 import ColorLensIcon from '@material-ui/icons/ColorLens';
 import SchoolIcon from '@material-ui/icons/School';
@@ -11,9 +9,15 @@ import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
 import HighlightIcon from '@material-ui/icons/Highlight';
 import AccountTreeIcon from '@material-ui/icons/AccountTree';
 import HomeWorkIcon from '@material-ui/icons/HomeWork';
-import TemplatesRow from '../../components/TemplatesRow/TemplatesRow';
+
+import Layout from '../../components/Layout/Layout';
+import TemplatesContainer from '../../components/TemplatesContainer/TemplatesContainer';
 
 const useStyles = makeStyles(() => ({
+   root: {
+      paddingTop: '20px',
+      paddingLeft: '20px'
+   },
    icon: {
       marginRight: '10px',
       fontSize: '32px'
@@ -43,51 +47,58 @@ const Templates = () => {
 
    return (
       <Layout>
-         <Box>
-            <Typography variant="h5">
-               Get going faster with one of the ready-to-use predefined templates.
-            </Typography>
+         <Grid
+            container
+            direction="column"
+            justify="center"
+            alignItems="start"
+            className={classes.root}
+         >
+            <Grid item >
+               <Typography variant="h5">
+                  Get going faster with one of the ready-to-use predefined templates.
+               </Typography>
+            </Grid>
             {!isLoading && (
-               <Box>
-                  <TemplatesRow
+               <>
+                  <TemplatesContainer
                      category="Business"
                      loadedTemplates={loadedTemplates}
                      icon={<BusinessCenterIcon className={classes.icon} />}
                   />
-                  <TemplatesRow
+                  <TemplatesContainer
                      category="Design"
                      loadedTemplates={loadedTemplates}
                      icon={<ColorLensIcon className={classes.icon} />}
                   />
-                  <TemplatesRow
+                  <TemplatesContainer
                      category="Education"
                      loadedTemplates={loadedTemplates}
                      icon={<SchoolIcon className={classes.icon} />}
                   />
-                  <TemplatesRow
+                  <TemplatesContainer
                      category={`Personal & Productivity`}
                      loadedTemplates={loadedTemplates}
                      icon={<DirectionsRunIcon className={classes.icon} />}
                   />
-                  <TemplatesRow
+                  <TemplatesContainer
                      category="Marketing"
                      loadedTemplates={loadedTemplates}
                      icon={<HighlightIcon className={classes.icon} />}
                   />
-                  <TemplatesRow
+                  <TemplatesContainer
                      category="Project Management"
                      loadedTemplates={loadedTemplates}
                      icon={<AccountTreeIcon className={classes.icon} />}
                   />
-                  <TemplatesRow
+                  <TemplatesContainer
                      category="Remote Work"
                      loadedTemplates={loadedTemplates}
                      icon={<HomeWorkIcon className={classes.icon} />}
                   />
-               </Box>
-            )
-            }
-         </Box>
+               </>
+            )}
+         </Grid>
       </Layout>
    )
 }
