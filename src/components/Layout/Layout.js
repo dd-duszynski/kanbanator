@@ -1,9 +1,10 @@
 import React from 'react';
-import Navigation from '../Navigation/Navigation';
-import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
-import SpeedDial from '../SpeedDial/SpeedDial';
+import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import Navigation from '../Navigation/Navigation';
+import SpeedDial from '../SpeedDial/SpeedDial';
+
 
 const useStyles = makeStyles((theme) => {
    console.log(theme)
@@ -18,19 +19,18 @@ const useStyles = makeStyles((theme) => {
          },
          '*::-webkit-scrollbar-thumb': {
             backgroundColor: '#444',
-            outline: '1px solid gray',
+            outline: 'none',
          },
          '*::-webkit-scrollbar-thumb:hover': {
             backgroundColor: '#333',
          }
       },
       Layout: {
-         backgroundColor: '#222',
          display: 'flex',
          height: '100%',
          maxWidth: '100%',
-         color: '#eee',
          position: 'relative',
+         
       },
       main: {
          paddingTop: '64px',

@@ -9,14 +9,12 @@ import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
 import HighlightIcon from '@material-ui/icons/Highlight';
 import AccountTreeIcon from '@material-ui/icons/AccountTree';
 import HomeWorkIcon from '@material-ui/icons/HomeWork';
-
 import Layout from '../../components/Layout/Layout';
 import TemplatesContainer from '../../components/TemplatesContainer/TemplatesContainer';
 
 const useStyles = makeStyles(() => ({
    root: {
-      paddingTop: '20px',
-      paddingLeft: '20px'
+      padding: '20px 20px 0',
    },
    icon: {
       marginRight: '10px',

@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom'
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
+import Container from '@material-ui/core/Container';
+import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '../../components/List/List';
 import Layout from '../../components/Layout/Layout';
@@ -22,11 +24,18 @@ const useStyles = makeStyles(() => ({
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover',
       overflowX: 'auto',
-      padding: '10px'
+      padding: '10px',
    },
-   paragraph: {
-      width: '90ch'
-   }
+   titleContainer: {
+      position: 'fixed',
+      width: 'auto'
+   },
+   listsContainer: {
+      marginTop: '40px'
+   },
+   title: {
+      padding: '2px 20px',
+   },
 }))
 
 const Board = () => {
@@ -62,29 +71,37 @@ const Board = () => {
    return (
       <Layout>
          {!isLoading && (
-            <Grid
+            <Container
                className={classes.root}
-               container
-               direction="column"
-               justify="start"
-               alignItems="start"
             >
-               <Box
-                  style={{ backgroundImage: `url(${loadedTemplate[0].image_url})` }}
+               <Container
+                  fixed
                   className={classes.backgroundImage}
+                  style={{ backgroundImage: `url(${loadedTemplate[0].image_url})` }}
                >
-                  <Grid item className={classes.title}>
-                     <Typography variant="h6" component="h1">
-                        {loadedTemplate[0].title}
-                     </Typography>
+                  <Grid container className={classes.titleContainer}>
+                     <Grid item style={{ marginRight: '12px'}}>
+                        <Paper>
+                           <Typography variant="h6" component="h1" className={classes.title}>
+                              {loadedTemplate[0].title}
+                           </Typography>
+                        </Paper>
+                     </Grid>
+                     <Grid item>
+                        <Paper>
+                           <Typography variant="h6" component="h1" className={classes.title}>
+                              XXX
+                           </Typography>
+                        </Paper>
+                     </Grid>
                   </Grid>
-                  <Grid container wrap="nowrap">
+                  <Grid container wrap="nowrap" className={classes.listsContainer}>
                      {loadedLists.map((item, index) => (
                         <List key={index} data={item} cards={loadedTemplate} />
                      ))}
                   </Grid>
-               </Box>
-            </Grid>
+               </Container>
+            </Container>
          )}
       </Layout>
    )

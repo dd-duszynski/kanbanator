@@ -3,6 +3,7 @@ import Drawer from '../Drawer/Drawer';
 import clsx from 'clsx';
 import { makeStyles, fade } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
+import Box from '@material-ui/core/Box';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
@@ -20,12 +21,11 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
    appBar: {
       zIndex: theme.zIndex.drawer + 1,
+      backgroundColor: theme.palette.background.paper,
       transition: theme.transitions.create(['width', 'margin'], {
          easing: theme.transitions.easing.sharp,
          duration: theme.transitions.duration.leavingScreen,
       }),
-      // backgroundColor: '#3f40b5'
-      backgroundColor: '#303030'
    },
    appBarShift: {
       marginLeft: drawerWidth,
@@ -70,11 +70,10 @@ const useStyles = makeStyles((theme) => ({
       '&:hover': {
          backgroundColor: fade(theme.palette.common.white, 0.25),
       },
-      marginRight: theme.spacing(2),
       marginLeft: 0,
       width: '100%',
       [theme.breakpoints.up('sm')]: {
-         marginLeft: theme.spacing(3),
+         marginLeft: theme.spacing(4),
          width: 'auto',
       },
    },
@@ -96,8 +95,11 @@ const useStyles = makeStyles((theme) => ({
       paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
       transition: theme.transitions.create('width'),
       width: '100%',
-      [theme.breakpoints.up('md')]: {
-         width: '20ch',
+      [theme.breakpoints.up('sm')]: {
+         width: '12ch',
+         '&:focus': {
+            width: '20ch',
+         },
       },
    },
    sectionDesktop: {
@@ -134,7 +136,7 @@ const Navigation = () => {
       setIsOpen(false);
    };
    return (
-      <>
+      <Box>
          <AppBar
             position="fixed"
             className={clsx(classes.appBar, {
@@ -202,7 +204,7 @@ const Navigation = () => {
             isModalOpen={isModalOpen}
             handleIsModalOpen={handleIsModalOpen}
          />
-      </>
+      </Box>
    )
 }
 

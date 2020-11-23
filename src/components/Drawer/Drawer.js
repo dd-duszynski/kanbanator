@@ -27,22 +27,15 @@ const useStyles = makeStyles((theme) => {
          width: drawerWidth,
          flexShrink: 0,
          whiteSpace: 'nowrap',
-         color: '#eee',
       },
       drawerOpen: {
          width: drawerWidth,
-         backgroundColor: '#333',
-         // backgroundColor: theme.palette.primary.main,
-         color: '#eee',
          transition: theme.transitions.create('width', {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen,
          }),
       },
       drawerClose: {
-         backgroundColor: '#333',
-         // backgroundColor: theme.palette.primary.main,
-         color: '#eee',
          transition: theme.transitions.create('width', {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,

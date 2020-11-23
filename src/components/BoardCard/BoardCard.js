@@ -22,16 +22,11 @@ const useStyles = makeStyles((theme) => ({
       maxWidth: '300px',
       marginRight: '15px',
       marginBottom: '15px',
-      backgroundColor: '#333',
       color: '#fff'
    },
    media: {
       height: 0,
       paddingTop: '56.25%', // 16:9
-   },
-   //ok
-   avatar: {
-      backgroundColor: theme.palette.primary.main,
    },
    cardHeader: {
       color: '#fff',

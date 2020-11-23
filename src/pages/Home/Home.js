@@ -1,14 +1,17 @@
 import React from 'react'
 import Typography from '@material-ui/core/Typography';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import kanbanA from '../../assets/kanbanA.svg'
 import kanbanB from '../../assets/kanbanB.svg'
 import kanbanC from '../../assets/kanbanC.svg'
 import Layout from '../../components/Layout/Layout';
+
 const useStyles = makeStyles((theme) => ({
    root: {
-      padding: '10px 0',
+      padding: '0 20px',
    },
    img: {
       height: '280px',
@@ -18,15 +21,16 @@ const useStyles = makeStyles((theme) => ({
    },
    paragraph: {
       maxWidth: '80ch',
-
    }
 }))
 
 const Home = () => {
    const classes = useStyles();
+   const theme = useTheme();
+   const matches = useMediaQuery(theme.breakpoints.up('sm'));
+
    return (
       <Layout>
-
          <Grid
             container
             direction="column"
@@ -38,10 +42,9 @@ const Home = () => {
             <Grid item container
                direction="row"
                alignItems="center"
-               lg={12}
-               md={12}
+               justify="start"
             >
-               <Grid item lg={6}>
+               <Grid item xs={12} md={7}>
                   <Typography variant="h5" >
                      Visualize your work with Kanban.
                   </Typography>
@@ -50,7 +53,7 @@ const Home = () => {
                      Visualizing work in a team environment simplifies communication and leads to improved productivity.
                   </Typography>
                </Grid>
-               <Grid item lg={6}>
+               <Grid item xs={12} md={5}>
                   <img src={kanbanA} className={classes.img} alt="kanban illustration" />
                </Grid>
             </Grid>
@@ -58,13 +61,8 @@ const Home = () => {
             <Grid item container
                direction="row"
                alignItems="center"
-               lg={12}
-               md={12}
             >
-               <Grid item lg={6}>
-                  <img src={kanbanC} className={classes.img} alt="kanban illustration" />
-               </Grid>
-               <Grid item lg={6}>
+               <Grid item xs={12} md={7}>
                   <Typography variant="h5" >
                      Stop starting. Start finishing.
                   </Typography>
@@ -72,6 +70,9 @@ const Home = () => {
                      Limit your work-in-progress and get more done.
                      Get a better flow on your Kanban board by focusing on completing tasks instead of starting new tasks.
                   </Typography>
+               </Grid>
+               <Grid item xs={12} md={5}>
+                  <img src={kanbanC} className={classes.img} alt="kanban illustration" />
                </Grid>
 
             </Grid>
@@ -82,7 +83,7 @@ const Home = () => {
                lg={12}
                md={12}
             >
-               <Grid item lg={6}>
+               <Grid item xs={12} md={7}>
                   <Typography variant="h5" >
                      Time tracking
                   </Typography>
@@ -90,7 +91,7 @@ const Home = () => {
                      Track the time that you spend on your tasks. Use the Pomodoro technique timer or a simple stopwatch timer. Alternatively, you can log your time manually.
                   </Typography>
                </Grid>
-               <Grid item lg={6}>
+               <Grid item xs={12} md={5}>
                   <img src={kanbanB} className={classes.img} alt="kanban illustration" />
                </Grid>
             </Grid>
@@ -99,5 +100,4 @@ const Home = () => {
       </Layout>
    )
 }
-
 export default Home

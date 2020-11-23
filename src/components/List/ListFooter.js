@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import AddIcon from '@material-ui/icons/Add';
 const useStyles = makeStyles((theme) => ({
    listItem: {
       '&:hover': {
@@ -12,23 +12,23 @@ const useStyles = makeStyles((theme) => ({
    },
    listItemIcon:{
       display: 'flex',
-      justifyContent: 'flex-end',
-      width: '30px'
+      justifyContent: 'flex-start',
+      width: '24px'
    }
 }))
 
-const ListHeader = ({ text }) => {
+const ListFooter = ({ text }) => {
    const classes = useStyles();
    return (
       <ListItem className={classes.listItem}>
-         <ListItemText>
+         <ListItemIcon className={classes.listItemIcon}>
+            <AddIcon />
+         </ListItemIcon>
+         <ListItemText >
             {text}
          </ListItemText>
-         <ListItemIcon className={classes.listItemIcon}>
-            <MoreHorizIcon />
-         </ListItemIcon>
       </ListItem>
    )
 }
 
-export default ListHeader
+export default ListFooter
