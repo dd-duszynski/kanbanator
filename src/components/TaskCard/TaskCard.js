@@ -4,18 +4,31 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import ListItem from '@material-ui/core/ListItem';
+
 const useStyles = makeStyles({
-   root: {
-      width: '240px',
+   listItem: {
+      width: '100%'
+   },
+   card: {
+      width: '100%',
+      backgroundColor: '#555',
       '&:hover': {
          cursor: 'pointer'
+      }
+   },
+   cardContent: {
+      width: '100%',
+      padding: 10,
+      paddingBottom: 0,
+      '&:last-child': {
+         paddingBottom: 10
       }
    },
    title: {
       fontSize: '15px'
    },
    description: {
-      fontSize: '14px'
+      fontSize: '13px'
    }
 });
 
@@ -23,20 +36,22 @@ const TaskCard = ({ title, description }) => {
    const classes = useStyles();
    return (
       <ListItem className={classes.listItem}>
-         <Card className={classes.root}>
-            <CardContent>
+         <Card className={classes.card}>
+            <CardContent className={classes.cardContent}>
                <Typography
                   variant="body1"
                   className={classes.title}
                >
                   {title ? title : "Title"}
                </Typography>
-               <Typography
-                  className={classes.description}
-                  variant="body2"
-               >
-                  {description ? description : "Description"}
-               </Typography>
+               {description && (
+                  <Typography
+                     className={classes.description}
+                     variant="body2"
+                  >
+                     {description ? description : "Description"}
+                  </Typography>
+               )}
             </CardContent>
          </Card>
       </ListItem>

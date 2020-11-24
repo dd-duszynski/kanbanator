@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import Typography from '@material-ui/core/Typography';
 import AddIcon from '@material-ui/icons/Add';
 const useStyles = makeStyles((theme) => ({
    listItem: {
@@ -10,10 +11,13 @@ const useStyles = makeStyles((theme) => ({
          cursor: 'pointer',
       }
    },
-   listItemIcon:{
+   listItemIcon: {
       display: 'flex',
       justifyContent: 'flex-start',
-      width: '24px'
+      minWidth: '30px'
+   },
+   text: {
+      fontSize: '15px'
    }
 }))
 
@@ -25,7 +29,9 @@ const ListFooter = ({ text }) => {
             <AddIcon />
          </ListItemIcon>
          <ListItemText >
-            {text}
+            <Typography className={classes.text}>
+               {text}
+            </Typography>
          </ListItemText>
       </ListItem>
    )

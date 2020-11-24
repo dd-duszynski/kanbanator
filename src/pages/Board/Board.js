@@ -2,39 +2,40 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '../../components/List/List';
 import Layout from '../../components/Layout/Layout';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
    root: {
       minHeight: 'calc(100vh - 64px)',
-      position: 'relative',
-      width: '100%',
+      overflowX: 'auto',
+      padding: '10px',
+      position: 'relative'
    },
    backgroundImage: {
-      position: 'absolute',
+      position: 'fixed',
       top: 0,
       left: 0,
       width: '100%',
-      height: '100%',
+      height: 'calc(100% - 12px)',
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover',
-      overflowX: 'auto',
-      padding: '10px',
+      opacity: 0.2
    },
    titleContainer: {
-      position: 'fixed',
-      width: 'auto'
+      zIndex: 2,
+      marginBottom: '12px',
    },
    listsContainer: {
-      marginTop: '40px'
+      zIndex: 2,
+      flexGrow: 1,
    },
    title: {
       padding: '2px 20px',
+      backgroundColor: '#424242',
+      borderRadius: '4px'
    },
 }))
 
@@ -71,37 +72,32 @@ const Board = () => {
    return (
       <Layout>
          {!isLoading && (
-            <Container
+            <Grid container direction="column"
                className={classes.root}
             >
-               <Container
-                  fixed
+               <Grid
+                  item
                   className={classes.backgroundImage}
                   style={{ backgroundImage: `url(${loadedTemplate[0].image_url})` }}
-               >
-                  <Grid container className={classes.titleContainer}>
-                     <Grid item style={{ marginRight: '12px'}}>
-                        <Paper>
-                           <Typography variant="h6" component="h1" className={classes.title}>
-                              {loadedTemplate[0].title}
-                           </Typography>
-                        </Paper>
-                     </Grid>
-                     <Grid item>
-                        <Paper>
-                           <Typography variant="h6" component="h1" className={classes.title}>
-                              XXX
-                           </Typography>
-                        </Paper>
-                     </Grid>
+               />
+               <Grid container className={classes.titleContainer}>
+                  <Grid item className={classes.title} style={{ marginRight: '12px' }}>
+                     <Typography variant="h6" component="h1">
+                        {loadedTemplate[0].title}
+                     </Typography>
                   </Grid>
-                  <Grid container wrap="nowrap" className={classes.listsContainer}>
-                     {loadedLists.map((item, index) => (
-                        <List key={index} data={item} cards={loadedTemplate} />
-                     ))}
+                  <Grid item className={classes.title} >
+                     <Typography variant="h6" component="h1">
+                        XXX
+                     </Typography>
                   </Grid>
-               </Container>
-            </Container>
+               </Grid>
+               <Grid container wrap="nowrap" className={classes.listsContainer}>
+                  {loadedLists.map((item, index) => (
+                     <List key={index} data={item} cards={loadedTemplate} />
+                  ))}
+               </Grid>
+            </Grid>
          )}
       </Layout>
    )

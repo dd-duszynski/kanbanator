@@ -10,8 +10,8 @@ import AddToPhotosIcon from '@material-ui/icons/AddToPhotos';
 const useStyles = makeStyles((theme) => ({
    speedDial: {
       position: 'fixed',
-      bottom: '20px',
-      left: 'calc(100vw - 100px)',
+      bottom: '30px',
+      left: 'calc(100vw - 70px)',
    },
 }));
 
