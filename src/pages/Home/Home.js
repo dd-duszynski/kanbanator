@@ -1,7 +1,5 @@
 import React from 'react'
 import Typography from '@material-ui/core/Typography';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { useTheme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import kanbanA from '../../assets/kanbanA.svg'
@@ -26,8 +24,6 @@ const useStyles = makeStyles((theme) => ({
 
 const Home = () => {
    const classes = useStyles();
-   const theme = useTheme();
-   const matches = useMediaQuery(theme.breakpoints.up('sm'));
 
    return (
       <Layout>

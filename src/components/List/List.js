@@ -2,7 +2,6 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/ListItem';
 import TaskCard from '../TaskCard/TaskCard';
 import ListHeader from './ListHeader';
 import ListFooter from './ListFooter';
@@ -33,10 +32,10 @@ const BoardList = ({ data, cards }) => {
             <ListHeader text={data.list_title} />
             {cards.filter(i => i.list_id === data.id).map((item) => (
                <TaskCard
-               title={item.card_title}
-               description={item.card_description}
+                  title={item.card_title}
+                  description={item.card_description}
                />
-               ))}
+            ))}
             <ListFooter text="Add another card" />
          </List>
       </Grid>
