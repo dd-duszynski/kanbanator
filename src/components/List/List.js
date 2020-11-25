@@ -20,18 +20,18 @@ const useStyles = makeStyles((theme) => ({
    listItem: {
       // padding: '8px 16px 0'
    },
-
-
 }));
 
-const BoardList = ({ data, cards }) => {
+const BoardList = ({ list, cards }) => {
+   console.log(cards);
    const classes = useStyles();
    return (
       <Grid item className={classes.root}>
          <List className={classes.list}>
-            <ListHeader text={data.list_title} />
-            {cards.filter(i => i.list_id === data.id).map((item) => (
+            <ListHeader text={list.list_title} />
+            {cards.map((item) => (
                <TaskCard
+                  key={item.card_id}
                   title={item.card_title}
                   description={item.card_description}
                />

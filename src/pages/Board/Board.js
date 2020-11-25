@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '../../components/List/List';
@@ -10,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
    root: {
       minHeight: 'calc(100vh - 64px)',
       overflowX: 'auto',
-      padding: '10px',
+      padding: '20px 20px 0',
       position: 'relative'
    },
    backgroundImage: {
@@ -34,7 +35,8 @@ const useStyles = makeStyles((theme) => ({
    title: {
       padding: '2px 20px',
       backgroundColor: '#424242',
-      borderRadius: '4px'
+      borderRadius: '4px',
+      marginRight: '12px'
    },
 }))
 
@@ -51,13 +53,13 @@ const Board = () => {
             await fetch(`http://localhost:5000/api/templates/${templateURL}`)
                .then(response => response.json())
                .then((data) => {
-                  console.log(data[0]);
+                  console.log('loadedTemplate', data[0]);
                   return setLoadedTemplate(data[0])
                })
             await fetch(`http://localhost:5000/api/templates/lists/${templateURL}`)
                .then(response => response.json())
                .then((data) => {
-                  console.log(data[0]);
+                  console.log('loadedLists', data[0]);
                   return setLoadedLists(data[0])
                })
                .then(() => setIsLoading(false))
@@ -80,20 +82,29 @@ const Board = () => {
                   style={{ backgroundImage: `url(${loadedTemplate[0].image_url})` }}
                />
                <Grid container className={classes.titleContainer}>
-                  <Grid item className={classes.title} style={{ marginRight: '12px' }}>
+                  <Grid item className={classes.title} >
                      <Typography variant="h6" component="h1">
                         {loadedTemplate[0].title}
                      </Typography>
                   </Grid>
                   <Grid item className={classes.title} >
                      <Typography variant="h6" component="h1">
-                        XXX
+                        Template
                      </Typography>
+                  </Grid>
+                  <Grid item >
+                     <Button variant="contained" color="primary">
+                        Create Board from Template
+                     </Button>
                   </Grid>
                </Grid>
                <Grid container wrap="nowrap" className={classes.listsContainer}>
-                  {loadedLists.map((item, index) => (
-                     <List key={index} data={item} cards={loadedTemplate} />
+                  {loadedLists.map((list) => (
+                     <List
+                        key={list.list_id}
+                        list={list}
+                        cards={loadedTemplate.filter(i => i.list_id === list.list_id)}
+                     />
                   ))}
                </Grid>
             </Grid>

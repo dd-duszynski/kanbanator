@@ -42,7 +42,7 @@ const TaskCard = ({ title, description }) => {
                   variant="body1"
                   className={classes.title}
                >
-                  {title ? title : "Title"}
+                  {title ? title : "Default title"}
                </Typography>
                {description && (
                   <Typography
