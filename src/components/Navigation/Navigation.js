@@ -15,6 +15,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Modal from '../../components/Modal/Modal';
+import NewBoardForm from '../../components/Forms/NewBoardForm';
 
 const drawerWidth = 240;
 
@@ -203,7 +204,12 @@ const Navigation = () => {
          <Modal
             isModalOpen={isModalOpen}
             handleIsModalOpen={handleIsModalOpen}
-         />
+         >
+            <NewBoardForm
+               handleIsModalOpen={handleIsModalOpen}
+            />
+
+         </Modal>
       </Box>
    )
 }

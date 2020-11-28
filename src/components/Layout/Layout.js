@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => {
          },
          '*::-webkit-scrollbar-thumb:hover': {
             backgroundColor: '#333',
-         }
+         },
       },
       Layout: {
          display: 'flex',

@@ -7,11 +7,12 @@ import EditIcon from '@material-ui/icons/Edit';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import AddToPhotosIcon from '@material-ui/icons/AddToPhotos';
+
 const useStyles = makeStyles((theme) => ({
    speedDial: {
       position: 'fixed',
-      bottom: '30px',
-      left: 'calc(100vw - 70px)',
+      bottom: '25px',
+      left: 'calc(100vw - 80px)',
    },
 }));
 

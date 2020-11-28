@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '../../components/List/List';
 import Layout from '../../components/Layout/Layout';
+import AddIcon from '@material-ui/icons/Add';
 
 const useStyles = makeStyles((theme) => ({
    root: {
@@ -25,12 +26,14 @@ const useStyles = makeStyles((theme) => ({
       opacity: 0.2
    },
    titleContainer: {
-      zIndex: 2,
       marginBottom: '12px',
+      position: 'fixed',
+      zIndex: '3'
    },
    listsContainer: {
       zIndex: 2,
       flexGrow: 1,
+      paddingTop: '50px',
    },
    title: {
       padding: '2px 20px',
@@ -38,6 +41,11 @@ const useStyles = makeStyles((theme) => ({
       borderRadius: '4px',
       marginRight: '12px'
    },
+   addList: {
+      minWidth: '260px',
+      // padding: '0 10px',
+      height: '45px',
+   }
 }))
 
 const Board = () => {
@@ -82,23 +90,27 @@ const Board = () => {
                   style={{ backgroundImage: `url(${loadedTemplate[0].image_url})` }}
                />
                <Grid container className={classes.titleContainer}>
-                  <Grid item className={classes.title} >
+                  <Grid item className={[classes.title, classes.header1].join(' ')} >
                      <Typography variant="h6" component="h1">
                         {loadedTemplate[0].title}
                      </Typography>
                   </Grid>
-                  <Grid item className={classes.title} >
+                  <Grid item className={[classes.title, classes.header2].join(' ')} >
                      <Typography variant="h6" component="h1">
                         Template
                      </Typography>
                   </Grid>
-                  <Grid item >
+                  <Grid item className={classes.header3}>
                      <Button variant="contained" color="primary">
                         Create Board from Template
                      </Button>
                   </Grid>
                </Grid>
-               <Grid container wrap="nowrap" className={classes.listsContainer}>
+               <Grid
+                  container
+                  wrap="nowrap"
+                  className={classes.listsContainer}
+               >
                   {loadedLists.map((list) => (
                      <List
                         key={list.list_id}
@@ -106,6 +118,14 @@ const Board = () => {
                         cards={loadedTemplate.filter(i => i.list_id === list.list_id)}
                      />
                   ))}
+                  <Grid item className={classes.addList}>
+                     <Button
+                        variant="contained"
+                        startIcon={<AddIcon />}
+                     >
+                        Add another List
+                     </Button>
+                  </Grid>
                </Grid>
             </Grid>
          )}

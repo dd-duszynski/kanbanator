@@ -9,7 +9,16 @@ import Layout from '../../components/Layout/Layout';
 
 const useStyles = makeStyles((theme) => ({
    root: {
-      padding: '0 20px',
+      padding: '20px',
+      [theme.breakpoints.up('md')]: {
+         padding: '0 20px',
+      },
+   },
+   section: {
+      marginBottom: '30px',
+      [theme.breakpoints.up('md')]: {
+         marginBottom: '10px',
+      },
    },
    img: {
       height: '280px',
@@ -17,14 +26,22 @@ const useStyles = makeStyles((theme) => ({
       width: '100%',
       opacity: '0.75',
    },
-   paragraph: {
-      maxWidth: '80ch',
+   section2img: {
+      order: 2,
+      [theme.breakpoints.up('md')]: {
+         order: 1,
+      },
+   },
+   section2paragraph: {
+      order: 1,
+      [theme.breakpoints.up('md')]: {
+         order: 2,
+      },
    }
 }))
 
 const Home = () => {
    const classes = useStyles();
-
    return (
       <Layout>
          <Grid
@@ -33,14 +50,15 @@ const Home = () => {
             justify="flex-start"
             alignItems="flex-start"
             className={classes.root}
-         >
+         >  
             {/* First section --------------------------------------------------*/}
             <Grid item container
                direction="row"
                alignItems="center"
                justify="start"
+               className={classes.section}
             >
-               <Grid item xs={12} md={7}>
+               <Grid item xs={12} md={6}>
                   <Typography variant="h5" >
                      Visualize your work with Kanban.
                   </Typography>
@@ -49,16 +67,22 @@ const Home = () => {
                      Visualizing work in a team environment simplifies communication and leads to improved productivity.
                   </Typography>
                </Grid>
-               <Grid item xs={12} md={5}>
+               <Grid item xs={12} md={6}>
                   <img src={kanbanA} className={classes.img} alt="kanban illustration" />
                </Grid>
             </Grid>
+
             {/* Second section --------------------------------------------------*/}
             <Grid item container
                direction="row"
                alignItems="center"
+               justify="start"
+               className={classes.section}
             >
-               <Grid item xs={12} md={7}>
+               <Grid item xs={12} md={6} className={classes.section2img}>
+                  <img src={kanbanC} className={classes.img} alt="kanban illustration" />
+               </Grid>
+               <Grid item xs={12} md={6} className={classes.section2paragraph}>
                   <Typography variant="h5" >
                      Stop starting. Start finishing.
                   </Typography>
@@ -67,19 +91,16 @@ const Home = () => {
                      Get a better flow on your Kanban board by focusing on completing tasks instead of starting new tasks.
                   </Typography>
                </Grid>
-               <Grid item xs={12} md={5}>
-                  <img src={kanbanC} className={classes.img} alt="kanban illustration" />
-               </Grid>
-
             </Grid>
+
             {/* Third section --------------------------------------------------*/}
             <Grid item container
                direction="row"
                alignItems="center"
-               lg={12}
-               md={12}
+               justify="start"
+               className={classes.section}
             >
-               <Grid item xs={12} md={7}>
+               <Grid item xs={12} md={6}>
                   <Typography variant="h5" >
                      Time tracking
                   </Typography>
@@ -87,7 +108,7 @@ const Home = () => {
                      Track the time that you spend on your tasks. Use the Pomodoro technique timer or a simple stopwatch timer. Alternatively, you can log your time manually.
                   </Typography>
                </Grid>
-               <Grid item xs={12} md={5}>
+               <Grid item xs={12} md={6}>
                   <img src={kanbanB} className={classes.img} alt="kanban illustration" />
                </Grid>
             </Grid>
