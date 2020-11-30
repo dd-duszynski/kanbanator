@@ -6,7 +6,6 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-
 const App = () => {
    const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
 

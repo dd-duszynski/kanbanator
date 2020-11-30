@@ -49,7 +49,7 @@ const Templates = () => {
             container
             direction="column"
             justify="center"
-            alignItems="start"
+            alignItems="flex-start"
             className={classes.root}
          >
             <Grid item >

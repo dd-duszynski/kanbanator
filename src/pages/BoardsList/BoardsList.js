@@ -31,7 +31,7 @@ const Boards = () => {
             container
             direction="column"
             justify="center"
-            alignItems="start"
+            alignItems="flex-start"
             className={classes.root}
          >
             <Grid item className={classes.header}>

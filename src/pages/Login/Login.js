@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom'
+import React, { useState, useCallback } from 'react';
+import { Link, Redirect } from 'react-router-dom'
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -49,8 +49,29 @@ function Copyright() {
    );
 }
 
-export default function SignIn() {
+export default function Login() {
    const classes = useStyles();
+   const [isLoading, setIsLoading] = useState(false);
+   const [email, setEmail] = useState("");
+   const [password, setPassword] = useState("");
+
+   const handleSubmit = async () => {
+      setIsLoading(true);
+      const response = await fetch("http://localhost:5000/api/users/login", {
+         method: 'POST',
+         headers: {
+            'Content-Type': 'application/json'
+         },
+         body: JSON.stringify({
+            email: email,
+            password: password
+         }),
+      });
+      const responseData = await response.json();
+      console.log(responseData);
+      // setIsLoading(false);
+      return responseData
+   }
 
    return (
       <Container component="main" maxWidth="xs">
@@ -60,9 +81,9 @@ export default function SignIn() {
                <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-               Welcome in Kanbanator
+               Kanbanator - Login
             </Typography>
-            <form className={classes.form} noValidate>
+            <form className={classes.form} onSubmit={handleSubmit}>
                <TextField
                   variant="outlined"
                   margin="normal"
@@ -73,6 +94,7 @@ export default function SignIn() {
                   name="email"
                   autoComplete="email"
                   autoFocus
+                  onChange={(e) => setEmail(e.target.value)}
                />
                <TextField
                   variant="outlined"
@@ -84,31 +106,27 @@ export default function SignIn() {
                   type="password"
                   id="password"
                   autoComplete="current-password"
+                  onChange={(e) => setPassword(e.target.value)}
                />
                <FormControlLabel
                   control={<Checkbox value="remember" color="primary" />}
                   label="Remember me"
                />
-               <Link to="/" className={classes.link}>
-                  <Button
-                     type="submit"
-                     fullWidth
-                     variant="contained"
-                     color="primary"
-                     className={classes.submit}
-                  >
-                     Sign In
-                  </Button>
-               </Link>
+               <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                  onClick={handleSubmit}
+               >
+                  Login
+               </Button>
                <Grid container>
-                  <Grid item xs>
-                     <LinkUI href="#" variant="body2">
-                        Forgot password?
-                     </LinkUI>
-                  </Grid>
                   <Grid item>
-                     <LinkUI href="#" variant="body2">
-                        {"Don't have an account? Sign Up"}
+                     Don't have an account? {" "}
+                     <LinkUI href="/sign-up" variant="body2">
+                        Sign Up
                      </LinkUI>
                   </Grid>
                </Grid>

@@ -1,7 +1,8 @@
 import React from 'react';
 import { Switch, Route, Redirect } from "react-router-dom";
 import BoardsList from '../pages/BoardsList/BoardsList';
-import SignIn from '../pages/SignIn/SignIn';
+import Login from '../pages/Login/Login';
+import SignUp from '../pages/SignUp/SignUp';
 import Home from '../pages/Home/Home';
 const TemplatesList = React.lazy(() => import('../pages/TemplatesList/TemplatesList'))
 const Board = React.lazy(() => import('../pages/Board/Board'))
@@ -22,10 +23,10 @@ const ContentSwitch = () => {
             <BoardsList />
          </Route>
          <Route path="/login">
-            <SignIn />
+            <Login />
          </Route>
          <Route path="/sign-up">
-            <SignIn />
+            <SignUp />
          </Route>
          <Route path="/">
             <Home />

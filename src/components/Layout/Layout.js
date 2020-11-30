@@ -1,13 +1,13 @@
 import React from 'react';
+import { connect } from 'react-redux'
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Navigation from '../Navigation/Navigation';
 import SpeedDial from '../SpeedDial/SpeedDial';
 
-
 const useStyles = makeStyles((theme) => {
-   console.log(theme)
+   // console.log("theme",theme)
    return ({
       '@global': {
          '*::-webkit-scrollbar': {
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => {
          height: '100%',
          maxWidth: '100%',
          position: 'relative',
-         
+
       },
       main: {
          paddingTop: '64px',
@@ -43,18 +43,30 @@ const useStyles = makeStyles((theme) => {
    })
 });
 
-const Layout = ({ children }) => {
+const Layout = ({ children, isAuthenticated }) => {
    const classes = useStyles();
    return (
       <Box className={classes.Layout}>
          <CssBaseline />
-         <Navigation />
+         <Navigation isAuth={isAuthenticated}/>
          <Box className={classes.main} component="main">
             {children}
          </Box>
-         <SpeedDial />
+         {isAuthenticated ? <SpeedDial /> : null}
       </Box >
    );
 }
 
-export default Layout;
+const mapStateToProps = (state) => {
+   return {
+      isAuthenticated: state.auth.token !== null,
+   }
+}
+
+// const mapDispatchToProps = (dispatch) => {
+//    return {
+//       onTryAutoSignup: () => dispatch(actions.authCheckState()),
+//    }
+// }
+
+export default connect(mapStateToProps)(Layout)

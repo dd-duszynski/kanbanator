@@ -55,7 +55,7 @@ const Home = () => {
             <Grid item container
                direction="row"
                alignItems="center"
-               justify="start"
+               justify="flex-start"
                className={classes.section}
             >
                <Grid item xs={12} md={6}>
@@ -76,7 +76,7 @@ const Home = () => {
             <Grid item container
                direction="row"
                alignItems="center"
-               justify="start"
+               justify="flex-start"
                className={classes.section}
             >
                <Grid item xs={12} md={6} className={classes.section2img}>
@@ -97,7 +97,7 @@ const Home = () => {
             <Grid item container
                direction="row"
                alignItems="center"
-               justify="start"
+               justify="flex-start"
                className={classes.section}
             >
                <Grid item xs={12} md={6}>

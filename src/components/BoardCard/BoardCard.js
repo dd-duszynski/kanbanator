@@ -101,7 +101,7 @@ export default function BoardCard({ title, starred, image, description, link }) 
             }
             title={title}
             subheader="November 01, 2020"
-            subheaderTypographyProps={{ 'color': 'white' }}
+            // subheaderTypographyProps={{ 'color': 'white' }}
             className={classes.cardHeader}
          />
          <Link to={link ? `templates/${link}` : "/"}>
