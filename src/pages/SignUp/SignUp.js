@@ -55,8 +55,7 @@ export default function SignIn() {
    const [name, setName] = useState("");
    const [email, setEmail] = useState("");
    const [password, setPassword] = useState("");
-   alert('Zalogowany')
-
+   
    const handleSubmit = async () => {
       setIsLoading(true);
       const response = await fetch("http://localhost:5000/api/users/login", {

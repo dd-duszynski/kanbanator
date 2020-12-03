@@ -1,5 +1,6 @@
-import React, { useState, useCallback } from 'react';
-import { Link, Redirect } from 'react-router-dom'
+import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom'
+import { connect } from 'react-redux';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -13,6 +14,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import Spinner from '../../components/Spinner/Spinner'
+import * as actions from '../../store/actions/auth'
 
 const useStyles = makeStyles((theme) => ({
    paper: {
@@ -36,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
    }
 }));
 
-function Copyright() {
+const Copyright = () => {
    return (
       <Typography variant="body2" align="center">
          {'Copyright © '}
@@ -49,92 +52,117 @@ function Copyright() {
    );
 }
 
-export default function Login() {
+const Login = (props) => {
    const classes = useStyles();
-   const [isLoading, setIsLoading] = useState(false);
    const [email, setEmail] = useState("");
    const [password, setPassword] = useState("");
 
-   const handleSubmit = async () => {
-      setIsLoading(true);
-      const response = await fetch("http://localhost:5000/api/users/login", {
-         method: 'POST',
-         headers: {
-            'Content-Type': 'application/json'
-         },
-         body: JSON.stringify({
-            email: email,
-            password: password
-         }),
-      });
-      const responseData = await response.json();
-      console.log(responseData);
-      // setIsLoading(false);
-      return responseData
+   const handleSubmit = async (event) => {
+      event.preventDefault();
+      props.onAuth(email, password)
+   }
+
+   let errorMessage = null;
+   if (props.error) {
+      errorMessage = (
+         <Typography variant="body2">
+            {props.error.message}
+         </Typography>
+      )
+   }
+
+   let authRedirect = null;
+
+   if (props.isAuthenticated) {
+      authRedirect = <Redirect to={props.authRedirectPath} />;
    }
 
    return (
       <Container component="main" maxWidth="xs">
-         <CssBaseline />
-         <div className={classes.paper}>
-            <Avatar className={classes.avatar}>
-               <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-               Kanbanator - Login
-            </Typography>
-            <form className={classes.form} onSubmit={handleSubmit}>
-               <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                  autoFocus
-                  onChange={(e) => setEmail(e.target.value)}
-               />
-               <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
-                  onChange={(e) => setPassword(e.target.value)}
-               />
-               <FormControlLabel
-                  control={<Checkbox value="remember" color="primary" />}
-                  label="Remember me"
-               />
-               <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  className={classes.submit}
-                  onClick={handleSubmit}
-               >
-                  Login
-               </Button>
-               <Grid container>
-                  <Grid item>
-                     Don't have an account? {" "}
-                     <LinkUI href="/sign-up" variant="body2">
-                        Sign Up
-                     </LinkUI>
-                  </Grid>
-               </Grid>
-            </form>
-         </div>
-         <Box mt={8}>
-            <Copyright />
-         </Box>
+         {props.loading ? <Spinner /> : (
+            <>
+               {authRedirect}
+               <CssBaseline />
+               <div className={classes.paper}>
+                  <Avatar className={classes.avatar}>
+                     <LockOutlinedIcon />
+                  </Avatar>
+                  <Typography component="h1" variant="h5">
+                     Kanbanator - Login
+                  </Typography>
+                  <form className={classes.form} onSubmit={handleSubmit}>
+                     <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="email"
+                        label="Email Address"
+                        name="email"
+                        autoComplete="email"
+                        autoFocus
+                        onChange={(e) => setEmail(e.target.value)}
+                     />
+                     <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="password"
+                        label="Password"
+                        type="password"
+                        id="password"
+                        helperText="At least 5 charakters"
+                        autoComplete="current-password"
+                        onChange={(e) => setPassword(e.target.value)}
+                     />
+                     <FormControlLabel
+                        control={<Checkbox value="remember" color="primary" />}
+                        label="Remember me"
+                     />
+                     <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        className={classes.submit}
+                        onClick={handleSubmit}
+                     >
+                        Login
+                  </Button>
+                     <Grid container>
+                        <Grid item>
+                           Don't have an account? {" "}
+                           <LinkUI href="/sign-up" variant="body2">
+                              Sign Up
+                        </LinkUI>
+                        </Grid>
+                     </Grid>
+                  </form>
+               </div>
+               <Box mt={8}>
+                  <Copyright />
+               </Box>
+            </>
+         )
+         }
       </Container>
    );
 }
+
+const mapStateToProps = (state) => {
+   console.log('[Login]', state);
+   return {
+      loading: state.auth.loading,
+      error: state.auth.error,
+      isAuthenticated: state.auth.token !== null,
+      authRedirectPath: state.auth.authRedirectPath,
+   }
+}
+const mapDispatchToProps = (dispatch) => {
+	return {
+		onAuth: (email, password) => dispatch(actions.auth(email, password))
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

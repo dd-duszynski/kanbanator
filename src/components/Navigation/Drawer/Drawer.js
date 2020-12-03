@@ -71,7 +71,7 @@ const useStyles = makeStyles((theme) => {
 const Drawer = ({ handleDrawerClose, isDrawerOpen, handleIsModalOpen, isAuth }) => {
    const classes = useStyles();
    const theme = useTheme();
-   console.log('Drawer - isAuth', isAuth);
+   // console.log('[Drawer] isAuth', isAuth);
 
    return (
       <SideDrawer

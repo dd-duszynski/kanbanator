@@ -1,14 +1,16 @@
-import React from 'react';
-import { Switch, Route, Redirect } from "react-router-dom";
+import React, { Suspense } from 'react';
+import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import BoardsList from '../pages/BoardsList/BoardsList';
-import Login from '../pages/Login/Login';
+// import * as actions from '../store/actions/auth';
 import SignUp from '../pages/SignUp/SignUp';
 import Home from '../pages/Home/Home';
+import Spinner from '../components/Spinner/Spinner';
 const TemplatesList = React.lazy(() => import('../pages/TemplatesList/TemplatesList'))
 const Board = React.lazy(() => import('../pages/Board/Board'))
+const Login = React.lazy(() => import('../pages/Login/Login'))
 
 const ContentSwitch = () => {
-   return (
+   const routes = (
       <Switch>
          <Route path="/templates/:templateURL">
             <Board />
@@ -34,6 +36,12 @@ const ContentSwitch = () => {
          <Redirect to='/' />
       </Switch>
    )
+
+   return (
+      <Suspense fallback={<Spinner />}>
+         {routes}
+      </Suspense>
+   );
 }
 
-export default ContentSwitch
+export default ContentSwitch;

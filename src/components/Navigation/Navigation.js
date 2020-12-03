@@ -10,7 +10,6 @@ const Navigation = ({ isAuth }) => {
    const [isModalOpen, setModalOpen] = useState(false)
 
    const handleIsModalOpen = () => {
-      console.log(isModalOpen);
       setModalOpen(!isModalOpen);
    }
 
