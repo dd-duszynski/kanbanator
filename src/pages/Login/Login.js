@@ -65,8 +65,8 @@ const Login = (props) => {
    let errorMessage = null;
    if (props.error) {
       errorMessage = (
-         <Typography variant="body2">
-            {props.error.message}
+         <Typography variant="body2" color="error">
+            {props.error}
          </Typography>
       )
    }
@@ -116,6 +116,7 @@ const Login = (props) => {
                         autoComplete="current-password"
                         onChange={(e) => setPassword(e.target.value)}
                      />
+                     {errorMessage}
                      <FormControlLabel
                         control={<Checkbox value="remember" color="primary" />}
                         label="Remember me"
@@ -159,6 +160,7 @@ const mapStateToProps = (state) => {
       authRedirectPath: state.auth.authRedirectPath,
    }
 }
+
 const mapDispatchToProps = (dispatch) => {
 	return {
 		onAuth: (email, password) => dispatch(actions.auth(email, password))

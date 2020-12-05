@@ -23,16 +23,15 @@ export const authFail = (error) => {
 
 export const logout = () => {
    localStorage.removeItem('token');
+   localStorage.removeItem('userId');
    return {
       type: actionTypes.AUTH_LOGOUT,
    };
 };
 
-
 export const auth = (email, password) => {
    return (dispatch) => {
       dispatch(authStart());
-      let responseData;
       fetch("http://localhost:5000/api/users/login", {
          method: 'POST',
          headers: {
@@ -45,19 +44,59 @@ export const auth = (email, password) => {
       })
          .then(res => res.json())
          .then(data => {
-            responseData = data
-            console.log('responseData',responseData)
+            if (data.error !== null) {
+               dispatch(authFail(data.error));
+               return
+            }
             return data
          })
          .then(data => {
+            console.log('test',data);
             localStorage.setItem('token', data.token)
+            localStorage.setItem('userId', data.userId)
             return data
          })
          .then(data =>
             dispatch(authSuccess(data.token, data.userId))
          )
          .catch((err) => {
-            console.log(err);
+            console.log('[authFail]', err);
+         })
+   };
+};
+
+export const sign = (name, email, password) => {
+   return (dispatch) => {
+      dispatch(authStart());
+      fetch("http://localhost:5000/api/users/signup", {
+         method: 'POST',
+         headers: {
+            'Content-Type': 'application/json'
+         },
+         body: JSON.stringify({
+            name: name,
+            email: email,
+            password: password
+         }),
+      })
+         .then(res => res.json())
+         .then(data => {
+            if (data.error !== null) {
+               dispatch(authFail(data.error));
+               return
+            }
+            return data
+         })
+         .then(data => {
+            localStorage.setItem('token', data.token)
+            localStorage.setItem('userId', data.userId)
+            return data
+         })
+         .then(data =>
+            dispatch(authSuccess(data.token, data.userId))
+         )
+         .catch((err) => {
+            console.log('[authFail]', err);
          })
    };
 };

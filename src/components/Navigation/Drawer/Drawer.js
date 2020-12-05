@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -19,6 +20,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
+import * as actions from '../../../store/actions/auth'
 
 const drawerWidth = 240;
 
@@ -68,7 +70,13 @@ const useStyles = makeStyles((theme) => {
    })
 });
 
-const Drawer = ({ handleDrawerClose, isDrawerOpen, handleIsModalOpen, isAuth }) => {
+const Drawer = ({
+   handleDrawerClose,
+   isDrawerOpen,
+   handleIsModalOpen,
+   isAuth,
+   onLogout
+}) => {
    const classes = useStyles();
    const theme = useTheme();
    // console.log('[Drawer] isAuth', isAuth);
@@ -187,7 +195,12 @@ const Drawer = ({ handleDrawerClose, isDrawerOpen, handleIsModalOpen, isAuth }) 
                         <ListItemText primary="Settings" />
                      </ListItem>
                   </NavLink>
-                  <NavLink to="/logout" className={classes.link} activeClassName={classes.linkActive}>
+                  <NavLink 
+                     to="/logout" 
+                     className={classes.link} 
+                     activeClassName={classes.linkActive}
+                     onClick={onLogout}
+                  >
                      <ListItem button>
                         <ListItemIcon className={classes.icon}>
                            <ExitToAppIcon />
@@ -222,4 +235,19 @@ const Drawer = ({ handleDrawerClose, isDrawerOpen, handleIsModalOpen, isAuth }) 
    );
 }
 
-export default Drawer
+const mapStateToProps = (state) => {
+   return {
+      loading: state.auth.loading,
+      error: state.auth.error,
+      isAuthenticated: state.auth.token !== null,
+      authRedirectPath: state.auth.authRedirectPath,
+   }
+}
+
+const mapDispatchToProps = (dispatch) => {
+   return {
+      onLogout: () => dispatch(actions.logout())
+   }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Drawer)

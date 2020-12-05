@@ -46,7 +46,8 @@ const useStyles = makeStyles((theme) => {
 
 const Layout = ({ children, isAuthenticated }) => {
    const classes = useStyles();
-   console.log('[Layout] isAuthenticated',isAuthenticated);
+   console.log('[Layout] isAuthenticated', isAuthenticated);
+
    // useEffect(() => {
    //    onTryAutoSignup();
    // }, [onTryAutoSignup]);
@@ -64,7 +65,7 @@ const Layout = ({ children, isAuthenticated }) => {
 }
 
 const mapStateToProps = (state) => {
-   console.log('[Layout]-State',state);
+   console.log('[Layout]-State', state);
    return {
       isAuthenticated: state.auth.token !== null,
    };

@@ -34,10 +34,11 @@ const authFail = (state, action) => {
    });
 };
 
-const authLogout = (state, action) => {
-   return updateObject(state, { 
-      token: null, 
-      userId: null 
+const logout = (state, action) => {
+   console.log('action', action);
+   return updateObject(state, {
+      token: null,
+      userId: null
    })
 }
 
@@ -58,7 +59,7 @@ const reducer = (state = initialState, action) => {
       case actionTypes.AUTH_FAIL:
          return authFail(state, action);
       case actionTypes.AUTH_LOGOUT:
-         return authLogout(state, action);
+         return logout(state, action);
       case actionTypes.SET_AUTH_REDIRECT_PATH:
          return setAuthRedirectPath(state, action);
       default:
