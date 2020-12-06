@@ -6,6 +6,7 @@ const initialState = {
    userId: null,
    error: null,
    loading: false,
+   message: null,
    authRedirectPath: '/'
 };
 
@@ -24,6 +25,15 @@ const authSuccess = (state, action) => {
       error: null,
       loading: false,
       authRedirectPath: `/${action.userId}`
+   });
+};
+
+const signupSuccess = (state, action) => {
+   console.log('signupSuccess', action);
+   return updateObject(state, {
+      error: null,
+      loading: false,
+      message: action.message
    });
 };
 
@@ -52,6 +62,8 @@ const setAuthRedirectPath = (state, action) => {
 const reducer = (state = initialState, action) => {
    console.log('[MAIN Reducer] - action', action);
    switch (action.type) {
+      case actionTypes.SIGNUP_SUCCESS:
+         return signupSuccess(state, action);
       case actionTypes.AUTH_START:
          return authStart(state, action);
       case actionTypes.AUTH_SUCCESS:

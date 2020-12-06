@@ -63,25 +63,29 @@ const SignUp = (props) => {
       props.onSign(name, email, password);
    }
 
-   let errorMessage = null;
+   let message = null;
    if (props.error) {
-      errorMessage = (
+      message = (
          <Typography variant="body2" color="error">
             {props.error}
          </Typography>
       )
+   } else if (props.message) {
+      message = (
+         <LinkUI href="/login">
+            <Typography variant="body1" color="primary">
+               {props.message}
+            </Typography>
+         </LinkUI>
+      )
+
    }
 
-   let authRedirect = null;
 
-   if (props.isAuthenticated) {
-      authRedirect = <Redirect to={props.authRedirectPath} />;
-   }
    return (
       <Container component="main" maxWidth="xs">
          {props.loading ? <Spinner /> : (
             <>
-               {authRedirect}
                <CssBaseline />
                <div className={classes.paper}>
                   <Avatar className={classes.avatar}>
@@ -126,12 +130,7 @@ const SignUp = (props) => {
                         autoComplete="current-password"
                         onChange={(e) => setPassword(e.target.value)}
                      />
-
-                     <FormControlLabel
-                        control={<Checkbox value="remember" color="primary" />}
-                        label="Remember me"
-                     />
-
+                     {message}
                      <Button
                         type="submit"
                         fullWidth
@@ -141,14 +140,14 @@ const SignUp = (props) => {
                         onClick={handleSubmit}
                      >
                         Sign Up
-               </Button>
+                     </Button>
 
                      <Grid container>
                         <Grid item>
                            Already have an account? {" "}
                            <LinkUI href="/login" variant="body2">
                               Sign in.
-                     </LinkUI>
+                           </LinkUI>
                         </Grid>
                      </Grid>
                   </form>
@@ -167,8 +166,7 @@ const mapStateToProps = (state) => {
    return {
       loading: state.auth.loading,
       error: state.auth.error,
-      isAuthenticated: state.auth.token !== null,
-      authRedirectPath: state.auth.authRedirectPath,
+      message: state.auth.message,
    }
 }
 

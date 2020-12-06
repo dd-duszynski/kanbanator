@@ -14,6 +14,13 @@ export const authSuccess = (token, userId) => {
    };
 };
 
+export const signupSuccess = (message) => {
+   return {
+      type: actionTypes.SIGNUP_SUCCESS,
+      message: message
+   };
+};
+
 export const authFail = (error) => {
    return {
       type: actionTypes.AUTH_FAIL,
@@ -51,7 +58,7 @@ export const auth = (email, password) => {
             return data
          })
          .then(data => {
-            console.log('test',data);
+            console.log('test', data);
             localStorage.setItem('token', data.token)
             localStorage.setItem('userId', data.userId)
             return data
@@ -79,25 +86,17 @@ export const sign = (name, email, password) => {
             password: password
          }),
       })
-         .then(res => res.json())
-         .then(data => {
-            if (data.error !== null) {
-               dispatch(authFail(data.error));
-               return
-            }
-            return data
-         })
-         .then(data => {
-            localStorage.setItem('token', data.token)
-            localStorage.setItem('userId', data.userId)
-            return data
-         })
-         .then(data =>
-            dispatch(authSuccess(data.token, data.userId))
-         )
-         .catch((err) => {
-            console.log('[authFail]', err);
-         })
+      .then(res => res.json())
+      .then(data => {
+         if (data.error !== null) {
+            dispatch(authFail(data.error));
+            return
+         }
+         dispatch(signupSuccess(data.message))
+      })
+      .catch((err) => {
+         console.log('[authFail]', err);
+      })
    };
 };
 
