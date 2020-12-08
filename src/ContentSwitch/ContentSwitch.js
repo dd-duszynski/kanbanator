@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { Switch, Route, Redirect, withRouter } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import BoardsList from '../pages/BoardsList/BoardsList';
 // import * as actions from '../store/actions/auth';
 import SignUp from '../pages/SignUp/SignUp';

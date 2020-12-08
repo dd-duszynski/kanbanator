@@ -112,12 +112,8 @@ const useStyles = makeStyles((theme) => ({
    },
 }));
 
-
-
 const TopAppBar = ({ handleDrawerOpen, isDrawerOpen, isAuth }) => {
    const classes = useStyles();
-   //na podstawie 'isAuthenticated' tego będą notyfikacje i avatar
-   console.log('isAuthenticated', isAuth);
    return (
       <AppBar
          position="fixed"
@@ -139,7 +135,7 @@ const TopAppBar = ({ handleDrawerOpen, isDrawerOpen, isAuth }) => {
             </IconButton>
             <Typography variant="h6" noWrap>
                Kanbanator
-         </Typography>
+            </Typography>
             <div className={classes.search}>
                <div className={classes.searchIcon}>
                   <SearchIcon />
@@ -166,7 +162,6 @@ const TopAppBar = ({ handleDrawerOpen, isDrawerOpen, isAuth }) => {
                <IconButton
                   edge="end"
                   aria-label="account of current user"
-                  // aria-controls={menuId}
                   aria-haspopup="true"
                   color="inherit"
                >

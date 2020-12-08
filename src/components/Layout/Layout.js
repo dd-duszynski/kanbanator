@@ -44,37 +44,29 @@ const useStyles = makeStyles((theme) => {
    })
 });
 
-const Layout = ({ children, isAuthenticated }) => {
+const Layout = ({ children, authCheck }) => {
    const classes = useStyles();
-   console.log('[Layout] isAuthenticated', isAuthenticated);
 
-   // useEffect(() => {
-   //    onTryAutoSignup();
-   // }, [onTryAutoSignup]);
+   useEffect(() => {
+      authCheck();
+   }, [authCheck]);
 
    return (
       <Box className={classes.Layout}>
          <CssBaseline />
-         <Navigation isAuth={isAuthenticated} />
+         <Navigation />
          <Box className={classes.main} component="main">
             {children}
          </Box>
-         {isAuthenticated ? <SpeedDial /> : null}
+         <SpeedDial />
       </Box >
    );
 }
 
-const mapStateToProps = (state) => {
-   console.log('[Layout]-State', state);
+const mapDispatchToProps = (dispatch) => {
    return {
-      isAuthenticated: state.auth.token !== null,
+      authCheck: () => dispatch(actions.authCheck())
    };
 };
 
-// const mapDispatchToProps = (dispatch) => {
-//    return {
-//       onTryAutoSignup: () => dispatch(actions.authCheckState()),
-//    };
-// };
-
-export default connect(mapStateToProps, null)(Layout)
+export default connect(null, mapDispatchToProps)(Layout);

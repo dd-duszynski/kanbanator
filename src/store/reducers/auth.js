@@ -5,12 +5,13 @@ const initialState = {
    token: null,
    userId: null,
    error: null,
-   loading: false,
    message: null,
+   loading: false,
    authRedirectPath: '/'
 };
 
 const authStart = (state, action) => {
+   console.log('[Reducer] authStart', action);
    return updateObject(state, {
       error: null,
       loading: true
@@ -18,7 +19,7 @@ const authStart = (state, action) => {
 }
 
 const authSuccess = (state, action) => {
-   console.log('authSuccess', action);
+   console.log('[Reducer] authSuccess', action);
    return updateObject(state, {
       token: action.idToken,
       userId: action.userId,
@@ -28,8 +29,16 @@ const authSuccess = (state, action) => {
    });
 };
 
+const authFail = (state, action) => {
+   console.log('[Reducer] authFail', action);
+   return updateObject(state, {
+      error: action.error,
+      loading: false,
+   });
+};
+
 const signupSuccess = (state, action) => {
-   console.log('signupSuccess', action);
+   console.log('[Reducer] signupSuccess', action);
    return updateObject(state, {
       error: null,
       loading: false,
@@ -37,15 +46,9 @@ const signupSuccess = (state, action) => {
    });
 };
 
-const authFail = (state, action) => {
-   return updateObject(state, {
-      error: action.error,
-      loading: false,
-   });
-};
 
 const logout = (state, action) => {
-   console.log('action', action);
+   console.log('[Reducer] logout', action);
    return updateObject(state, {
       token: null,
       userId: null
@@ -53,7 +56,7 @@ const logout = (state, action) => {
 }
 
 const setAuthRedirectPath = (state, action) => {
-   console.log('action', action);
+   console.log('[Reducer] setAuthRedirectPath', action);
    return updateObject(state, {
       authRedirectPath: action.path
    })

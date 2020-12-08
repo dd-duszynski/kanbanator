@@ -74,8 +74,8 @@ const Drawer = ({
    handleDrawerClose,
    isDrawerOpen,
    handleIsModalOpen,
-   isAuth,
-   onLogout
+   onLogout,
+   isAuthenticated
 }) => {
    const classes = useStyles();
    const theme = useTheme();
@@ -109,7 +109,7 @@ const Drawer = ({
                   <ListItemText primary="Home" />
                </ListItem>
             </NavLink>
-            {isAuth ? (
+            {isAuthenticated ? (
                <NavLink to="/boards" className={classes.link} activeClassName={classes.linkActive}>
                   <ListItem button>
                      <ListItemIcon className={classes.icon}>
@@ -128,7 +128,7 @@ const Drawer = ({
             </NavLink>
          </List>
          <Divider />
-         {isAuth ? (
+         {isAuthenticated ? (
             <>
                <List>
                   <NavLink to="/board/1" className={classes.link} activeClassName={classes.linkActive}>
@@ -185,7 +185,7 @@ const Drawer = ({
             </>
          ) : null}
          <List>
-            {isAuth ? (
+            {isAuthenticated ? (
                <>
                   <NavLink to="/settings" className={classes.link} activeClassName={classes.linkActive}>
                      <ListItem button>
@@ -195,9 +195,9 @@ const Drawer = ({
                         <ListItemText primary="Settings" />
                      </ListItem>
                   </NavLink>
-                  <NavLink 
-                     to="/logout" 
-                     className={classes.link} 
+                  <NavLink
+                     to="/logout"
+                     className={classes.link}
                      activeClassName={classes.linkActive}
                      onClick={onLogout}
                   >

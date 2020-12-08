@@ -86,17 +86,17 @@ export const sign = (name, email, password) => {
             password: password
          }),
       })
-      .then(res => res.json())
-      .then(data => {
-         if (data.error !== null) {
-            dispatch(authFail(data.error));
-            return
-         }
-         dispatch(signupSuccess(data.message))
-      })
-      .catch((err) => {
-         console.log('[authFail]', err);
-      })
+         .then(res => res.json())
+         .then(data => {
+            if (data.error !== null) {
+               dispatch(authFail(data.error));
+               return
+            }
+            dispatch(signupSuccess(data.message))
+         })
+         .catch((err) => {
+            console.log('[authFail]', err);
+         })
    };
 };
 
@@ -107,3 +107,14 @@ export const setAuthRedirectPath = (path) => {
    };
 };
 
+export const authCheck = () => {
+   return (dispatch) => {
+      const token = localStorage.getItem('token')
+      if (!token) {
+         dispatch(logout())
+      } else {
+         const userId = localStorage.getItem('userId')
+         dispatch(authSuccess(token, userId))
+      }
+   }
+}

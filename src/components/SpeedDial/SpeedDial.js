@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles';
 import SpeedDial from '@material-ui/lab/SpeedDial';
 import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
@@ -22,7 +23,7 @@ const actions = [
    { icon: <AddToPhotosIcon />, name: 'New Card' },
 ];
 
-export default function OpenIconSpeedDial() {
+const SpeedDialComponent = (props) => {
    const classes = useStyles();
    const [open, setOpen] = React.useState(false);
 
@@ -34,7 +35,7 @@ export default function OpenIconSpeedDial() {
       setOpen(false);
    };
 
-   return (
+   const render = (
       < SpeedDial
          ariaLabel="SpeedDial openIcon example"
          className={classes.speedDial}
@@ -43,16 +44,26 @@ export default function OpenIconSpeedDial() {
          onOpen={handleOpen}
          open={open}
       >
-         {
-            actions.map((action) => (
-               <SpeedDialAction
-                  key={action.name}
-                  icon={action.icon}
-                  tooltipTitle={action.name}
-                  onClick={handleClose}
-               />
-            ))
-         }
+         {actions.map((action) => (
+            <SpeedDialAction
+               key={action.name}
+               icon={action.icon}
+               tooltipTitle={action.name}
+               onClick={handleClose}
+            />
+         ))}
       </SpeedDial >
+   )
+   return (
+      props.token ? render : null
    );
 }
+
+const mapStateToProps = (state) => {
+   return {
+      token: state.auth.token !== null,
+   };
+};
+
+export default connect(mapStateToProps, null)(SpeedDialComponent);
+

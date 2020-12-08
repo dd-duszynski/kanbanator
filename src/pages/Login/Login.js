@@ -16,6 +16,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Spinner from '../../components/Spinner/Spinner'
 import * as actions from '../../store/actions/auth'
+import Modal from '../../components/Modal/Modal'
 
 const useStyles = makeStyles((theme) => ({
    paper: {
@@ -39,23 +40,15 @@ const useStyles = makeStyles((theme) => ({
    }
 }));
 
-const Copyright = () => {
-   return (
-      <Typography variant="body2" align="center">
-         {'Copyright © '}
-         <LinkUI color="inherit" href="/">
-            Kanbanator
-         </LinkUI>{' '}
-         {new Date().getFullYear()}
-         {'.'}
-      </Typography>
-   );
-}
-
 const Login = (props) => {
    const classes = useStyles();
    const [email, setEmail] = useState("");
    const [password, setPassword] = useState("");
+   const [isModalOpen, setModalOpen] = useState(false)
+
+   const handleIsModalOpen = () => {
+      setModalOpen(!isModalOpen);
+   }
 
    const handleSubmit = async (event) => {
       event.preventDefault();
@@ -65,14 +58,18 @@ const Login = (props) => {
    let errorMessage = null;
    if (props.error) {
       errorMessage = (
-         <Typography variant="body2" color="error">
-            {props.error}
-         </Typography>
+         <Modal
+            isModalOpen={isModalOpen ? false : true}
+            handleIsModalOpen={handleIsModalOpen}
+         >
+            <Typography variant="body2" color="error">
+               {props.error}
+            </Typography>
+         </Modal>
       )
    }
 
    let authRedirect = null;
-
    if (props.isAuthenticated) {
       authRedirect = <Redirect to={props.authRedirectPath} />;
    }
@@ -142,7 +139,15 @@ const Login = (props) => {
                   </form>
                </div>
                <Box mt={8}>
-                  <Copyright />
+                  <Typography variant="body2" align="center">
+                     {'Copyright © '}
+                     <LinkUI color="inherit" href="/">
+                        Kanbanator
+                     </LinkUI>
+                     {' '}
+                     {new Date().getFullYear()}
+                     {'.'}
+                  </Typography>
                </Box>
             </>
          )
@@ -162,9 +167,9 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-	return {
-		onAuth: (email, password) => dispatch(actions.auth(email, password))
-	};
+   return {
+      onAuth: (email, password) => dispatch(actions.auth(email, password))
+   };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

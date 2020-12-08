@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
+import { connect } from 'react-redux'
 import Box from '@material-ui/core/Box';
 import Drawer from './Drawer/Drawer';
 import Modal from '../../components/Modal/Modal';
 import NewBoardForm from '../../components/Forms/NewBoardForm';
 import TopAppBar from './TopAppBar/TopAppBar';
 
-const Navigation = ({ isAuth }) => {
+const Navigation = (props) => {
    const [isDrawerOpen, setIsDrawerOpen] = useState(true);
    const [isModalOpen, setModalOpen] = useState(false)
 
@@ -24,18 +25,17 @@ const Navigation = ({ isAuth }) => {
    return (
       <Box>
          <TopAppBar
+            isAuth={props.token}
             handleDrawerOpen={handleDrawerOpen}
             isDrawerOpen={isDrawerOpen}
-            isAuth={isAuth}
          />
          <Drawer
-            isAuth={isAuth}
             handleDrawerClose={handleDrawerClose}
             isDrawerOpen={isDrawerOpen}
             handleIsModalOpen={handleIsModalOpen}
          />
          <Modal
-            isAuth={isAuth}
+            isAuth={props.token}
             isModalOpen={isModalOpen}
             handleIsModalOpen={handleIsModalOpen}
          >
@@ -47,5 +47,11 @@ const Navigation = ({ isAuth }) => {
    )
 }
 
-export default Navigation
+const mapStateToProps = (state) => {
+   return {
+      token: state.auth.token !== null,
+   };
+};
+
+export default connect(mapStateToProps, null)(Navigation)
 

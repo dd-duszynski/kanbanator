@@ -18,7 +18,11 @@ const useStyles = makeStyles((theme) => ({
 }
 ));
 
-const TransitionModal = ({ isModalOpen, handleIsModalOpen, children }) => {
+const TransitionModal = ({
+   isModalOpen,
+   handleIsModalOpen,
+   children
+}) => {
    const classes = useStyles();
 
    return (
