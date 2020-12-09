@@ -6,9 +6,13 @@ import thunk from 'redux-thunk';
 import 'fontsource-roboto';
 import App from './components/App/App';
 import authReducer from './store/reducers/auth';
+import boardsReducer from './store/reducers/boards';
+import templatesReducer from './store/reducers/templates';
 
 const rootReducer = combineReducers({
    auth: authReducer,
+   boards: boardsReducer,
+   templates: templatesReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(thunk))

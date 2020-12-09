@@ -63,19 +63,18 @@ const setAuthRedirectPath = (state, action) => {
 }
 
 const reducer = (state = initialState, action) => {
-   console.log('[MAIN Reducer] - action', action);
    switch (action.type) {
-      case actionTypes.SIGNUP_SUCCESS:
+      case actionTypes.AUTH_SIGNUP_SUCCESS:
          return signupSuccess(state, action);
       case actionTypes.AUTH_START:
          return authStart(state, action);
-      case actionTypes.AUTH_SUCCESS:
+      case actionTypes.AUTH_LOGIN_SUCCESS:
          return authSuccess(state, action);
       case actionTypes.AUTH_FAIL:
          return authFail(state, action);
       case actionTypes.AUTH_LOGOUT:
          return logout(state, action);
-      case actionTypes.SET_AUTH_REDIRECT_PATH:
+      case actionTypes.AUTH_REDIRECT_PATH:
          return setAuthRedirectPath(state, action);
       default:
          return state;

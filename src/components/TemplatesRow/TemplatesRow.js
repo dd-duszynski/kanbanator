@@ -14,7 +14,7 @@ const useStyles = makeStyles(() => ({
    },
 }))
 
-const TemplatesContainer = ({ category, loadedTemplates, icon }) => {
+const TemplatesRow = ({ category, loadedTemplates, icon }) => {
    const classes = useStyles();
    return (
       <Grid item>
@@ -30,7 +30,7 @@ const TemplatesContainer = ({ category, loadedTemplates, icon }) => {
             justify="flex-start"
             alignItems="flex-start"
          >
-            {loadedTemplates.filter(item => item.category === category).map(item => {
+            {loadedTemplates.map(item => {
                return (
                   <BoardCard
                      title={item.title}
@@ -46,4 +46,4 @@ const TemplatesContainer = ({ category, loadedTemplates, icon }) => {
    )
 }
 
-export default TemplatesContainer
+export default TemplatesRow

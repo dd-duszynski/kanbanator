@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { connect } from 'react-redux'
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
@@ -7,6 +8,9 @@ import BoardCard from '../../components/BoardCard/BoardCard';
 import Layout from '../../components/Layout/Layout';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import AssignmentIcon from '@material-ui/icons/Assignment';
+import * as actions from '../../store/actions/boards'
+import Spinner from '../../components/Spinner/Spinner'
+
 const useStyles = makeStyles((theme) => ({
    root: {
       display: 'flex',
@@ -23,82 +27,99 @@ const useStyles = makeStyles((theme) => ({
    },
 }))
 
-const Boards = () => {
+const BoardsList = ({ error, loading, userBoards, userId, getBoards }) => {
    const classes = useStyles();
+
+   console.log('error', error);
+   console.log('loading', loading);
+   console.log('userBoards', userBoards);
+   console.log('userId', userId);
+
+   useEffect(() => {
+      getBoards(userId)
+   }, [userId])
+
    return (
       <Layout>
-         <Grid
-            container
-            direction="column"
-            justify="center"
-            alignItems="flex-start"
-            className={classes.root}
-         >
-            <Grid item className={classes.header}>
-               <Box className={classes.boxWithIcon}>
-                  <FavoriteIcon className={classes.icon} />
-                  <Typography variant="h5" component="h1" >
-                     Your favourites boards
-               </Typography>
-               </Box>
-            </Grid>
+         {userBoards ? (
             <Grid
                container
-               direction="row"
-               justify="flex-start"
+               direction="column"
+               justify="center"
                alignItems="flex-start"
+               className={classes.root}
             >
-               <BoardCard
-                  title="Board 1"
-                  description="This impressive paella is a perfect party dish and a fun meal to cook together with your
-               guests. Add 1 cup of frozen peas along with the mussels, if you like."
-                  image={`https://images.pexels.com/photos/4870969/pexels-photo-4870969.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260`}
-                  starred
-               />
+               <Grid item className={classes.header}>
+                  <Box className={classes.boxWithIcon}>
+                     <FavoriteIcon className={classes.icon} />
+                     <Typography variant="h5" component="h1" >
+                        Your favourites boards
+                     </Typography>
+                  </Box>
+               </Grid>
+               <Grid
+                  container
+                  direction="row"
+                  justify="flex-start"
+                  alignItems="flex-start"
+               >
+                  {userBoards.filter(item => item.is_favorite).map(item => {
+                     return (
+                        <BoardCard
+                           title={item.title}
+                           description={item.description}
+                           image={item.image_url}
+                           starred={item.is_favorite === 1}
+
+                        />
+                     )
+                  })}
+               </Grid>
+               <Grid item className={classes.header}>
+                  <Box className={classes.boxWithIcon}>
+                     <AssignmentIcon className={classes.icon} />
+                     <Typography variant="h5" component="h1" >
+                        Personal Boards
+                     </Typography>
+                  </Box>
+               </Grid>
+               <Grid
+                  container
+                  direction="row"
+                  justify="flex-start"
+                  alignItems="flex-start"
+               >
+                  {userBoards.map(item => {
+                     return (
+                        <BoardCard
+                           title={item.title}
+                           description={item.description}
+                           image={item.image_url}
+                           starred={item.is_favorite === 1}
+
+                        />
+                     )
+                  })}
+               </Grid>
             </Grid>
-            <Grid item className={classes.header}>
-               <Box className={classes.boxWithIcon}>
-                  <AssignmentIcon className={classes.icon} />
-                  <Typography variant="h5" component="h1" >
-                     Personal Boards
-               </Typography>
-               </Box>
-            </Grid>
-            <Grid
-               container
-               direction="row"
-               justify="flex-start"
-               alignItems="flex-start"
-            >
-               <BoardCard
-                  title="Board 1"
-                  description="This impressive paella is a perfect party dish and a fun meal to cook together with your
-               guests. Add 1 cup of frozen peas along with the mussels, if you like."
-                  image={`https://images.pexels.com/photos/4870969/pexels-photo-4870969.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260`}
-                  starred
-               />
-               <BoardCard
-                  title="Board 2"
-                  description="This impressive paella is a perfect party dish and a fun meal to cook together with your
-               guests. Add 1 cup of frozen peas along with the mussels, if you like."
-                  image={`https://images.pexels.com/photos/3966531/pexels-photo-3966531.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500`}
-               />
-               <BoardCard
-                  title="Board 3"
-                  description="This impressive paella is a perfect party dish and a fun meal to cook together with your
-               guests. Add 1 cup of frozen peas along with the mussels, if you like."
-                  image={`https://images.pexels.com/photos/3605420/pexels-photo-3605420.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500`}
-               />
-               <BoardCard
-                  title="Board 4"
-                  description="This impressive paella is a perfect party dish and a fun meal to cook together with your
-               guests. Add 1 cup of frozen peas along with the mussels, if you like."
-                  image={`https://images.pexels.com/photos/5653011/pexels-photo-5653011.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500`}
-               />
-            </Grid>
-         </Grid>
+         ) : <Spinner />}
       </Layout>
    )
 }
 
-export default Boards
+const mapStateToProps = (state) => {
+   return {
+      error: state.boards.error,
+      loading: state.boards.loading,
+      userBoards: state.boards.userBoards,
+      userId: state.auth.userId
+   }
+}
+
+const mapDispatchToProps = (dispatch) => {
+   return {
+      getBoards: (userId) => dispatch(actions.getBoards(userId))
+   }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BoardsList)

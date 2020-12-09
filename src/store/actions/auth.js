@@ -8,7 +8,7 @@ export const authStart = () => {
 
 export const authSuccess = (token, userId) => {
    return {
-      type: actionTypes.AUTH_SUCCESS,
+      type: actionTypes.AUTH_LOGIN_SUCCESS,
       idToken: token,
       userId: userId,
    };
@@ -16,7 +16,7 @@ export const authSuccess = (token, userId) => {
 
 export const signupSuccess = (message) => {
    return {
-      type: actionTypes.SIGNUP_SUCCESS,
+      type: actionTypes.AUTH_SIGNUP_SUCCESS,
       message: message
    };
 };
@@ -102,7 +102,7 @@ export const sign = (name, email, password) => {
 
 export const setAuthRedirectPath = (path) => {
    return {
-      type: actionTypes.SET_AUTH_REDIRECT_PATH,
+      type: actionTypes.AUTH_REDIRECT_PATH,
       path: path,
    };
 };

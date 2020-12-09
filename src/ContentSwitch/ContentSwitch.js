@@ -5,20 +5,22 @@ import BoardsList from '../pages/BoardsList/BoardsList';
 import SignUp from '../pages/SignUp/SignUp';
 import Home from '../pages/Home/Home';
 import Spinner from '../components/Spinner/Spinner';
-const TemplatesList = React.lazy(() => import('../pages/TemplatesList/TemplatesList'))
-const Board = React.lazy(() => import('../pages/Board/Board'))
-const Login = React.lazy(() => import('../pages/Login/Login'))
+const TemplatesList = React.lazy(() => import('../pages/TemplatesList/TemplatesList'));
+const Board = React.lazy(() => import('../pages/Board/Board'));
+const Template = React.lazy(() => import('../pages/Template/Template'));
+const Login = React.lazy(() => import('../pages/Login/Login'));
+const Settings = React.lazy(() => import('../pages/Settings/Settings'));
 
 const ContentSwitch = () => {
    const routes = (
       <Switch>
          <Route path="/templates/:templateURL">
-            <Board />
+            <Template />
          </Route>
          <Route exact path="/templates">
             <TemplatesList />
          </Route>
-         <Route path="/board/:boardURL">
+         <Route path="/boards/:boardURL">
             <Board />
          </Route>
          <Route path="/boards">
@@ -29,6 +31,9 @@ const ContentSwitch = () => {
          </Route>
          <Route path="/sign-up">
             <SignUp />
+         </Route>
+         <Route path="/settings">
+            <Settings />
          </Route>
          <Route path="/">
             <Home />
