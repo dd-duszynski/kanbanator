@@ -27,21 +27,22 @@ const useStyles = makeStyles((theme) => ({
    },
 }))
 
-const BoardsList = ({ error, loading, userBoards, userId, getBoards }) => {
+const BoardsList = ({ error, loading, userBoards, userId, getBoards, boards }) => {
    const classes = useStyles();
 
    console.log('error', error);
    console.log('loading', loading);
    console.log('userBoards', userBoards);
    console.log('userId', userId);
+   console.log('boards', boards);
 
-   useEffect(() => {
-      getBoards(userId)
-   }, [userId])
+   // useEffect(() => {
+   //    getBoards(userId)
+   // }, [userId])
 
    return (
       <Layout>
-         {userBoards ? (
+         {boards ? (
             <Grid
                container
                direction="column"
@@ -63,7 +64,7 @@ const BoardsList = ({ error, loading, userBoards, userId, getBoards }) => {
                   justify="flex-start"
                   alignItems="flex-start"
                >
-                  {userBoards.filter(item => item.is_favorite).map(item => {
+                  {boards.filter(item => item.is_favorite).map(item => {
                      return (
                         <BoardCard
                            title={item.title}
@@ -89,7 +90,7 @@ const BoardsList = ({ error, loading, userBoards, userId, getBoards }) => {
                   justify="flex-start"
                   alignItems="flex-start"
                >
-                  {userBoards.map(item => {
+                  {boards.map(item => {
                      return (
                         <BoardCard
                            title={item.title}
@@ -111,8 +112,9 @@ const mapStateToProps = (state) => {
    return {
       error: state.boards.error,
       loading: state.boards.loading,
-      userBoards: state.boards.userBoards,
-      userId: state.auth.userId
+      // userBoards: state.boards.userBoards,
+      userId: state.auth.userId,
+      boards: state.auth.boards
    }
 }
 

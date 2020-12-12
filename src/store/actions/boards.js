@@ -35,7 +35,6 @@ export const getBoards = (userId) => {
       })
          .then(res => res.json())
          .then(data => {
-            console.log('tu musi coś być: ',data);
             let fetchedBoards = [];
             for (let key in data.userBoards) {
                fetchedBoards.push({

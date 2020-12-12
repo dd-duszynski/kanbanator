@@ -10,7 +10,7 @@ export const authSuccess = (token, userId) => {
    return {
       type: actionTypes.AUTH_LOGIN_SUCCESS,
       idToken: token,
-      userId: userId,
+      userId: userId
    };
 };
 
@@ -28,6 +28,13 @@ export const authFail = (error) => {
    };
 };
 
+export const setUserBoards = (boards) => {
+   return {
+      type: actionTypes.AUTH_SET_USER_BOARDS,
+      boards: boards,
+   };
+};
+
 export const logout = () => {
    localStorage.removeItem('token');
    localStorage.removeItem('userId');
@@ -35,6 +42,7 @@ export const logout = () => {
       type: actionTypes.AUTH_LOGOUT,
    };
 };
+
 
 export const auth = (email, password) => {
    return (dispatch) => {
@@ -58,13 +66,14 @@ export const auth = (email, password) => {
             return data
          })
          .then(data => {
-            console.log('test', data);
             localStorage.setItem('token', data.token)
             localStorage.setItem('userId', data.userId)
+            dispatch(setUserBoards(data.boards))
             return data
          })
-         .then(data =>
-            dispatch(authSuccess(data.token, data.userId))
+         .then(data => {
+            return dispatch(authSuccess(data.token, data.userId))
+         }
          )
          .catch((err) => {
             console.log('[authFail]', err);

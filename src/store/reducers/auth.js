@@ -7,6 +7,7 @@ const initialState = {
    error: null,
    message: null,
    loading: false,
+   boards: null,
    authRedirectPath: '/'
 };
 
@@ -62,6 +63,13 @@ const setAuthRedirectPath = (state, action) => {
    })
 }
 
+const authSetUserBoards = (state, action) => {
+   console.log('[Reducer] authSetUserBoards', action);
+   return updateObject(state, {
+      boards: action.boards
+   })
+}
+
 const reducer = (state = initialState, action) => {
    switch (action.type) {
       case actionTypes.AUTH_SIGNUP_SUCCESS:
@@ -74,6 +82,8 @@ const reducer = (state = initialState, action) => {
          return authFail(state, action);
       case actionTypes.AUTH_LOGOUT:
          return logout(state, action);
+      case actionTypes.AUTH_SET_USER_BOARDS:
+         return authSetUserBoards(state, action);
       case actionTypes.AUTH_REDIRECT_PATH:
          return setAuthRedirectPath(state, action);
       default:
