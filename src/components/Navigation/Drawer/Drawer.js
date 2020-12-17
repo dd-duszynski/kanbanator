@@ -75,11 +75,16 @@ const Drawer = ({
    isDrawerOpen,
    handleIsModalOpen,
    onLogout,
-   isAuthenticated
+   isAuthenticated,
+   boards
 }) => {
    const classes = useStyles();
    const theme = useTheme();
-   // console.log('[Drawer] isAuth', isAuth);
+   const userBoards = localStorage.getItem('boards')
+   const userBoardsParsed = JSON.parse(userBoards)
+
+   console.log('[Drawer] boards', userBoardsParsed);
+   console.log('[Drawer] boards', userBoardsParsed.length);
 
    return (
       <SideDrawer
@@ -100,6 +105,7 @@ const Drawer = ({
                {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
             </IconButton>
          </div>
+
          <List>
             <NavLink exact to="/" className={classes.link} activeClassName={classes.linkActive}>
                <ListItem button>
@@ -109,6 +115,7 @@ const Drawer = ({
                   <ListItemText primary="Home" />
                </ListItem>
             </NavLink>
+
             {isAuthenticated ? (
                <NavLink to="/boards" className={classes.link} activeClassName={classes.linkActive}>
                   <ListItem button>
@@ -128,49 +135,26 @@ const Drawer = ({
             </NavLink>
          </List>
          <Divider />
-         {isAuthenticated ? (
+         {isAuthenticated ? userBoardsParsed.length > 0 ? (
             <>
                <List>
-                  <NavLink to="/board/1" className={classes.link} activeClassName={classes.linkActive}>
-                     <ListItem button>
-                        <ListItemIcon className={classes.icon}>
-                           <ListIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Board 1" />
-                     </ListItem>
-                  </NavLink>
-                  <NavLink to="/board/2" className={classes.link} activeClassName={classes.linkActive}>
-                     <ListItem button>
-                        <ListItemIcon className={classes.icon}>
-                           <ListIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Board 2" />
-                     </ListItem>
-                  </NavLink>
-                  <NavLink
-                     to="/board/3"
-                     className={classes.link}
-                     activeClassName={classes.linkActive}
-                  >
-                     <ListItem button>
-                        <ListItemIcon className={classes.icon}>
-                           <ListIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Board 3" />
-                     </ListItem>
-                  </NavLink>
-                  <NavLink
-                     to="/board/4"
-                     className={classes.link}
-                     activeClassName={classes.linkActive}
-                  >
-                     <ListItem button>
-                        <ListItemIcon className={classes.icon}>
-                           <ListIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Board 4" />
-                     </ListItem>
-                  </NavLink>
+                  {userBoardsParsed.map(item => {
+                     return (
+                        <NavLink
+                           to={`/boards/${item.id}`}
+                           className={classes.link}
+                           activeClassName={classes.linkActive}
+                           key={item.id}
+                        >
+                           <ListItem button>
+                              <ListItemIcon className={classes.icon}>
+                                 <ListIcon />
+                              </ListItemIcon>
+                              <ListItemText primary={item.title} />
+                           </ListItem>
+                        </NavLink>
+                     )
+                  })}
                   <ListItem
                      button
                      onClick={handleIsModalOpen}
@@ -183,7 +167,23 @@ const Drawer = ({
                </List>
                <Divider />
             </>
-         ) : null}
+         ) : (
+               <>
+                  <List>
+                     <ListItem
+                        button
+                        onClick={handleIsModalOpen}
+                     >
+                        <ListItemIcon className={classes.icon}>
+                           <AddIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Create new board" />
+                     </ListItem>
+                  </List>
+                  <Divider />
+               </>
+            ) : null}
+
          <List>
             {isAuthenticated ? (
                <>
@@ -241,6 +241,7 @@ const mapStateToProps = (state) => {
       error: state.auth.error,
       isAuthenticated: state.auth.token !== null,
       authRedirectPath: state.auth.authRedirectPath,
+      boards: state.auth.boards
    }
 }
 

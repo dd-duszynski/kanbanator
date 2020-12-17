@@ -66,8 +66,10 @@ export const auth = (email, password) => {
             return data
          })
          .then(data => {
+            const userBoards = JSON.stringify(data.boards)
             localStorage.setItem('token', data.token)
             localStorage.setItem('userId', data.userId)
+            localStorage.setItem('boards', userBoards)
             dispatch(setUserBoards(data.boards))
             return data
          })

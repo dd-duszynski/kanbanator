@@ -30,16 +30,6 @@ const useStyles = makeStyles((theme) => ({
 const BoardsList = ({ error, loading, userBoards, userId, getBoards, boards }) => {
    const classes = useStyles();
 
-   console.log('error', error);
-   console.log('loading', loading);
-   console.log('userBoards', userBoards);
-   console.log('userId', userId);
-   console.log('boards', boards);
-
-   // useEffect(() => {
-   //    getBoards(userId)
-   // }, [userId])
-
    return (
       <Layout>
          {boards ? (
