@@ -20,7 +20,7 @@ const ContentSwitch = () => {
          <Route exact path="/templates">
             <TemplatesList />
          </Route>
-         <Route path="/boards/:boardURL">
+         <Route path="/boards/:boardID">
             <Board />
          </Route>
          <Route path="/boards">

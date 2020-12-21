@@ -7,7 +7,7 @@ const initialState = {
    error: null,
    message: null,
    loading: false,
-   boards: null,
+   boards: JSON.parse(localStorage.getItem('boards')),
    authRedirectPath: '/'
 };
 
@@ -52,7 +52,8 @@ const logout = (state, action) => {
    console.log('[Reducer] logout', action);
    return updateObject(state, {
       token: null,
-      userId: null
+      userId: null,
+      boards: null
    })
 }
 

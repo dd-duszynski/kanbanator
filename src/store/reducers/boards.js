@@ -4,11 +4,11 @@ import { updateObject } from '../../utility/utility';
 const initialState = {
    error: null,
    loading: false,
-   userBoards: null
+   userBoards: null,
+   choosenBoard: null
 };
 
 const boardsFetchStart = (state, action) => {
-   console.log('[Reducer] boardsStartFetch', action);
    return updateObject(state, {
       error: null,
       loading: true
@@ -16,7 +16,6 @@ const boardsFetchStart = (state, action) => {
 }
 
 const boardsFetchFail = (state, action) => {
-   console.log('[Reducer] boardsFetchFail', action);
    return updateObject(state, {
       error: action.error,
       loading: false,
@@ -24,11 +23,18 @@ const boardsFetchFail = (state, action) => {
 };
 
 const boardsFetchSuccess = (state, action) => {
-   console.log('[Reducer] boardsFetchSuccess', action);
    return updateObject(state, {
       error: null,
       loading: false,
       userBoards: action.userBoards
+   });
+};
+
+const singleBoardFetchSuccess = (state, action) => {
+   return updateObject(state, {
+      error: null,
+      loading: false,
+      choosenBoard: action.choosenBoard
    });
 };
 
@@ -40,6 +46,8 @@ const reducer = (state = initialState, action) => {
          return boardsFetchFail(state, action);
       case actionTypes.BOARDS_FETCH_SUCCESS:
          return boardsFetchSuccess(state, action);
+      case actionTypes.SINGLE_BOARD_FETCH_SUCCESS:
+         return singleBoardFetchSuccess(state, action);
       default:
          return state;
    }

@@ -54,17 +54,17 @@ const BoardsList = ({ error, loading, userBoards, userId, getBoards, boards }) =
                   justify="flex-start"
                   alignItems="flex-start"
                >
-                  {boards.filter(item => item.is_favorite).map(item => {
-                     return (
-                        <BoardCard
-                           title={item.title}
-                           description={item.description}
-                           image={item.image_url}
-                           starred={item.is_favorite === 1}
-
-                        />
-                     )
-                  })}
+                  {boards.filter(item => item.is_favorite).map(item => (
+                     <BoardCard
+                        title={item.title}
+                        description={item.description}
+                        image={item.image_url}
+                        starred={item.is_favorite === 1}
+                        link={item.id}
+                        type="board"
+                     />
+                  )
+                  )}
                </Grid>
                <Grid item className={classes.header}>
                   <Box className={classes.boxWithIcon}>
@@ -87,10 +87,12 @@ const BoardsList = ({ error, loading, userBoards, userId, getBoards, boards }) =
                            description={item.description}
                            image={item.image_url}
                            starred={item.is_favorite === 1}
-
+                           link={item.id}
+                           type="board"
                         />
                      )
-                  })}
+                  }
+                  )}
                </Grid>
             </Grid>
          ) : <Spinner />}

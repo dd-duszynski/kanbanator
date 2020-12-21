@@ -83,8 +83,8 @@ const Drawer = ({
    const userBoards = localStorage.getItem('boards')
    const userBoardsParsed = JSON.parse(userBoards)
 
-   console.log('[Drawer] boards', userBoardsParsed);
-   console.log('[Drawer] boards', userBoardsParsed.length);
+   // console.log('[Drawer] boards', userBoardsParsed);
+   // console.log('[Drawer] boards', userBoardsParsed.length);
 
    return (
       <SideDrawer

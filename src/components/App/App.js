@@ -14,7 +14,7 @@ const App = () => {
             type: prefersDarkMode ? 'dark' : 'light',
          },
       }),
-      [prefersDarkMode],
+      [prefersDarkMode]
    );
 
    return (

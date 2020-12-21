@@ -38,6 +38,7 @@ const TemplatesRow = ({ category, loadedTemplates, icon }) => {
                      image={item.image_url}
                      link={item.link}
                      key={item.link}
+                     type="template"
                   />
                )
             })}

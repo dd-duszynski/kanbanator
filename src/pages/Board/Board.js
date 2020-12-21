@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
+import { connect } from 'react-redux'
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
@@ -7,6 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import List from '../../components/List/List';
 import Layout from '../../components/Layout/Layout';
 import AddIcon from '@material-ui/icons/Add';
+import * as actions from '../../store/actions'
 
 const useStyles = makeStyles((theme) => ({
    root: {
@@ -48,51 +50,31 @@ const useStyles = makeStyles((theme) => ({
    }
 }))
 
-const Board = () => {
+const Board = ({ boardsGetSingleBoard, choosenBoard, loading }) => {
+   const boardId = useParams().boardID
    const classes = useStyles();
-   const templateURL = useParams().templateURL;
-   const [isLoading, setIsLoading] = useState(true);
-   const [loadedTemplate, setLoadedTemplate] = useState();
-   const [loadedLists, setLoadedLists] = useState();
+   
+   console.log(choosenBoard);
 
    useEffect(() => {
-      const fetchTemplates = async () => {
-         try {
-            await fetch(`http://localhost:5000/api/templates/${templateURL}`)
-               .then(response => response.json())
-               .then((data) => {
-                  console.log('loadedTemplate', data[0]);
-                  return setLoadedTemplate(data[0])
-               })
-            await fetch(`http://localhost:5000/api/templates/lists/${templateURL}`)
-               .then(response => response.json())
-               .then((data) => {
-                  console.log('loadedLists', data[0]);
-                  return setLoadedLists(data[0])
-               })
-               .then(() => setIsLoading(false))
-         } catch (err) {
-            console.log(err);
-         }
-      };
-      fetchTemplates();
-   }, [templateURL]);
+      boardsGetSingleBoard(boardId)
+   }, [boardsGetSingleBoard]);
 
    return (
       <Layout>
-         {!isLoading && (
+         {choosenBoard && (
             <Grid container direction="column"
                className={classes.root}
             >
                <Grid
                   item
                   className={classes.backgroundImage}
-                  style={{ backgroundImage: `url(${loadedTemplate[0].image_url})` }}
+                  style={{ backgroundImage: `url(${choosenBoard[0].image_url})` }}
                />
                <Grid container className={classes.titleContainer}>
                   <Grid item className={[classes.title, classes.header1].join(' ')} >
                      <Typography variant="h6" component="h1">
-                        {loadedTemplate[0].title}
+                        {choosenBoard[0].title}
                      </Typography>
                   </Grid>
                   <Grid item className={[classes.title, classes.header2].join(' ')} >
@@ -111,13 +93,13 @@ const Board = () => {
                   wrap="nowrap"
                   className={classes.listsContainer}
                >
-                  {loadedLists.map((list) => (
+                  {/* {loadedLists.map((list) => (
                      <List
                         key={list.list_id}
                         list={list}
-                        cards={loadedTemplate.filter(i => i.list_id === list.list_id)}
+                        cards={loadedBoard.filter(i => i.list_id === list.list_id)}
                      />
-                  ))}
+                  ))} */}
                   <Grid item className={classes.addList}>
                      <Button
                         variant="contained"
@@ -133,4 +115,22 @@ const Board = () => {
    )
 }
 
-export default Board
+const mapStateToProps = (state) => {
+   console.log(state);
+   return {
+      // error: state.boards.error,
+      loading: state.boards.loading,
+      // userBoards: state.boards.userBoards,
+      // userId: state.auth.userId,
+      // boards: state.auth.boards,
+      choosenBoard: state.boards.choosenBoard
+   }
+}
+
+const mapDispatchToProps = (dispatch) => {
+   return {
+      boardsGetSingleBoard: (boardId) => dispatch(actions.getSingleBoard(boardId))
+   }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Board)

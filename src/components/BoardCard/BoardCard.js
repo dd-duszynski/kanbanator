@@ -39,11 +39,10 @@ const useStyles = makeStyles((theme) => ({
    },
 }));
 
-export default function BoardCard({ title, starred, image, description, link }) {
+export default function BoardCard({ type, title, starred, image, description, link }) {
    const classes = useStyles();
    const [isStarred, setIsStarred] = useState(starred);
    const [anchorEl, setAnchorEl] = useState(null);
-
    const handleIsStarred = () => {
       setIsStarred(!isStarred);
    };
@@ -55,6 +54,8 @@ export default function BoardCard({ title, starred, image, description, link }) 
    const handleClose = () => {
       setAnchorEl(null);
    };
+
+   const cardType = type === "template" ? "template" : "board";
 
    return (
       <Card className={classes.root}>
@@ -104,11 +105,11 @@ export default function BoardCard({ title, starred, image, description, link }) 
             // subheaderTypographyProps={{ 'color': 'white' }}
             className={classes.cardHeader}
          />
-         <Link to={link ? `templates/${link}` : "/"}>
+         <Link to={cardType === "template" ? `templates/${link}` : `boards/${link}`}>
             <CardMedia
                className={classes.media}
                image={image}
-               title="Paella dish"
+               title={title}
             />
 
          </Link>

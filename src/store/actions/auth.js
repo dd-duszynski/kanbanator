@@ -38,6 +38,7 @@ export const setUserBoards = (boards) => {
 export const logout = () => {
    localStorage.removeItem('token');
    localStorage.removeItem('userId');
+   localStorage.removeItem('boards');
    return {
       type: actionTypes.AUTH_LOGOUT,
    };
