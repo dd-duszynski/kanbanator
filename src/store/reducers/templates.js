@@ -4,11 +4,12 @@ import { updateObject } from '../../utility/utility';
 const initialState = {
    error: null,
    loading: false,
-   templates: null
+   templates: null,
+   list: null,
+   singleTemplate: null
 };
-
+// TEMPLATES
 const templatesFetchStart = (state, action) => {
-   console.log('[Reducer] templatesFetchStart', action);
    return updateObject(state, {
       error: null,
       loading: true
@@ -16,7 +17,6 @@ const templatesFetchStart = (state, action) => {
 }
 
 const templatesFetchFail = (state, action) => {
-   console.log('[Reducer] templatesFetchFail', action);
    return updateObject(state, {
       error: action.error,
       loading: false,
@@ -24,11 +24,32 @@ const templatesFetchFail = (state, action) => {
 };
 
 const templatesFetchSuccess = (state, action) => {
-   console.log('[Reducer] templatesFetchSuccess', action);
    return updateObject(state, {
       error: null,
       loading: false,
       templates: action.templates
+   });
+};
+// SINGLE TEMPLATE
+const templateSingleFetchStart = (state, action) => {
+   return updateObject(state, {
+      error: null,
+      loading: true
+   })
+}
+
+const templateSingleFetchFail = (state, action) => {
+   return updateObject(state, {
+      error: action.error,
+      loading: false,
+   });
+};
+
+const templateSingleFetchSuccess = (state, action) => {
+   return updateObject(state, {
+      error: null,
+      loading: false,
+      singleTemplate: action.singleTemplate
    });
 };
 
@@ -40,6 +61,13 @@ const reducer = (state = initialState, action) => {
          return templatesFetchFail(state, action);
       case actionTypes.TEMPLATES_FETCH_SUCCESS:
          return templatesFetchSuccess(state, action);
+
+      case actionTypes.TEMPLATE_SINGLE_FETCH_START:
+         return templateSingleFetchStart(state, action);
+      case actionTypes.TEMPLATE_SINGLE_FETCH_FAIL:
+         return templateSingleFetchFail(state, action);
+      case actionTypes.TEMPLATE_SINGLE_FETCH_SUCCESS:
+         return templateSingleFetchSuccess(state, action);
       default:
          return state;
    }

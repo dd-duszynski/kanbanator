@@ -79,7 +79,7 @@ const Board = ({ boardsGetSingleBoard, choosenBoard, loading }) => {
                   </Grid>
                   <Grid item className={[classes.title, classes.header2].join(' ')} >
                      <Typography variant="h6" component="h1">
-                        Template
+                        Board
                      </Typography>
                   </Grid>
                   <Grid item className={classes.header3}>

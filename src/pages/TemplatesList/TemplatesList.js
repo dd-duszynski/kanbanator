@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, } from 'react';
 import { connect } from 'react-redux'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles';
@@ -25,13 +25,13 @@ const useStyles = makeStyles(() => ({
    },
 }))
 
-const TemplatesList = ({ templates, getTemplates }) => {
+const TemplatesList = ({ templates, templatesGetAll }) => {
    const classes = useStyles();
    console.log('TemplatesList', templates);
 
    useEffect(() => {
-      getTemplates()
-   }, [getTemplates])
+      templatesGetAll()
+   }, [templatesGetAll])
 
    return (
       <Layout>
@@ -100,7 +100,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
    return {
-      getTemplates: () => dispatch(actions.getTemplates())
+      templatesGetAll: () => dispatch(actions.templatesGetAll())
    }
 }
 
