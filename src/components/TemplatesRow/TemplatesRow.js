@@ -33,11 +33,11 @@ const TemplatesRow = ({ category, loadedTemplates, icon }) => {
             {loadedTemplates.map(item => {
                return (
                   <BoardCard
-                     title={item.title}
-                     description={item.description}
-                     image={item.image_url}
-                     link={item.link}
-                     key={item.link}
+                     title={item.template_title}
+                     description={item.template_description}
+                     image={item.template_image_url}
+                     link={item.template_link}
+                     key={item.template_link}
                      type="template"
                   />
                )

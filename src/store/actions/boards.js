@@ -13,6 +13,7 @@ export const boardsFetchFail = (error) => {
       error: error,
    };
 };
+
 //ok
 export const boardsFetchSuccess = (userBoards) => {
    return {
@@ -23,7 +24,7 @@ export const boardsFetchSuccess = (userBoards) => {
 
 //ok
 export const singleBoardFetchSuccess = (choosenBoard) => {
-   console.log('singleBoardFetchSuccess',choosenBoard);
+   console.log('singleBoardFetchSuccess', choosenBoard);
    return {
       type: actionTypes.SINGLE_BOARD_FETCH_SUCCESS,
       choosenBoard: choosenBoard
@@ -64,19 +65,28 @@ export const getBoards = (userId) => {
 export const getSingleBoard = (boardId) => {
    return (dispatch) => {
       dispatch(boardsFetchStart());
+      let fetchedBoard, lists;
       fetch(`http://localhost:5000/api/boards/board/${boardId}`)
          .then(res => res.json())
          .then(data => {
-            let fetchedBoard = [];
+            fetchedBoard = [];
             for (let key in data.choosenBoard) {
                fetchedBoard.push({
                   ...data.choosenBoard[key]
                })
             }
-            return dispatch(singleBoardFetchSuccess(fetchedBoard))
          })
          .catch((err) => {
             console.log('[ACTION - getSingleBoard]', err);
+         })
+      fetch(`http://localhost:5000/api/templates/lists/${boardId}`)
+         .then(res => res.json())
+         .then(data => {
+            lists = data.lists
+            return dispatch(singleBoardFetchSuccess([fetchedBoard, lists]))
+         })
+         .catch((err) => {
+            console.log('[ACTION - templatesGetSingle - lists]', err);
          })
    };
 };

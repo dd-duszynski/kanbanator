@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
    },
 }));
 
-const BoardList = ({ list, cards }) => {
+const BoardList = ({ list, cards, template }) => {
    console.log(cards);
    const classes = useStyles();
    return (
@@ -36,7 +36,7 @@ const BoardList = ({ list, cards }) => {
                   description={item.card_description}
                />
             ))}
-            <ListFooter text="Add another card" />
+            {template ? null : <ListFooter text="Add another card" />}
          </List>
       </Grid>
    );

@@ -50,37 +50,37 @@ const TemplatesList = ({ templates, templatesGetAll }) => {
                </Grid>
                <TemplatesRow
                   category="Business"
-                  loadedTemplates={templates.filter(item => item.category === "Business")}
+                  loadedTemplates={templates.filter(item => item.template_category === "Business")}
                   icon={<BusinessCenterIcon className={classes.icon} />}
                />
                <TemplatesRow
                   category="Design"
-                  loadedTemplates={templates.filter(item => item.category === "Design")}
+                  loadedTemplates={templates.filter(item => item.template_category === "Design")}
                   icon={<ColorLensIcon className={classes.icon} />}
                />
                <TemplatesRow
                   category="Education"
-                  loadedTemplates={templates.filter(item => item.category === "Education")}
+                  loadedTemplates={templates.filter(item => item.template_category === "Education")}
                   icon={<SchoolIcon className={classes.icon} />}
                />
                <TemplatesRow
                   category={`Personal & Productivity`}
-                  loadedTemplates={templates.filter(item => item.category === "Personal & Productivity")}
+                  loadedTemplates={templates.filter(item => item.template_category === "Personal & Productivity")}
                   icon={<DirectionsRunIcon className={classes.icon} />}
                />
                <TemplatesRow
                   category="Marketing"
-                  loadedTemplates={templates.filter(item => item.category === "Marketing")}
+                  loadedTemplates={templates.filter(item => item.template_category === "Marketing")}
                   icon={<HighlightIcon className={classes.icon} />}
                />
                <TemplatesRow
                   category="Project Management"
-                  loadedTemplates={templates.filter(item => item.category === "Project Management")}
+                  loadedTemplates={templates.filter(item => item.template_category === "Project Management")}
                   icon={<AccountTreeIcon className={classes.icon} />}
                />
                <TemplatesRow
                   category="Remote Work"
-                  loadedTemplates={templates.filter(item => item.category === "Remote Work")}
+                  loadedTemplates={templates.filter(item => item.template_category === "Remote Work")}
                   icon={<HomeWorkIcon className={classes.icon} />}
                />
             </Grid>

@@ -1,7 +1,6 @@
 import * as actionTypes from './actionTypes';
 
-
-// TEMPLATES -------------------------------------------------
+// ALL TEMPLATES -------------------------------------------------
 export const templatesFetchStart = () => {
    return {
       type: actionTypes.TEMPLATES_FETCH_START,
@@ -28,22 +27,24 @@ export const templatesGetAll = () => {
       fetch("http://localhost:5000/api/templates")
          .then(res => res.json())
          .then(data => {
+            console.log(data);
             let templates = [];
-            for (let key in data.templates) {
+            for (let key in data) {
                templates.push({
-                  ...data.templates[key]
+                  ...data[key]
                })
             }
             return dispatch(templatesFetchSuccess(templates))
          })
          .catch((err) => {
-            console.log('[ACTION - getTemplates]', err);
+            dispatch(templatesFetchFail(err));
          })
    };
 };
 
 
 // SINGLE TEMPLATE -------------------------------------------------
+
 export const templateSingleFetchStart = () => {
    return {
       type: actionTypes.TEMPLATE_SINGLE_FETCH_START,
@@ -64,26 +65,16 @@ export const templateSingleFetchSuccess = (singleTemplate) => {
    };
 };
 
-export const templatesGetSingle = (templateURL) => {
+export const templateGetSingle = (templateURL) => {
    return (dispatch) => {
       dispatch(templateSingleFetchStart());
-      let template, lists;
       fetch(`http://localhost:5000/api/templates/${templateURL}`)
          .then(res => res.json())
          .then(data => {
-            template = data.singleTemplate
+            dispatch(templateSingleFetchSuccess(data))
          })
          .catch((err) => {
-            console.log('[ACTION - templatesGetSingle - template]', err);
-         })
-      fetch(`http://localhost:5000/api/templates/lists/${templateURL}`)
-         .then(res => res.json())
-         .then(data => {
-            lists = data.lists
-            return dispatch(templateSingleFetchSuccess([template, lists]))
-         })
-         .catch((err) => {
-            console.log('[ACTION - templatesGetSingle - lists]', err);
+            dispatch(templateSingleFetchFail(err))
          })
    };
 };

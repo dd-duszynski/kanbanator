@@ -8,6 +8,7 @@ const initialState = {
    list: null,
    singleTemplate: null
 };
+
 // TEMPLATES
 const templatesFetchStart = (state, action) => {
    return updateObject(state, {
@@ -30,6 +31,7 @@ const templatesFetchSuccess = (state, action) => {
       templates: action.templates
    });
 };
+
 // SINGLE TEMPLATE
 const templateSingleFetchStart = (state, action) => {
    return updateObject(state, {
@@ -39,6 +41,7 @@ const templateSingleFetchStart = (state, action) => {
 }
 
 const templateSingleFetchFail = (state, action) => {
+   console.log('REDUCER templateSingleFetchFail', action);
    return updateObject(state, {
       error: action.error,
       loading: false,
@@ -46,12 +49,13 @@ const templateSingleFetchFail = (state, action) => {
 };
 
 const templateSingleFetchSuccess = (state, action) => {
+   console.log('REDUCER templateSingleFetchSuccess', action);
    return updateObject(state, {
       error: null,
       loading: false,
       singleTemplate: action.singleTemplate
-   });
-};
+   })
+}
 
 const reducer = (state = initialState, action) => {
    switch (action.type) {
@@ -61,7 +65,6 @@ const reducer = (state = initialState, action) => {
          return templatesFetchFail(state, action);
       case actionTypes.TEMPLATES_FETCH_SUCCESS:
          return templatesFetchSuccess(state, action);
-
       case actionTypes.TEMPLATE_SINGLE_FETCH_START:
          return templateSingleFetchStart(state, action);
       case actionTypes.TEMPLATE_SINGLE_FETCH_FAIL:

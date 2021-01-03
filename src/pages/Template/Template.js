@@ -9,6 +9,7 @@ import List from '../../components/List/List';
 import Layout from '../../components/Layout/Layout';
 import AddIcon from '@material-ui/icons/Add';
 import * as actions from '../../store/actions'
+import Spinner from '../../components/Spinner/Spinner'
 
 const useStyles = makeStyles((theme) => ({
    root: {
@@ -50,33 +51,34 @@ const useStyles = makeStyles((theme) => ({
    }
 }))
 
-const Template = ({templatesGetSingle, singleTemplate }) => {
+const Template = ({ templateGetSingle, singleTemplate }) => {
    const classes = useStyles();
    const templateURL = useParams().templateURL;
-   let template,lists
-   if(singleTemplate){
-      [template, lists ] = singleTemplate
+   let cards, lists
+   if (singleTemplate) {
+      lists = singleTemplate.lists
+      cards = singleTemplate.cards
    }
 
    useEffect(() => {
-      templatesGetSingle(templateURL)
-   }, [templatesGetSingle])
+      templateGetSingle(templateURL)
+   }, [templateGetSingle])
 
    return (
       <Layout>
-         {singleTemplate && (
+         {singleTemplate ? (
             <Grid container direction="column"
                className={classes.root}
             >
                <Grid
                   item
                   className={classes.backgroundImage}
-                  style={{ backgroundImage: `url(${template[0].image_url})` }}
+                  style={{ backgroundImage: `url(${lists[0].template_image_url})` }}
                />
                <Grid container className={classes.titleContainer}>
                   <Grid item className={[classes.title, classes.header1].join(' ')} >
                      <Typography variant="h6" component="h1">
-                        {template[0].title}
+                        {lists[0].template_title}
                      </Typography>
                   </Grid>
                   <Grid item className={[classes.title, classes.header2].join(' ')} >
@@ -99,7 +101,8 @@ const Template = ({templatesGetSingle, singleTemplate }) => {
                      <List
                         key={list.list_id}
                         list={list}
-                        cards={template.filter(i => i.list_id === list.list_id)}
+                        cards={cards.filter(i => i.card_related_list === list.list_id)}
+                        template
                      />
                   ))}
                   <Grid item className={classes.addList}>
@@ -112,7 +115,7 @@ const Template = ({templatesGetSingle, singleTemplate }) => {
                   </Grid>
                </Grid>
             </Grid>
-         )}
+         ) : <Spinner />}
       </Layout>
    )
 }
@@ -127,7 +130,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
    return {
-      templatesGetSingle: (templateURL) => dispatch(actions.templatesGetSingle(templateURL))
+      templateGetSingle: (templateURL) => dispatch(actions.templateGetSingle(templateURL))
    }
 }
 

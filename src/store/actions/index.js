@@ -7,7 +7,7 @@ export {
    templateSingleFetchStart,
    templateSingleFetchFail,
    templateSingleFetchSuccess,
-   templatesGetSingle
+   templateGetSingle
 } from './templates'
 
 export {

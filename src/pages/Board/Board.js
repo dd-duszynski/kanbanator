@@ -54,11 +54,11 @@ const Board = ({ boardsGetSingleBoard, choosenBoard, loading }) => {
    const boardId = useParams().boardID
    const classes = useStyles();
    
-   console.log(choosenBoard);
+   console.log('choosenBoard', choosenBoard);
 
    useEffect(() => {
       boardsGetSingleBoard(boardId)
-   }, [boardsGetSingleBoard]);
+   }, []);
 
    return (
       <Layout>
