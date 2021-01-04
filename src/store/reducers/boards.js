@@ -3,38 +3,53 @@ import { updateObject } from '../../utility/utility';
 
 const initialState = {
    error: null,
-   loading: false,
+   loadingBoards: null,
    userBoards: null,
-   choosenBoard: null
+   loadingSingleBoard: null,
+   singleBoard: null,
 };
 
 const boardsFetchStart = (state, action) => {
    return updateObject(state, {
       error: null,
-      loading: true
+      loadingBoards: true
    })
 }
 
 const boardsFetchFail = (state, action) => {
    return updateObject(state, {
       error: action.error,
-      loading: false,
+      loadingBoards: false,
    });
 };
 
 const boardsFetchSuccess = (state, action) => {
    return updateObject(state, {
       error: null,
-      loading: false,
+      loadingBoards: false,
       userBoards: action.userBoards
    });
 };
 
-const singleBoardFetchSuccess = (state, action) => {
+// ------------------------------
+const singleBoardFetchStart = (state, action) => {
    return updateObject(state, {
       error: null,
-      loading: false,
-      choosenBoard: action.choosenBoard
+      loadingSingleBoard: true
+   });
+};
+const singleBoardFetchFail = (state, action) => {
+   return updateObject(state, {
+      error: action.error,
+      loadingSingleBoard: false
+   });
+};
+const singleBoardFetchSuccess = (state, action) => {
+   console.log(action.singleBoard);
+   return updateObject(state, {
+      error: null,
+      loadingSingleBoard: false,
+      singleBoard: action.singleBoard
    });
 };
 
@@ -46,6 +61,10 @@ const reducer = (state = initialState, action) => {
          return boardsFetchFail(state, action);
       case actionTypes.BOARDS_FETCH_SUCCESS:
          return boardsFetchSuccess(state, action);
+      case actionTypes.SINGLE_BOARD_FETCH_START:
+         return singleBoardFetchStart(state, action);
+      case actionTypes.SINGLE_BOARD_FETCH_FAIL:
+         return singleBoardFetchFail(state, action);
       case actionTypes.SINGLE_BOARD_FETCH_SUCCESS:
          return singleBoardFetchSuccess(state, action);
       default:

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import Typography from '@material-ui/core/Typography';
@@ -7,7 +7,6 @@ import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '../../components/List/List';
 import Layout from '../../components/Layout/Layout';
-import AddIcon from '@material-ui/icons/Add';
 import * as actions from '../../store/actions'
 import Spinner from '../../components/Spinner/Spinner'
 
@@ -43,15 +42,10 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: '#424242',
       borderRadius: '4px',
       marginRight: '12px'
-   },
-   addList: {
-      minWidth: '260px',
-      // padding: '0 10px',
-      height: '45px',
    }
 }))
 
-const Template = ({ templateGetSingle, singleTemplate }) => {
+const Template = ({ loadingSingleTemplate, templateGetSingle, singleTemplate }) => {
    const classes = useStyles();
    const templateURL = useParams().templateURL;
    let cards, lists
@@ -64,9 +58,11 @@ const Template = ({ templateGetSingle, singleTemplate }) => {
       templateGetSingle(templateURL)
    }, [templateGetSingle])
 
+   console.log('czy sie ładuje', loadingSingleTemplate);
+
    return (
       <Layout>
-         {singleTemplate ? (
+         {loadingSingleTemplate === false ? (
             <Grid container direction="column"
                className={classes.root}
             >
@@ -105,14 +101,6 @@ const Template = ({ templateGetSingle, singleTemplate }) => {
                         template
                      />
                   ))}
-                  <Grid item className={classes.addList}>
-                     <Button
-                        variant="contained"
-                        startIcon={<AddIcon />}
-                     >
-                        Add another List
-                     </Button>
-                  </Grid>
                </Grid>
             </Grid>
          ) : <Spinner />}
@@ -122,7 +110,7 @@ const Template = ({ templateGetSingle, singleTemplate }) => {
 
 const mapStateToProps = (state) => {
    return {
-      loading: state.templates.loading,
+      loadingSingleTemplate: state.templates.loadingSingleTemplate,
       error: state.templates.error,
       singleTemplate: state.templates.singleTemplate
    }

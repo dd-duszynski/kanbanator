@@ -1,12 +1,5 @@
 export {
-   templatesFetchStart,
-   templatesFetchFail,
-   templatesFetchSuccess,
    templatesGetAll,
-   
-   templateSingleFetchStart,
-   templateSingleFetchFail,
-   templateSingleFetchSuccess,
    templateGetSingle
 } from './templates'
 

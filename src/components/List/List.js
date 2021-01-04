@@ -23,17 +23,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const BoardList = ({ list, cards, template }) => {
-   console.log(cards);
+   console.log('BoardList',cards);
    const classes = useStyles();
    return (
       <Grid item className={classes.root}>
          <List className={classes.list}>
             <ListHeader text={list.list_title} />
-            {cards.map((item) => (
+            {cards.map((card) => (
                <TaskCard
-                  key={item.card_id}
-                  title={item.card_title}
-                  description={item.card_description}
+                  key={card.card_id}
+                  title={card.card_title}
+                  description={card.card_description}
                />
             ))}
             {template ? null : <ListFooter text="Add another card" />}

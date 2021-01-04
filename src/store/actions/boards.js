@@ -1,12 +1,12 @@
 import * as actionTypes from './actionTypes';
-//ok
+
+// ALL BOARDS ACTIONS -------------------------------------------------
 export const boardsFetchStart = () => {
    return {
       type: actionTypes.BOARDS_FETCH_START,
    }
 }
 
-//ok
 export const boardsFetchFail = (error) => {
    return {
       type: actionTypes.BOARDS_FETCH_FAIL,
@@ -14,7 +14,6 @@ export const boardsFetchFail = (error) => {
    };
 };
 
-//ok
 export const boardsFetchSuccess = (userBoards) => {
    return {
       type: actionTypes.BOARDS_FETCH_SUCCESS,
@@ -22,16 +21,31 @@ export const boardsFetchSuccess = (userBoards) => {
    };
 };
 
-//ok
-export const singleBoardFetchSuccess = (choosenBoard) => {
-   console.log('singleBoardFetchSuccess', choosenBoard);
+// SINGLE BOARDS ACTIONS -------------------------------------------------
+
+export const singleBoardFetchStart = () => {
    return {
-      type: actionTypes.SINGLE_BOARD_FETCH_SUCCESS,
-      choosenBoard: choosenBoard
+      type: actionTypes.SINGLE_BOARD_FETCH_START
    };
 };
 
-//ok - export
+export const singleBoardFetchFail = (error) => {
+   return {
+      type: actionTypes.SINGLE_BOARD_FETCH_FAIL,
+      error: error,
+   };
+};
+
+export const singleBoardFetchSuccess = (singleBoard) => {
+   console.log('[singleBoardFetchSuccess]', singleBoard);
+   return {
+      type: actionTypes.SINGLE_BOARD_FETCH_SUCCESS,
+      singleBoard: singleBoard
+   };
+};
+
+// Master Actions -----------------------------------------------------
+
 export const getBoards = (userId) => {
    return (dispatch) => {
       dispatch(boardsFetchStart());
@@ -52,41 +66,24 @@ export const getBoards = (userId) => {
                   ...data.userBoards[key]
                })
             }
-            console.log('fetchedBoards', fetchedBoards);
             return dispatch(boardsFetchSuccess(fetchedBoards))
          })
          .catch((err) => {
-            console.log('[ACTION - getBoards]', err);
+            dispatch(boardsFetchFail(err))
          })
    };
 };
 
-//test --------------------------------------------------
 export const getSingleBoard = (boardId) => {
    return (dispatch) => {
-      dispatch(boardsFetchStart());
-      let fetchedBoard, lists;
+      dispatch(singleBoardFetchStart());
       fetch(`http://localhost:5000/api/boards/board/${boardId}`)
          .then(res => res.json())
          .then(data => {
-            fetchedBoard = [];
-            for (let key in data.choosenBoard) {
-               fetchedBoard.push({
-                  ...data.choosenBoard[key]
-               })
-            }
+            return dispatch(singleBoardFetchSuccess(data))
          })
          .catch((err) => {
-            console.log('[ACTION - getSingleBoard]', err);
-         })
-      fetch(`http://localhost:5000/api/templates/lists/${boardId}`)
-         .then(res => res.json())
-         .then(data => {
-            lists = data.lists
-            return dispatch(singleBoardFetchSuccess([fetchedBoard, lists]))
-         })
-         .catch((err) => {
-            console.log('[ACTION - templatesGetSingle - lists]', err);
+            dispatch(singleBoardFetchFail(err))
          })
    };
 };

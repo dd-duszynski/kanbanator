@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { connect } from 'react-redux'
 import Typography from '@material-ui/core/Typography';
@@ -9,6 +9,7 @@ import List from '../../components/List/List';
 import Layout from '../../components/Layout/Layout';
 import AddIcon from '@material-ui/icons/Add';
 import * as actions from '../../store/actions'
+import Spinner from '../../components/Spinner/Spinner'
 
 const useStyles = makeStyles((theme) => ({
    root: {
@@ -50,31 +51,38 @@ const useStyles = makeStyles((theme) => ({
    }
 }))
 
-const Board = ({ boardsGetSingleBoard, choosenBoard, loading }) => {
+const Board = ({ getSingleBoard, singleBoard, loadingSingleBoard }) => {
    const boardId = useParams().boardID
    const classes = useStyles();
-   
-   console.log('choosenBoard', choosenBoard);
+
+   let cards, lists
+   if (singleBoard) {
+      lists = singleBoard.lists
+      cards = singleBoard.cards
+   }
 
    useEffect(() => {
-      boardsGetSingleBoard(boardId)
-   }, []);
+      getSingleBoard(boardId)
+   }, [getSingleBoard, boardId]);
+
+   console.log('[LISTS]', lists);
+   console.log('[CARDS]', cards);
 
    return (
       <Layout>
-         {choosenBoard && (
+         {loadingSingleBoard === false ? (
             <Grid container direction="column"
                className={classes.root}
             >
                <Grid
                   item
                   className={classes.backgroundImage}
-                  style={{ backgroundImage: `url(${choosenBoard[0].image_url})` }}
+                  style={{ backgroundImage: `url(${lists[0].board_image_url})` }}
                />
                <Grid container className={classes.titleContainer}>
                   <Grid item className={[classes.title, classes.header1].join(' ')} >
                      <Typography variant="h6" component="h1">
-                        {choosenBoard[0].title}
+                        {lists[0].board_title}
                      </Typography>
                   </Grid>
                   <Grid item className={[classes.title, classes.header2].join(' ')} >
@@ -93,13 +101,13 @@ const Board = ({ boardsGetSingleBoard, choosenBoard, loading }) => {
                   wrap="nowrap"
                   className={classes.listsContainer}
                >
-                  {/* {loadedLists.map((list) => (
+                  {lists.map((list) => (
                      <List
                         key={list.list_id}
                         list={list}
-                        cards={loadedBoard.filter(i => i.list_id === list.list_id)}
+                        cards={cards.filter(card => card.card_related_list === list.list_id)}
                      />
-                  ))} */}
+                  ))}
                   <Grid item className={classes.addList}>
                      <Button
                         variant="contained"
@@ -110,7 +118,7 @@ const Board = ({ boardsGetSingleBoard, choosenBoard, loading }) => {
                   </Grid>
                </Grid>
             </Grid>
-         )}
+         ) : <Spinner />}
       </Layout>
    )
 }
@@ -118,18 +126,14 @@ const Board = ({ boardsGetSingleBoard, choosenBoard, loading }) => {
 const mapStateToProps = (state) => {
    console.log(state);
    return {
-      // error: state.boards.error,
-      loading: state.boards.loading,
-      // userBoards: state.boards.userBoards,
-      // userId: state.auth.userId,
-      // boards: state.auth.boards,
-      choosenBoard: state.boards.choosenBoard
+      loadingSingleBoard: state.boards.loadingSingleBoard,
+      singleBoard: state.boards.singleBoard
    }
 }
 
 const mapDispatchToProps = (dispatch) => {
    return {
-      boardsGetSingleBoard: (boardId) => dispatch(actions.getSingleBoard(boardId))
+      getSingleBoard: (boardId) => dispatch(actions.getSingleBoard(boardId))
    }
 }
 

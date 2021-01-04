@@ -25,17 +25,16 @@ const useStyles = makeStyles(() => ({
    },
 }))
 
-const TemplatesList = ({ templates, templatesGetAll }) => {
+const TemplatesList = ({ loadingTemplates, templates, templatesGetAll, error }) => {
    const classes = useStyles();
-   console.log('TemplatesList', templates);
-
+   console.log('TemplatesList - error', error);
    useEffect(() => {
       templatesGetAll()
    }, [templatesGetAll])
 
    return (
       <Layout>
-         {templates ? (
+         {loadingTemplates === false ? (
             <Grid
                container
                direction="column"
@@ -89,10 +88,9 @@ const TemplatesList = ({ templates, templatesGetAll }) => {
    )
 }
 
-
 const mapStateToProps = (state) => {
    return {
-      loading: state.templates.loading,
+      loadingTemplates: state.templates.loadingTemplates,
       error: state.templates.error,
       templates: state.templates.templates,
    }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
@@ -8,7 +8,7 @@ import BoardCard from '../../components/BoardCard/BoardCard';
 import Layout from '../../components/Layout/Layout';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import AssignmentIcon from '@material-ui/icons/Assignment';
-import * as actions from '../../store/actions/boards'
+import * as actions from '../../store/actions'
 import Spinner from '../../components/Spinner/Spinner'
 
 const useStyles = makeStyles((theme) => ({
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
    },
 }))
 
-const BoardsList = ({ error, loading, userBoards, userId, getBoards, boards }) => {
+const BoardsList = ({ boards }) => {
    const classes = useStyles();
 
    return (
@@ -54,13 +54,13 @@ const BoardsList = ({ error, loading, userBoards, userId, getBoards, boards }) =
                   justify="flex-start"
                   alignItems="flex-start"
                >
-                  {boards.filter(item => item.is_favorite).map(item => (
+                  {boards.filter(item => item.board_is_favorite).map(item => (
                      <BoardCard
-                        title={item.title}
-                        description={item.description}
-                        image={item.image_url}
-                        starred={item.is_favorite === 1}
-                        link={item.id}
+                        title={item.board_title}
+                        description={item.board_description}
+                        image={item.board_image_url}
+                        starred={item.board_is_favorite === 1}
+                        link={item.board_id}
                         type="board"
                      />
                   )
@@ -83,11 +83,11 @@ const BoardsList = ({ error, loading, userBoards, userId, getBoards, boards }) =
                   {boards.map(item => {
                      return (
                         <BoardCard
-                           title={item.title}
-                           description={item.description}
-                           image={item.image_url}
-                           starred={item.is_favorite === 1}
-                           link={item.id}
+                           title={item.board_title}
+                           description={item.board_description}
+                           image={item.board_image_url}
+                           starred={item.board_is_favorite === 1}
+                           link={item.board_id}
                            type="board"
                         />
                      )
@@ -102,10 +102,6 @@ const BoardsList = ({ error, loading, userBoards, userId, getBoards, boards }) =
 
 const mapStateToProps = (state) => {
    return {
-      error: state.boards.error,
-      loading: state.boards.loading,
-      // userBoards: state.boards.userBoards,
-      userId: state.auth.userId,
       boards: state.auth.boards
    }
 }

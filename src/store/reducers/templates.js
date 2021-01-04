@@ -3,56 +3,54 @@ import { updateObject } from '../../utility/utility';
 
 const initialState = {
    error: null,
-   loading: false,
+   loadingTemplates: null,
    templates: null,
-   list: null,
-   singleTemplate: null
+   loadingSingleTemplate: null,
+   singleTemplate: null,
 };
 
 // TEMPLATES
 const templatesFetchStart = (state, action) => {
    return updateObject(state, {
       error: null,
-      loading: true
+      loadingTemplates: true
    })
 }
 
 const templatesFetchFail = (state, action) => {
    return updateObject(state, {
       error: action.error,
-      loading: false,
+      loadingTemplates: false,
    });
 };
 
 const templatesFetchSuccess = (state, action) => {
    return updateObject(state, {
       error: null,
-      loading: false,
+      loadingTemplates: false,
       templates: action.templates
    });
 };
 
-// SINGLE TEMPLATE
+// SINGLE TEMPLATE ---------------------------------------------------------
 const templateSingleFetchStart = (state, action) => {
    return updateObject(state, {
       error: null,
-      loading: true
+      loadingSingleTemplate: true
    })
 }
 
 const templateSingleFetchFail = (state, action) => {
-   console.log('REDUCER templateSingleFetchFail', action);
    return updateObject(state, {
       error: action.error,
-      loading: false,
+      loadingSingleTemplate: false,
    });
 };
 
 const templateSingleFetchSuccess = (state, action) => {
-   console.log('REDUCER templateSingleFetchSuccess', action);
    return updateObject(state, {
       error: null,
-      loading: false,
+      loadingSingleTemplate: false,
       singleTemplate: action.singleTemplate
    })
 }

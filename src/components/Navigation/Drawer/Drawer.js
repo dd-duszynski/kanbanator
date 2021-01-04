@@ -76,16 +76,11 @@ const Drawer = ({
    handleIsModalOpen,
    onLogout,
    isAuthenticated,
-   boards
 }) => {
    const classes = useStyles();
    const theme = useTheme();
    const userBoards = localStorage.getItem('boards')
    const userBoardsParsed = JSON.parse(userBoards)
-
-   // console.log('[Drawer] boards', userBoardsParsed);
-   // console.log('[Drawer] boards', userBoardsParsed.length);
-
    return (
       <SideDrawer
          variant="permanent"
@@ -141,16 +136,16 @@ const Drawer = ({
                   {userBoardsParsed.map(item => {
                      return (
                         <NavLink
-                           to={`/boards/${item.id}`}
+                           to={`/boards/${item.board_id}`}
                            className={classes.link}
                            activeClassName={classes.linkActive}
-                           key={item.id}
+                           key={item.board_id}
                         >
                            <ListItem button>
                               <ListItemIcon className={classes.icon}>
                                  <ListIcon />
                               </ListItemIcon>
-                              <ListItemText primary={item.title} />
+                              <ListItemText primary={item.board_title} />
                            </ListItem>
                         </NavLink>
                      )
