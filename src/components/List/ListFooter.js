@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
+import EditableBtn from '../EditableBtn/EditableBtn'
+
 const useStyles = makeStyles((theme) => ({
    listItem: {
       '&:hover': {
@@ -18,16 +20,27 @@ const useStyles = makeStyles((theme) => ({
 
 const ListFooter = ({ text }) => {
    const classes = useStyles();
+   const [isEdited, setIsEdited] = useState(false);
+
+   const Btn = (
+      <ListItemText onClick={() => setIsEdited(true)}>
+         <Button
+            startIcon={<AddIcon />}
+            className={classes.btn}
+         >
+            {text}
+         </Button>
+      </ListItemText>
+   )
+
    return (
       <ListItem className={classes.listItem}>
-         <ListItemText >
-            <Button
-               startIcon={<AddIcon />}
-               className={classes.btn}
-            >
-               {text}
-            </Button>
-         </ListItemText>
+         {isEdited ? (
+            <EditableBtn
+               onClick={() => setIsEdited(false)}
+               text="ADD ANOTHER CARD"
+            />
+         ) : Btn}
       </ListItem>
    )
 }

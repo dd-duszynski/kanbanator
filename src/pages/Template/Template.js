@@ -46,8 +46,9 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const Template = ({ loadingSingleTemplate, templateGetSingle, singleTemplate }) => {
-   const classes = useStyles();
    const templateURL = useParams().templateURL;
+   const classes = useStyles();
+   
    let cards, lists
    if (singleTemplate) {
       lists = singleTemplate.lists

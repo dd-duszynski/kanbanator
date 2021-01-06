@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const BoardList = ({ list, cards, template }) => {
-   console.log('BoardList',cards);
+   console.log('BoardList', cards);
    const classes = useStyles();
    return (
       <Grid item className={classes.root}>
