@@ -32,7 +32,7 @@ const useStyles = makeStyles({
    }
 });
 
-const TaskCard = ({ title, description, addClass }) => {
+const TaskCard = ({ title, description, addClass}) => {
    const classes = useStyles();
    return (
       <ListItem className={[classes.listItem, addClass].join(' ')}>

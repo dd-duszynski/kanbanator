@@ -14,7 +14,6 @@ import EditableBtn from '../../components/EditableBtn/EditableBtn'
 const useStyles = makeStyles((theme) => ({
    root: {
       height: 'calc(100vh - 64px)',
-
       overflowX: 'auto',
       padding: '20px 20px 0',
       position: 'relative'
@@ -67,9 +66,6 @@ const Board = ({ getSingleBoard, singleBoard, loadingSingleBoard }) => {
    useEffect(() => {
       getSingleBoard(boardId)
    }, [getSingleBoard, boardId, refresh]);
-
-   console.log('[LISTS]', lists);
-   console.log('[CARDS]', cards);
 
    return (
       <Layout>

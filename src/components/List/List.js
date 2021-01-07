@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
 
 const BoardList = ({ list, cards, template, refresh }) => {
    const classes = useStyles();
+
    return (
       <Grid item className={classes.root}>
          <List className={classes.list}>
@@ -33,10 +34,16 @@ const BoardList = ({ list, cards, template, refresh }) => {
                   key={card.card_id}
                   title={card.card_title}
                   description={card.card_description}
-                 
                />
             ))}
-            {template ? null : <ListFooter text="Add another card"  refresh={refresh}/>}
+            {template ? null : (
+               <ListFooter
+                  text="Add another card"
+                  refresh={refresh}
+                  relatedBoard={list.list_related_board}
+                  listID={list.list_id}
+               />
+            )}
          </List>
       </Grid>
    );

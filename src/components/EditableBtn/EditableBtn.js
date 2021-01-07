@@ -24,9 +24,9 @@ const useStyles = makeStyles((theme) => ({
    },
 }))
 
-const EditableBtn = ({ btnText, labelText, onClick }) => {
+const EditableBtn = ({ refresh, btnText, labelText, onClick, author, relatedBoard, relatedList }) => {
    const [title, setTitle] = useState("")
-   console.log(title);
+   console.log(relatedBoard, relatedList);
 
    const setTitleHandler = (e) => {
       setTitle(e.target.value)
@@ -35,10 +35,11 @@ const EditableBtn = ({ btnText, labelText, onClick }) => {
       const reqBody = {
          title: title,
          description: `desc for ${title}`,
-         author: 24,
-         relatedBoard: 7,
-         relatedList: 86
+         author: author,
+         relatedBoard: relatedBoard,
+         relatedList: relatedList
       }
+      console.log(reqBody);
       fetch('http://localhost:5000/api/cards/', {
          method: 'POST',
          headers: {
@@ -49,7 +50,7 @@ const EditableBtn = ({ btnText, labelText, onClick }) => {
          .then(response => response.json())
          .then(data => {
             console.log('Success:', data);
-            window.location.reload(true);
+            refresh()
          })
          .catch((error) => {
             console.error('Error:', error);
@@ -77,7 +78,7 @@ const EditableBtn = ({ btnText, labelText, onClick }) => {
                   className={classes.addBtn}
                   color="primary"
                   variant="contained"
-                  onClick={() => sendCard()}
+                  onClick={(e) => sendCard(e)}
                >
                   {btnText}
                </Button>
