@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { connect } from 'react-redux'
 import Typography from '@material-ui/core/Typography';
@@ -10,10 +10,11 @@ import Layout from '../../components/Layout/Layout';
 import AddIcon from '@material-ui/icons/Add';
 import * as actions from '../../store/actions'
 import Spinner from '../../components/Spinner/Spinner'
-
+import EditableBtn from '../../components/EditableBtn/EditableBtn'
 const useStyles = makeStyles((theme) => ({
    root: {
-      minHeight: 'calc(100vh - 64px)',
+      height: 'calc(100vh - 64px)',
+
       overflowX: 'auto',
       padding: '20px 20px 0',
       position: 'relative'
@@ -54,6 +55,8 @@ const useStyles = makeStyles((theme) => ({
 const Board = ({ getSingleBoard, singleBoard, loadingSingleBoard }) => {
    const boardId = useParams().boardID
    const classes = useStyles();
+   const [addListActive, setAddListActive] = useState(false)
+   const [refresh, setRefresh] = useState(0)
 
    let cards, lists
    if (singleBoard) {
@@ -63,7 +66,7 @@ const Board = ({ getSingleBoard, singleBoard, loadingSingleBoard }) => {
 
    useEffect(() => {
       getSingleBoard(boardId)
-   }, [getSingleBoard, boardId]);
+   }, [getSingleBoard, boardId, refresh]);
 
    console.log('[LISTS]', lists);
    console.log('[CARDS]', cards);
@@ -106,15 +109,27 @@ const Board = ({ getSingleBoard, singleBoard, loadingSingleBoard }) => {
                         key={list.list_id}
                         list={list}
                         cards={cards.filter(card => card.card_related_list === list.list_id)}
+                        refresh={() => setRefresh(refresh + 1)}
                      />
                   ))}
-                  <Grid item className={classes.addList}>
-                     <Button
-                        variant="contained"
-                        startIcon={<AddIcon />}
-                     >
-                        Add another List
-                     </Button>
+                  <Grid item className={classes.addList} >
+                     {
+                        addListActive ? (
+                           <EditableBtn
+                              btnText="ADD ANOTHER LIST"
+                              labelText="Enter a list title..."
+                              onClick={() => setAddListActive(false)}
+                           />
+                        ) : (
+                              <Button
+                                 variant="contained"
+                                 startIcon={<AddIcon />}
+                                 onClick={() => setAddListActive(true)}
+                              >
+                                 Add another List
+                              </Button>
+                           )
+                     }
                   </Grid>
                </Grid>
             </Grid>

@@ -18,12 +18,12 @@ const useStyles = makeStyles((theme) => ({
    }
 }))
 
-const ListFooter = ({ text }) => {
+const ListFooter = ({ text,  refresh}) => {
    const classes = useStyles();
    const [isEdited, setIsEdited] = useState(false);
 
    const Btn = (
-      <ListItemText onClick={() => setIsEdited(true)}>
+      <ListItemText onClick={() => {setIsEdited(true)}}>
          <Button
             startIcon={<AddIcon />}
             className={classes.btn}
@@ -38,7 +38,9 @@ const ListFooter = ({ text }) => {
          {isEdited ? (
             <EditableBtn
                onClick={() => setIsEdited(false)}
-               text="ADD ANOTHER CARD"
+               onClick={refresh}
+               btnText="ADD ANOTHER CARD"
+               labelText="Enter a title for this card..."
             />
          ) : Btn}
       </ListItem>

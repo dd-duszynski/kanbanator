@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from '@material-ui/icons/Close';
 
@@ -15,46 +16,79 @@ const useStyles = makeStyles((theme) => ({
       fontSize: '12px',
       marginBottom: '6px'
    },
-   box: {
-      display: 'flex'
-   },
    addBtn: {
-      width: '80%',
+      width: 'auto',
    },
    closeBtn: {
-      width: '20%',
-      color: 'light-red'
+      marginLeft: '15px',
    },
 }))
 
-const EditableBtn = ({ text, onClick }) => {
+const EditableBtn = ({ btnText, labelText, onClick }) => {
+   const [title, setTitle] = useState("")
+   console.log(title);
+
+   const setTitleHandler = (e) => {
+      setTitle(e.target.value)
+   }
+   const sendCard = () => {
+      const reqBody = {
+         title: title,
+         description: `desc for ${title}`,
+         author: 24,
+         relatedBoard: 7,
+         relatedList: 86
+      }
+      fetch('http://localhost:5000/api/cards/', {
+         method: 'POST',
+         headers: {
+            'Content-Type': 'application/json',
+         },
+         body: JSON.stringify(reqBody),
+      })
+         .then(response => response.json())
+         .then(data => {
+            console.log('Success:', data);
+            window.location.reload(true);
+         })
+         .catch((error) => {
+            console.error('Error:', error);
+         });
+   }
    const classes = useStyles();
    return (
       <form className={classes.form} noValidate autoComplete="off">
          <TextField
             className={classes.textField}
-            label="Enter a title for this card..."
+            label={labelText}
             variant="outlined"
             size="small"
+            onChange={(e) => setTitleHandler(e)}
          />
-         <Box className={classes.box}>
-            <Button
-               startIcon={<AddIcon />}
-               className={classes.addBtn}
-               color="primary"
-               variant="contained"
+         <Grid
+            container
+            wrap="nowrap"
+            justify="space-between"
+            alignItems="center"
+         >
+            <Grid item>
+               <Button
+                  startIcon={<AddIcon />}
+                  className={classes.addBtn}
+                  color="primary"
+                  variant="contained"
+                  onClick={() => sendCard()}
                >
-               {text}
-            </Button>
-            <Button
-               startIcon={<CloseIcon />}
-               className={classes.closeBtn}
-               onClick={onClick}
-            >
-               {/* Close */}
-            </Button>
-         </Box>
-      </form>
+                  {btnText}
+               </Button>
+            </Grid>
+            <Grid item>
+               <IconButton color="secondary" aria-label="close" onClick={onClick} size="small" className={classes.closeBtn}>
+                  <CloseIcon />
+               </IconButton>
+            </Grid>
+         </Grid>
+      </form >
    )
 }
 
