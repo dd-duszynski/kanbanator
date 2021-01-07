@@ -24,9 +24,9 @@ const useStyles = makeStyles((theme) => ({
    },
 }))
 
-const EditableBtn = ({ refresh, btnText, labelText, onClick, author, relatedBoard, relatedList }) => {
+const AddList = ({ refresh, btnText, labelText, onClick, relatedBoard }) => {
    const [title, setTitle] = useState("")
-   console.log(relatedBoard, relatedList);
+   console.log(relatedBoard);
 
    const setTitleHandler = (e) => {
       setTitle(e.target.value)
@@ -34,13 +34,10 @@ const EditableBtn = ({ refresh, btnText, labelText, onClick, author, relatedBoar
    const sendCard = () => {
       const reqBody = {
          title: title,
-         description: `desc for ${title}`,
-         author: author,
          relatedBoard: relatedBoard,
-         relatedList: relatedList
       }
       console.log(reqBody);
-      fetch('http://localhost:5000/api/cards/', {
+      fetch('http://localhost:5000/api/lists/', {
          method: 'POST',
          headers: {
             'Content-Type': 'application/json',
@@ -56,6 +53,7 @@ const EditableBtn = ({ refresh, btnText, labelText, onClick, author, relatedBoar
             console.error('Error:', error);
          });
    }
+
    const classes = useStyles();
    return (
       <form className={classes.form} noValidate autoComplete="off">
@@ -94,4 +92,4 @@ const EditableBtn = ({ refresh, btnText, labelText, onClick, author, relatedBoar
    )
 }
 
-export default EditableBtn
+export default AddList

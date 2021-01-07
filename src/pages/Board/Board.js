@@ -11,6 +11,8 @@ import AddIcon from '@material-ui/icons/Add';
 import * as actions from '../../store/actions'
 import Spinner from '../../components/Spinner/Spinner'
 import EditableBtn from '../../components/EditableBtn/EditableBtn'
+import AddList from '../../components/EditableBtn/AddList'
+
 const useStyles = makeStyles((theme) => ({
    root: {
       height: 'calc(100vh - 64px)',
@@ -61,10 +63,11 @@ const Board = ({ getSingleBoard, singleBoard, loadingSingleBoard }) => {
    if (singleBoard) {
       lists = singleBoard.lists
       cards = singleBoard.cards
-   }
-
+   }  
+   
    useEffect(() => {
       getSingleBoard(boardId)
+      
    }, [getSingleBoard, boardId, refresh]);
 
    return (
@@ -111,10 +114,12 @@ const Board = ({ getSingleBoard, singleBoard, loadingSingleBoard }) => {
                   <Grid item className={classes.addList} >
                      {
                         addListActive ? (
-                           <EditableBtn
+                           <AddList
                               btnText="ADD ANOTHER LIST"
                               labelText="Enter a list title..."
                               onClick={() => setAddListActive(false)}
+                              refresh={() => setRefresh(refresh + 1)}
+                              relatedBoard={lists[0].board_id}
                            />
                         ) : (
                               <Button
@@ -135,7 +140,6 @@ const Board = ({ getSingleBoard, singleBoard, loadingSingleBoard }) => {
 }
 
 const mapStateToProps = (state) => {
-   console.log(state);
    return {
       loadingSingleBoard: state.boards.loadingSingleBoard,
       singleBoard: state.boards.singleBoard
