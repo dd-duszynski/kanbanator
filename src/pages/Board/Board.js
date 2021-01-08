@@ -12,6 +12,10 @@ import * as actions from '../../store/actions'
 import Spinner from '../../components/Spinner/Spinner'
 import AddList from '../../components/EditableBtn/AddList'
 import CardModal from '../../components/Modal/CardModal'
+import Modal from '../../components/Modal/Modal'
+import BoardSettings from '../../components/Forms/BoardSettings'
+import SettingsIcon from '@material-ui/icons/Settings';
+
 
 const useStyles = makeStyles((theme) => ({
    root: {
@@ -25,20 +29,20 @@ const useStyles = makeStyles((theme) => ({
       top: 0,
       left: 0,
       width: '100%',
-      height: 'calc(100% - 12px)',
+      height: '100%',
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover',
       opacity: 0.2
    },
    titleContainer: {
-      marginBottom: '12px',
       position: 'fixed',
-      zIndex: '3'
+      zIndex: 3
    },
    listsContainer: {
       zIndex: 2,
       flexGrow: 1,
       paddingTop: '50px',
+      height: '100%'
    },
    title: {
       padding: '2px 20px',
@@ -50,6 +54,20 @@ const useStyles = makeStyles((theme) => ({
       minWidth: '260px',
       // padding: '0 10px',
       height: '45px',
+   },
+   iconContainer: {
+      backgroundColor: '#424242',
+      height: '36px',
+      width: '80px',
+      borderRadius: '4px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      '&:hover': {
+         cursor: 'pointer',
+         color: '#ddd'
+      }
+
    }
 }))
 
@@ -57,13 +75,18 @@ const Board = ({ getSingleBoard, singleBoard, loadingSingleBoard }) => {
    const boardId = useParams().boardID
    const classes = useStyles();
    const [isModalOpen, setModalOpen] = useState(false)
+   const [isSettingsOpen, setSettingsOpen] = useState(false)
    const [choosenCard, setChoosenCard] = useState(null)
    const [addListActive, setAddListActive] = useState(false)
    const [refresh, setRefresh] = useState(0)
-   console.log('choosenCard',choosenCard);
+   console.log('choosenCard', choosenCard);
+   console.log('isSettingsOpen', isSettingsOpen);
 
    const handleIsModalOpen = () => {
       setModalOpen(!isModalOpen);
+   }
+   const handleIsSettingsOpen = () => {
+      setSettingsOpen(!isSettingsOpen);
    }
 
    const handleCardChoosen = (card) => {
@@ -91,21 +114,14 @@ const Board = ({ getSingleBoard, singleBoard, loadingSingleBoard }) => {
                   className={classes.backgroundImage}
                   style={{ backgroundImage: `url(${lists[0].board_image_url})` }}
                />
-               <Grid container className={classes.titleContainer}>
+               <Grid item container className={classes.titleContainer}>
                   <Grid item className={[classes.title, classes.header1].join(' ')} >
                      <Typography variant="h6" component="h1">
                         {lists[0].board_title}
                      </Typography>
                   </Grid>
-                  <Grid item className={[classes.title, classes.header2].join(' ')} >
-                     <Typography variant="h6" component="h1">
-                        Board
-                     </Typography>
-                  </Grid>
-                  <Grid item className={classes.header3}>
-                     <Button variant="contained" color="primary">
-                        Create Board from Template
-                     </Button>
+                  <Grid item className={classes.iconContainer} onClick={handleIsSettingsOpen}>
+                     <SettingsIcon />
                   </Grid>
                </Grid>
                <Grid
@@ -149,6 +165,14 @@ const Board = ({ getSingleBoard, singleBoard, loadingSingleBoard }) => {
                      handleIsModalOpen={handleIsModalOpen}
                      card={choosenCard ? choosenCard : null}
                   />
+                  <Modal
+                     isModalOpen={isSettingsOpen}
+                     handleIsModalOpen={handleIsSettingsOpen}
+               
+                  >
+                     <BoardSettings
+                     />
+                  </Modal>
                </Grid>
             </Grid>
          ) : <Spinner />}

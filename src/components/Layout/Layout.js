@@ -13,17 +13,21 @@ const useStyles = makeStyles((theme) => {
       '@global': {
          '*::-webkit-scrollbar': {
             width: '8px',
-            height: '12px'
+            height: '12px',
+            borderRadius: '6px'
+            
          },
          '*::-webkit-scrollbar-track': {
-            background: '#ddd'
+            background: '#424242',
+            borderRadius: '6px'
          },
          '*::-webkit-scrollbar-thumb': {
-            backgroundColor: '#444',
+            backgroundColor: '#777',
             outline: 'none',
+            borderRadius: '6px'
          },
          '*::-webkit-scrollbar-thumb:hover': {
-            backgroundColor: '#333',
+            backgroundColor: '#555',
          },
       },
       Layout: {
