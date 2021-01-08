@@ -10,8 +10,8 @@ import Layout from '../../components/Layout/Layout';
 import AddIcon from '@material-ui/icons/Add';
 import * as actions from '../../store/actions'
 import Spinner from '../../components/Spinner/Spinner'
-import EditableBtn from '../../components/EditableBtn/EditableBtn'
 import AddList from '../../components/EditableBtn/AddList'
+import CardModal from '../../components/Modal/CardModal'
 
 const useStyles = makeStyles((theme) => ({
    root: {
@@ -56,18 +56,28 @@ const useStyles = makeStyles((theme) => ({
 const Board = ({ getSingleBoard, singleBoard, loadingSingleBoard }) => {
    const boardId = useParams().boardID
    const classes = useStyles();
+   const [isModalOpen, setModalOpen] = useState(false)
+   const [choosenCard, setChoosenCard] = useState(null)
    const [addListActive, setAddListActive] = useState(false)
    const [refresh, setRefresh] = useState(0)
+   console.log('choosenCard',choosenCard);
+
+   const handleIsModalOpen = () => {
+      setModalOpen(!isModalOpen);
+   }
+
+   const handleCardChoosen = (card) => {
+      setChoosenCard(card)
+   }
 
    let cards, lists
    if (singleBoard) {
       lists = singleBoard.lists
       cards = singleBoard.cards
-   }  
-   
+   }
+
    useEffect(() => {
       getSingleBoard(boardId)
-      
    }, [getSingleBoard, boardId, refresh]);
 
    return (
@@ -109,6 +119,8 @@ const Board = ({ getSingleBoard, singleBoard, loadingSingleBoard }) => {
                         list={list}
                         cards={cards.filter(card => card.card_related_list === list.list_id)}
                         refresh={() => setRefresh(refresh + 1)}
+                        handleCardChoosen={handleCardChoosen}
+                        handleIsModalOpen={handleIsModalOpen}
                      />
                   ))}
                   <Grid item className={classes.addList} >
@@ -132,6 +144,11 @@ const Board = ({ getSingleBoard, singleBoard, loadingSingleBoard }) => {
                            )
                      }
                   </Grid>
+                  <CardModal
+                     isModalOpen={isModalOpen}
+                     handleIsModalOpen={handleIsModalOpen}
+                     card={choosenCard ? choosenCard : null}
+                  />
                </Grid>
             </Grid>
          ) : <Spinner />}

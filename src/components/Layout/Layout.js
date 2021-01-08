@@ -31,7 +31,6 @@ const useStyles = makeStyles((theme) => {
          height: '100%',
          maxWidth: '100%',
          position: 'relative',
-
       },
       main: {
          paddingTop: '64px',

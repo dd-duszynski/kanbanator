@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
 const ListFooter = ({ text, refresh, relatedBoard, listID }) => {
    const classes = useStyles();
    const [isEdited, setIsEdited] = useState(false);
-   console.log(relatedBoard, listID);
    const Btn = (
       <ListItemText onClick={() => { setIsEdited(true) }}>
          <Button

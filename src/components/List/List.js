@@ -22,9 +22,8 @@ const useStyles = makeStyles((theme) => ({
    },
 }));
 
-const BoardList = ({ list, cards, template, refresh }) => {
+const BoardList = ({ list, cards, template, refresh, handleCardChoosen, handleIsModalOpen }) => {
    const classes = useStyles();
-
    return (
       <Grid item className={classes.root}>
          <List className={classes.list}>
@@ -32,8 +31,9 @@ const BoardList = ({ list, cards, template, refresh }) => {
             {cards.map((card) => (
                <TaskCard
                   key={card.card_id}
-                  title={card.card_title}
-                  description={card.card_description}
+                  card={card}
+                  handleCardChoosen={handleCardChoosen}
+                  handleIsModalOpen={handleIsModalOpen}
                />
             ))}
             {template ? null : (

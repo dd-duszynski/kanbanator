@@ -6,7 +6,7 @@ import Modal from '../../components/Modal/Modal';
 import NewBoardForm from '../../components/Forms/NewBoardForm';
 import TopAppBar from './TopAppBar/TopAppBar';
 
-const Navigation = (props) => {
+const Navigation = ({isToken}) => {
    const [isDrawerOpen, setIsDrawerOpen] = useState(true);
    const [isModalOpen, setModalOpen] = useState(false)
 
@@ -25,7 +25,7 @@ const Navigation = (props) => {
    return (
       <Box>
          <TopAppBar
-            isAuth={props.token}
+            isAuth={isToken}
             handleDrawerOpen={handleDrawerOpen}
             isDrawerOpen={isDrawerOpen}
          />
@@ -35,7 +35,6 @@ const Navigation = (props) => {
             handleIsModalOpen={handleIsModalOpen}
          />
          <Modal
-            isAuth={props.token}
             isModalOpen={isModalOpen}
             handleIsModalOpen={handleIsModalOpen}
          >
@@ -49,7 +48,7 @@ const Navigation = (props) => {
 
 const mapStateToProps = (state) => {
    return {
-      token: state.auth.token !== null,
+      isToken: state.auth.token !== null,
    };
 };
 

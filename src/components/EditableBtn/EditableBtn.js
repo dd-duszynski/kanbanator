@@ -56,6 +56,31 @@ const EditableBtn = ({ refresh, btnText, labelText, onClick, author, relatedBoar
             console.error('Error:', error);
          });
    }
+   const sendList = () => {
+      const reqBody = {
+         title: title,
+         description: `desc for ${title}`,
+         author: author,
+         relatedBoard: relatedBoard,
+         relatedList: relatedList
+      }
+      console.log(reqBody);
+      fetch('http://localhost:5000/api/cards/', {
+         method: 'POST',
+         headers: {
+            'Content-Type': 'application/json',
+         },
+         body: JSON.stringify(reqBody),
+      })
+         .then(response => response.json())
+         .then(data => {
+            console.log('Success:', data);
+            refresh()
+         })
+         .catch((error) => {
+            console.error('Error:', error);
+         });
+   }
    const classes = useStyles();
    return (
       <form className={classes.form} noValidate autoComplete="off">
