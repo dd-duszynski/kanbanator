@@ -5,7 +5,8 @@ export {
 
 export {
    getBoards,
-   getSingleBoard
+   getSingleBoard,
+   createBoard
 } from './boards'
 
 export {

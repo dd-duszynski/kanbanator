@@ -6,8 +6,7 @@ const useStyles = makeStyles((theme) => {
    // console.log(theme);
    return {
       label: {
-         width: '100%',
-         height: '4px',
+         width: '6px',
       },
       label1: {
          backgroundColor: 'navy'

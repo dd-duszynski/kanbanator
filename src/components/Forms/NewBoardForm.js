@@ -1,16 +1,14 @@
-import React from 'react';
-import LinkUI from '@material-ui/core/Link';
+import React, { useState } from 'react';
+import { connect } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
+import * as actions from '../../store/actions';
 
-const useStyles = makeStyles((theme) => ({
-   root: {
+const useStyles = makeStyles(() => ({
+   NewBoardForm: {
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
@@ -19,74 +17,66 @@ const useStyles = makeStyles((theme) => ({
    },
    textField: {
       width: '80%',
-      marginBottom: '10px'
-   },
-   formControl: {
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-      width: '80%',
-      marginBottom: '30px'
-   },
-   select: {
-      width: '100%',
-   },
-   box: {
-      width: '100%',
-      display: 'flex',
-      justifyContent: 'space-between'
-   },
-   button: {
-      marginRight: '6px'
-   },
-   templateButton: {
-      textDecoration: 'none',
-      '&:hover': {
-         textDecoration: 'none',
-      }
+      marginBottom: '20px'
    }
 }));
 
-const TransitionModal = ({ handleIsModalOpen }) => {
+const NewBoardForm = ({ createBoard, handleIsModalOpen, userId }) => {
    const classes = useStyles();
-   const [privacy, setPrivacy] = React.useState('');
+   const [title, setTitle] = useState("")
+   const [description, setDescription] = useState("")
+   const image_url = "https://images.pexels.com/photos/572056/pexels-photo-572056.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=1000"
+   const userIdConvertedToNr = Number(userId)
 
-   const handlePrivacy = (event) => {
-      setPrivacy(event.target.value);
-   };
+   console.log(title, description);
+
+   const clickHandler = () => {
+      createBoard(title, description, image_url, userIdConvertedToNr)
+      handleIsModalOpen()
+   }
 
    return (
-      <Box className={classes.root}>
-         <TextField id="standard-basic" label="Board Title" className={classes.textField} />
-         <FormControl className={classes.formControl}>
-            <InputLabel id="privacy-select-label">
-               Privacy
-            </InputLabel>
-            <Select
-               className={classes.select}
-               labelId="privacy-select-label"
-               id="demo-simple-select"
-               value={privacy}
-               onChange={handlePrivacy}
-            >
-               <MenuItem value={'Private'}>Private</MenuItem>
-               <MenuItem value={'Team'}>Team</MenuItem>
-               <MenuItem value={'Public'}>Public</MenuItem>
-            </Select>
-         </FormControl>
-         <Box className={classes.box}>
-            <Button className={classes.button} variant="contained" color="primary" onClick={handleIsModalOpen}>
+      <Box className={classes.NewBoardForm}>
+         <TextField
+            label="Board Title"
+            className={classes.textField}
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+         />
+         <TextField
+            label="Board Description"
+            className={classes.textField}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+         />
+         <Grid
+            container
+            direction="row"
+            justify="space-around"
+            alignItems="center"
+         >
+            <Button variant="contained" color="primary" onClick={clickHandler}>
                Create new board
             </Button>
-            <LinkUI href="/templates" onClick={handleIsModalOpen} className={classes.templateButton}>
-               <Button color="primary" >
-                  Create from template
-               </Button>
-            </LinkUI>
-         </Box>
+            <Button variant="outlined" href="/templates" onClick={handleIsModalOpen}>
+               Start with a Template
+            </Button>
+         </Grid>
       </Box>
    );
 }
 
-export default TransitionModal
+const mapStateToProps = (state) => {
+   return {
+      loadingBoardCreation: state.boards.loadingBoardCreation,
+      userId: state.auth.userId
+   }
+}
+
+const mapDispatchToProps = (dispatch) => {
+   return {
+      createBoard: (title, description, image_url, author) => dispatch(actions.createBoard(title, description, image_url, author))
+   }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewBoardForm)

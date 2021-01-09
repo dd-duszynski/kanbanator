@@ -5,17 +5,16 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
-import List from '../../components/List/List';
-import Layout from '../../components/Layout/Layout';
 import AddIcon from '@material-ui/icons/Add';
-import * as actions from '../../store/actions'
+import Layout from '../../components/Layout/Layout';
+import List from '../../components/List/List';
 import Spinner from '../../components/Spinner/Spinner'
 import AddList from '../../components/EditableBtn/AddList'
-import CardModal from '../../components/Modal/CardModal'
 import Modal from '../../components/Modal/Modal'
 import BoardSettings from '../../components/Forms/BoardSettings'
+import CardSettings from '../../components/Forms/CardSettings'
 import SettingsIcon from '@material-ui/icons/Settings';
-
+import * as actions from '../../store/actions'
 
 const useStyles = makeStyles((theme) => ({
    root: {
@@ -160,18 +159,17 @@ const Board = ({ getSingleBoard, singleBoard, loadingSingleBoard }) => {
                            )
                      }
                   </Grid>
-                  <CardModal
+                  <Modal
                      isModalOpen={isModalOpen}
                      handleIsModalOpen={handleIsModalOpen}
-                     card={choosenCard ? choosenCard : null}
-                  />
+                  >
+                     <CardSettings card={choosenCard ? choosenCard : null} />
+                  </Modal>
                   <Modal
                      isModalOpen={isSettingsOpen}
                      handleIsModalOpen={handleIsSettingsOpen}
-               
                   >
-                     <BoardSettings
-                     />
+                     <BoardSettings />
                   </Modal>
                </Grid>
             </Grid>

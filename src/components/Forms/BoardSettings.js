@@ -7,12 +7,12 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 
 const useStyles = makeStyles((theme) => ({
-   gridContainer: {
-      backgroundColor: theme.palette.background.paper,
-      boxShadow: theme.shadows[5],
-      padding: theme.spacing(4, 5, 5, 5),
-      width: 'auto'
-   }
+   // gridContainer: {
+   //    backgroundColor: theme.palette.background.paper,
+   //    boxShadow: theme.shadows[5],
+   //    padding: theme.spacing(4, 5, 5, 5),
+   //    width: 'auto'
+   // }
 }
 ));
 
@@ -23,7 +23,7 @@ const TransitionModal = () => {
          direction="column"
          justify="flex-start"
          alignItems="flex-start"
-         className={classes.gridContainer}
+         // className={classes.gridContainer}
       >
          {/* <TextField id="standard-basic" label="Board Title" className={classes.textField} value={card.card_title} />
          <TextField id="standard-basic" label="Board Title" className={classes.textField} value={card.card_description} /> */}

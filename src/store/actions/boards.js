@@ -37,12 +37,30 @@ export const singleBoardFetchFail = (error) => {
 };
 
 export const singleBoardFetchSuccess = (singleBoard) => {
-   console.log('[singleBoardFetchSuccess]', singleBoard);
    return {
       type: actionTypes.SINGLE_BOARD_FETCH_SUCCESS,
       singleBoard: singleBoard
    };
 };
+
+// CREATE BOARD ACTIONS ---------------------------------------
+
+export const createBoardStart = () => {
+   return {
+      type: actionTypes.BOARD_CREATE_START,
+   }
+}
+export const createBoardFail = (err) => {
+   return {
+      type: actionTypes.BOARD_CREATE_FAIL,
+      error: err,
+   };
+}
+export const createBoardSuccess = () => {
+   return {
+      type: actionTypes.BOARD_CREATE_SUCCESS,
+   };
+}
 
 // Master Actions -----------------------------------------------------
 
@@ -87,3 +105,32 @@ export const getSingleBoard = (boardId) => {
          })
    };
 };
+
+export const createBoard = (title, description, image_url, author) => {
+   const reqBody = {
+      title: title,
+      description: description,
+      author: author,
+      image_url: image_url
+   }
+   console.log(reqBody);
+
+   return (dispatch) => {
+      dispatch(createBoardStart())
+      fetch('http://localhost:5000/api/boards/board', {
+         method: 'POST',
+         headers: {
+            'Content-Type': 'application/json'
+         },
+         body: JSON.stringify(reqBody)
+      })
+         .then(res => res.json())
+         .then(data => {
+            console.log('Success:', data);
+            return dispatch(createBoardSuccess())
+         })
+         .catch((err) => {
+            return dispatch(createBoardFail(err))
+         })
+   }
+}

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -6,7 +7,7 @@ import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import EditableBtn from '../EditableBtn/EditableBtn'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
    listItem: {
       '&:hover': {
          cursor: 'pointer',
@@ -18,9 +19,11 @@ const useStyles = makeStyles((theme) => ({
    }
 }))
 
-const ListFooter = ({ text, refresh, relatedBoard, listID }) => {
+const ListFooter = ({ userId, text, refresh, relatedBoard, listID }) => {
    const classes = useStyles();
    const [isEdited, setIsEdited] = useState(false);
+   const userIdConvertedToNr = Number(userId)
+
    const Btn = (
       <ListItemText onClick={() => { setIsEdited(true) }}>
          <Button
@@ -40,7 +43,7 @@ const ListFooter = ({ text, refresh, relatedBoard, listID }) => {
                refresh={refresh}
                btnText="ADD ANOTHER CARD"
                labelText="Enter a title for this card..."
-               author={24}
+               author={userIdConvertedToNr}
                relatedBoard={relatedBoard}
                relatedList={listID}
             />
@@ -49,4 +52,10 @@ const ListFooter = ({ text, refresh, relatedBoard, listID }) => {
    )
 }
 
-export default ListFooter
+const mapStateToProps = state => {
+   return {
+      userId: state.auth.userId
+   }
+}
+
+export default connect(mapStateToProps)(ListFooter)

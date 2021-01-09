@@ -4,6 +4,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import ListItem from '@material-ui/core/ListItem';
+import Grid from '@material-ui/core/Grid';
 import Labels from './Labels'
 
 const useStyles = makeStyles({
@@ -15,13 +16,13 @@ const useStyles = makeStyles({
       width: '100%',
       backgroundColor: '#555',
       '&:hover': {
-         cursor: 'pointer'
+         cursor: 'pointer',
+         backgroundColor: '#4f4f4f',
       }
    },
    cardContent: {
       width: '100%',
       padding: 10,
-      paddingBottom: 0,
       '&:last-child': {
          paddingBottom: 10
       }
@@ -49,25 +50,27 @@ const TaskCard = ({ card, handleCardChoosen, handleIsModalOpen }) => {
          onClick={clickHandler}
       >
          <Card className={classes.card}>
-            {card_labels !== 0 ? (
-               <Labels  card_labels={card_labels}/>
-            ) : null}
-            <CardContent className={classes.cardContent}>
-               <Typography
-                  variant="body1"
-                  className={classes.title}
-               >
-                  {card_title ? card_title : "Default title"}
-               </Typography>
-               {card_description && (
+            <Grid container wrap="nowrap">
+               <CardContent className={classes.cardContent}>
                   <Typography
-                     className={classes.description}
-                     variant="body2"
+                     variant="body1"
+                     className={classes.title}
                   >
-                     {card_description ? card_description : "Description"}
+                     {card_title ? card_title : "Default title"}
                   </Typography>
-               )}
-            </CardContent>
+                  {card_description && (
+                     <Typography
+                        className={classes.description}
+                        variant="body2"
+                     >
+                        {card_description ? card_description : "Description"}
+                     </Typography>
+                  )}
+               </CardContent>
+               {card_labels !== 0 ? (
+                  <Labels  card_labels={card_labels}/>
+               ) : null}
+            </Grid>
          </Card>
       </ListItem>
    );
