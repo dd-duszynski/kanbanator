@@ -1,4 +1,5 @@
 import * as actionTypes from './actionTypes';
+// import { getBoards } from './index'
 
 export const authStart = () => {
    return {
@@ -43,7 +44,6 @@ export const logout = () => {
       type: actionTypes.AUTH_LOGOUT,
    };
 };
-
 
 export const auth = (email, password) => {
    return (dispatch) => {
@@ -126,6 +126,8 @@ export const authCheck = () => {
          dispatch(logout())
       } else {
          const userId = localStorage.getItem('userId')
+         const userIdConvertedToNr = Number(userId)
+         // dispatch(getBoards(userIdConvertedToNr))
          dispatch(authSuccess(token, userId))
       }
    }

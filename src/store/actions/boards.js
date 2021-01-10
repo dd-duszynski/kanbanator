@@ -1,4 +1,5 @@
 import * as actionTypes from './actionTypes';
+import { setUserBoards } from './index'
 
 // ALL BOARDS ACTIONS -------------------------------------------------
 export const boardsFetchStart = () => {
@@ -78,12 +79,14 @@ export const getBoards = (userId) => {
       })
          .then(res => res.json())
          .then(data => {
+            dispatch(setUserBoards(data.userBoards))
             let fetchedBoards = [];
             for (let key in data.userBoards) {
                fetchedBoards.push({
                   ...data.userBoards[key]
                })
             }
+
             return dispatch(boardsFetchSuccess(fetchedBoards))
          })
          .catch((err) => {
@@ -113,8 +116,6 @@ export const createBoard = (title, description, image_url, author) => {
       author: author,
       image_url: image_url
    }
-   console.log(reqBody);
-
    return (dispatch) => {
       dispatch(createBoardStart())
       fetch('http://localhost:5000/api/boards/board', {
@@ -125,9 +126,9 @@ export const createBoard = (title, description, image_url, author) => {
          body: JSON.stringify(reqBody)
       })
          .then(res => res.json())
-         .then(data => {
-            console.log('Success:', data);
-            return dispatch(createBoardSuccess())
+         .then(() => {
+            dispatch(getBoards(author))
+            dispatch(createBoardSuccess())
          })
          .catch((err) => {
             return dispatch(createBoardFail(err))

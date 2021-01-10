@@ -76,11 +76,11 @@ const Drawer = ({
    handleIsModalOpen,
    onLogout,
    isAuthenticated,
+   boards
 }) => {
    const classes = useStyles();
    const theme = useTheme();
-   const userBoards = localStorage.getItem('boards')
-   const userBoardsParsed = JSON.parse(userBoards)
+
    return (
       <SideDrawer
          variant="permanent"
@@ -130,10 +130,10 @@ const Drawer = ({
             </NavLink>
          </List>
          <Divider />
-         {isAuthenticated ? userBoardsParsed.length > 0 ? (
+         {isAuthenticated ? boards.length > 0 ? (
             <>
                <List>
-                  {userBoardsParsed.map(item => {
+                  {boards.map(item => {
                      return (
                         <NavLink
                            to={`/boards/${item.board_id}`}
@@ -242,7 +242,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
    return {
-      onLogout: () => dispatch(actions.logout())
+      onLogout: () => dispatch(actions.logout()),
    }
 }
 

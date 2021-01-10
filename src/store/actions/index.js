@@ -12,8 +12,8 @@ export {
 export {
    authStart,
    authSuccess,
-   signupSuccess,
    authFail,
+   signupSuccess,
    setUserBoards,
    logout,
    auth,

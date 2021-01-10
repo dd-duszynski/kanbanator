@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Navigation from '../Navigation/Navigation';
 import SpeedDial from '../SpeedDial/SpeedDial';
-import * as actions from '../../store/actions/auth';
+import * as actions from '../../store/actions';
 
 const useStyles = makeStyles((theme) => {
    // console.log("theme",theme)
@@ -47,10 +47,13 @@ const useStyles = makeStyles((theme) => {
    })
 });
 
-const Layout = ({ children, authCheck }) => {
+const Layout = ({ getBoards, children, authCheck }) => {
    const classes = useStyles();
 
    useEffect(() => {
+      const userId = localStorage.getItem('userId')
+      const userIdConvertedToNr = Number(userId)
+      getBoards(userIdConvertedToNr)
       authCheck();
    }, [authCheck]);
 
@@ -68,7 +71,8 @@ const Layout = ({ children, authCheck }) => {
 
 const mapDispatchToProps = (dispatch) => {
    return {
-      authCheck: () => dispatch(actions.authCheck())
+      authCheck: () => dispatch(actions.authCheck()),
+      getBoards: (id) => dispatch(actions.getBoards(id))
    };
 };
 

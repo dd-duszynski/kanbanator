@@ -43,6 +43,16 @@ const TaskCard = ({ card, handleCardChoosen, handleIsModalOpen }) => {
       handleIsModalOpen()
       handleCardChoosen(card)
    }
+   console.log(card_description ? "ok" : "nok");
+
+   let desc;
+   if (card_description && card_description.length > 33) {
+      desc = card_description.substr(0, 33) + "..."
+   } else if (card_description !== null && card_description.length <= 33) {
+      desc = card_description
+   } else {
+      desc = "Default description"
+   }
 
    return (
       <ListItem
@@ -58,17 +68,15 @@ const TaskCard = ({ card, handleCardChoosen, handleIsModalOpen }) => {
                   >
                      {card_title ? card_title : "Default title"}
                   </Typography>
-                  {card_description && (
-                     <Typography
-                        className={classes.description}
-                        variant="body2"
-                     >
-                        {card_description ? card_description : "Description"}
-                     </Typography>
-                  )}
+                  <Typography
+                     className={classes.description}
+                     variant="body2"
+                  >
+                     {desc}
+                  </Typography>
                </CardContent>
                {card_labels !== 0 ? (
-                  <Labels  card_labels={card_labels}/>
+                  <Labels card_labels={card_labels} />
                ) : null}
             </Grid>
          </Card>

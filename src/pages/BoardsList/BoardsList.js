@@ -29,7 +29,6 @@ const useStyles = makeStyles((theme) => ({
 
 const BoardsList = ({ boards }) => {
    const classes = useStyles();
-
    return (
       <Layout>
          {boards ? (
@@ -106,10 +105,4 @@ const mapStateToProps = (state) => {
    }
 }
 
-const mapDispatchToProps = (dispatch) => {
-   return {
-      getBoards: (userId) => dispatch(actions.getBoards(userId))
-   }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(BoardsList)
+export default connect(mapStateToProps)(BoardsList)

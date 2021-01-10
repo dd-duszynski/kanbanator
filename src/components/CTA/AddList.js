@@ -31,7 +31,7 @@ const AddList = ({ refresh, btnText, labelText, onClick, relatedBoard }) => {
    const setTitleHandler = (e) => {
       setTitle(e.target.value)
    }
-   const sendCard = () => {
+   const sendList = () => {
       const reqBody = {
          title: title,
          relatedBoard: relatedBoard,
@@ -55,6 +55,12 @@ const AddList = ({ refresh, btnText, labelText, onClick, relatedBoard }) => {
    }
 
    const classes = useStyles();
+
+   const clickHandler = (e) => {
+      sendList(e)
+      onClick()
+   }
+   
    return (
       <form className={classes.form} noValidate autoComplete="off">
          <TextField
@@ -77,7 +83,7 @@ const AddList = ({ refresh, btnText, labelText, onClick, relatedBoard }) => {
                   className={classes.addBtn}
                   color="primary"
                   variant="contained"
-                  onClick={(e) => sendCard(e)}
+                  onClick={(e) => clickHandler(e)}
                >
                   {btnText}
                </Button>

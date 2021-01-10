@@ -45,7 +45,6 @@ const singleBoardFetchFail = (state, action) => {
    });
 };
 const singleBoardFetchSuccess = (state, action) => {
-   console.log(action.singleBoard);
    return updateObject(state, {
       error: null,
       loadingSingleBoard: false,

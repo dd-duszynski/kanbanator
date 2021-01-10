@@ -7,7 +7,8 @@ const initialState = {
    error: null,
    message: null,
    loading: false,
-   boards: JSON.parse(localStorage.getItem('boards')),
+   boards: [],
+   // boards: JSON.parse(localStorage.getItem('boards')),
    authRedirectPath: '/'
 };
 
@@ -24,7 +25,7 @@ const authSuccess = (state, action) => {
       userId: action.userId,
       error: null,
       loading: false,
-      authRedirectPath: `/${action.userId}`
+      authRedirectPath: `/`
    });
 };
 

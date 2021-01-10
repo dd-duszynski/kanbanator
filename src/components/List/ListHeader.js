@@ -28,7 +28,7 @@ const ListHeader = ({ text }) => {
       <ListItem className={classes.listItem}>
          <ListItemText>
             <Typography className={classes.text}>
-               {text}
+               {text ? text : 'Default title'} 
             </Typography>
          </ListItemText>
          <ListItemIcon className={classes.listItemIcon}>

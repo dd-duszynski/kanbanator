@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
    },
 }))
 
-const EditableBtn = ({ refresh, btnText, labelText, onClick, author, relatedBoard, relatedList }) => {
+const AddCard = ({ refresh, btnText, labelText, onClick, author, relatedBoard, relatedList }) => {
    const [title, setTitle] = useState("")
    console.log(relatedBoard, relatedList);
 
@@ -119,4 +119,4 @@ const EditableBtn = ({ refresh, btnText, labelText, onClick, author, relatedBoar
    )
 }
 
-export default EditableBtn
+export default AddCard

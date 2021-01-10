@@ -6,14 +6,14 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
+import SettingsIcon from '@material-ui/icons/Settings';
 import Layout from '../../components/Layout/Layout';
 import List from '../../components/List/List';
 import Spinner from '../../components/Spinner/Spinner'
-import AddList from '../../components/EditableBtn/AddList'
+import AddList from '../../components/CTA/AddList'
 import Modal from '../../components/Modal/Modal'
 import BoardSettings from '../../components/Forms/BoardSettings'
 import CardSettings from '../../components/Forms/CardSettings'
-import SettingsIcon from '@material-ui/icons/Settings';
 import * as actions from '../../store/actions'
 
 const useStyles = makeStyles((theme) => ({
@@ -78,8 +78,6 @@ const Board = ({ getSingleBoard, singleBoard, loadingSingleBoard }) => {
    const [choosenCard, setChoosenCard] = useState(null)
    const [addListActive, setAddListActive] = useState(false)
    const [refresh, setRefresh] = useState(0)
-   console.log('choosenCard', choosenCard);
-   console.log('isSettingsOpen', isSettingsOpen);
 
    const handleIsModalOpen = () => {
       setModalOpen(!isModalOpen);
