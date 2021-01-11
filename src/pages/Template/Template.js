@@ -57,7 +57,7 @@ const Template = ({ loadingSingleTemplate, templateGetSingle, singleTemplate }) 
 
    useEffect(() => {
       templateGetSingle(templateURL)
-   }, [templateGetSingle])
+   }, [templateGetSingle, templateURL])
 
    console.log('czy sie ładuje', loadingSingleTemplate);
 

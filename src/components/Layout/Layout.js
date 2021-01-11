@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => {
             width: '8px',
             height: '12px',
             borderRadius: '6px'
-            
+
          },
          '*::-webkit-scrollbar-track': {
             background: '#424242',
@@ -55,7 +55,7 @@ const Layout = ({ getBoards, children, authCheck }) => {
       const userIdConvertedToNr = Number(userId)
       getBoards(userIdConvertedToNr)
       authCheck();
-   }, [authCheck]);
+   }, [getBoards, authCheck]);
 
    return (
       <Box className={classes.Layout}>

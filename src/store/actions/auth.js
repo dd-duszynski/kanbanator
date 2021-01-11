@@ -126,8 +126,6 @@ export const authCheck = () => {
          dispatch(logout())
       } else {
          const userId = localStorage.getItem('userId')
-         const userIdConvertedToNr = Number(userId)
-         // dispatch(getBoards(userIdConvertedToNr))
          dispatch(authSuccess(token, userId))
       }
    }

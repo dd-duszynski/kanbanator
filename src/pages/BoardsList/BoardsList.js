@@ -8,7 +8,6 @@ import BoardCard from '../../components/BoardCard/BoardCard';
 import Layout from '../../components/Layout/Layout';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import AssignmentIcon from '@material-ui/icons/Assignment';
-import * as actions from '../../store/actions'
 import Spinner from '../../components/Spinner/Spinner'
 
 const useStyles = makeStyles((theme) => ({

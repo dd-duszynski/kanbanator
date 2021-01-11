@@ -26,37 +26,11 @@ const useStyles = makeStyles((theme) => ({
 
 const AddCard = ({ refresh, btnText, labelText, onClick, author, relatedBoard, relatedList }) => {
    const [title, setTitle] = useState("")
-   console.log(relatedBoard, relatedList);
 
    const setTitleHandler = (e) => {
       setTitle(e.target.value)
    }
    const sendCard = () => {
-      const reqBody = {
-         title: title,
-         description: `desc for ${title}`,
-         author: author,
-         relatedBoard: relatedBoard,
-         relatedList: relatedList
-      }
-      console.log(reqBody);
-      fetch('http://localhost:5000/api/cards/', {
-         method: 'POST',
-         headers: {
-            'Content-Type': 'application/json',
-         },
-         body: JSON.stringify(reqBody),
-      })
-         .then(response => response.json())
-         .then(data => {
-            console.log('Success:', data);
-            refresh()
-         })
-         .catch((error) => {
-            console.error('Error:', error);
-         });
-   }
-   const sendList = () => {
       const reqBody = {
          title: title,
          description: `desc for ${title}`,
