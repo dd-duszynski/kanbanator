@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
@@ -16,21 +17,21 @@ const useStyles = makeStyles((theme) => ({
 }
 ));
 
-const TransitionModal = () => {
+const CardSettingsForm = ({ card, handleIsCardModalActive }) => {
    const classes = useStyles();
    return (
       <Grid container
          direction="column"
          justify="flex-start"
          alignItems="flex-start"
-         // className={classes.gridContainer}
+      // className={classes.gridContainer}
       >
-         {/* <TextField id="standard-basic" label="Board Title" className={classes.textField} value={card.card_title} />
-         <TextField id="standard-basic" label="Board Title" className={classes.textField} value={card.card_description} /> */}
+         <TextField id="standard-basic" label="Board Title" className={classes.textField} value={card.card_title} />
+         <TextField id="standard-basic" label="Board Title" className={classes.textField} value={card.card_description} />
          <FormControl className={classes.formControl}>
             <InputLabel id="select-label">
                Choose Labels
-                  </InputLabel>
+            </InputLabel>
             <Select
                className={classes.select}
                labelId="select-label"
@@ -48,7 +49,7 @@ const TransitionModal = () => {
          <FormControl className={classes.formControl}>
             <InputLabel id="select-board">
                Change Board
-                  </InputLabel>
+            </InputLabel>
             <Select
                className={classes.select}
                labelId="select-board"
@@ -81,6 +82,7 @@ const TransitionModal = () => {
          </FormControl>
       </Grid>
    )
+
 }
 
-export default TransitionModal
+export default CardSettingsForm

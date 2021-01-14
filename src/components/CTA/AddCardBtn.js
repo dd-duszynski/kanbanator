@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
    },
 }))
 
-const AddCard = ({ refresh, btnText, labelText, onClick, author, relatedBoard, relatedList }) => {
+const AddCardBtn = ({ refresh, btnText, labelText, onClick, author, relatedBoard, relatedList }) => {
    const [title, setTitle] = useState("")
 
    const setTitleHandler = (e) => {
@@ -38,7 +38,6 @@ const AddCard = ({ refresh, btnText, labelText, onClick, author, relatedBoard, r
          relatedBoard: relatedBoard,
          relatedList: relatedList
       }
-      console.log(reqBody);
       fetch('http://localhost:5000/api/cards/', {
          method: 'POST',
          headers: {
@@ -93,4 +92,4 @@ const AddCard = ({ refresh, btnText, labelText, onClick, author, relatedBoard, r
    )
 }
 
-export default AddCard
+export default AddCardBtn

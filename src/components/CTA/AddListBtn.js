@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
    },
 }))
 
-const AddList = ({ refresh, btnText, labelText, onClick, relatedBoard }) => {
+const AddListBtn = ({ refresh, btnText, labelText, onClick, relatedBoard }) => {
    const [title, setTitle] = useState("")
    console.log(relatedBoard);
 
@@ -98,4 +98,4 @@ const AddList = ({ refresh, btnText, labelText, onClick, relatedBoard }) => {
    )
 }
 
-export default AddList
+export default AddListBtn

@@ -5,7 +5,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
-import AddCard from '../CTA/AddCard'
+import AddCardBtn from '../CTA/AddCardBtn'
 
 const useStyles = makeStyles(() => ({
    listItem: {
@@ -38,7 +38,7 @@ const ListFooter = ({ userId, text, refresh, relatedBoard, listID }) => {
    return (
       <ListItem className={classes.listItem}>
          {isEdited ? (
-            <AddCard
+            <AddCardBtn
                onClick={() => setIsEdited(false)}
                refresh={refresh}
                btnText="ADD ANOTHER CARD"

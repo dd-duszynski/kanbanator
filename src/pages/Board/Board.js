@@ -10,11 +10,125 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import Layout from '../../components/Layout/Layout';
 import List from '../../components/List/List';
 import Spinner from '../../components/Spinner/Spinner'
-import AddList from '../../components/CTA/AddList'
+import AddListBtn from '../../components/CTA/AddListBtn'
 import Modal from '../../components/Modal/Modal'
-import BoardSettings from '../../components/Forms/BoardSettings'
-import CardSettings from '../../components/Forms/CardSettings'
+import BoardSettingsForm from '../../components/Forms/BoardSettingsForm'
+import CardSettingsForm from '../../components/Forms/CardSettingsForm'
 import * as actions from '../../store/actions'
+
+const Board = ({ getSingleBoard, singleBoard, loadingSingleBoard }) => {
+   const boardId = useParams().boardID
+   const classes = useStyles();
+   const [isCardModalActive, setCardModalActive] = useState(false)
+   const [isSettingsModalActive, setSettingsModalActive] = useState(false)
+   const [choosenCard, setChoosenCard] = useState(null)
+   const [addListActive, setAddListActive] = useState(false)
+   const [refresh, setRefresh] = useState(0)
+
+   const handleIsCardModalActive = () => {
+      setCardModalActive(!isCardModalActive);
+   }
+   const handleIsSettingsModalActive = () => {
+      setSettingsModalActive(!isSettingsModalActive);
+   }
+   const handleCardChoosen = (card) => {
+      setChoosenCard(card)
+   }
+
+   let cards, lists
+   if (singleBoard) {
+      lists = singleBoard.lists
+      cards = singleBoard.cards
+   }
+
+   useEffect(() => {
+      getSingleBoard(boardId)
+   }, [getSingleBoard, boardId, refresh]);
+
+   return (
+      <Layout>
+         {loadingSingleBoard === false ? (
+            <Grid container direction="column"
+               className={classes.root}
+            >
+               <Grid
+                  item
+                  className={classes.backgroundImage}
+                  style={{ backgroundImage: `url(${lists[0].board_image_url})` }}
+               />
+               <Grid item container className={classes.titleContainer}>
+                  <Grid item className={[classes.title, classes.header1].join(' ')}>
+                     <Typography variant="h6" component="h1">
+                        {lists[0].board_title}
+                     </Typography>
+                  </Grid>
+                  <Grid item className={classes.iconContainer} onClick={handleIsSettingsModalActive}>
+                     <SettingsIcon />
+                  </Grid>
+               </Grid>
+               <Grid
+                  container
+                  wrap="nowrap"
+                  className={classes.listsContainer}
+               >
+                  {lists.map((list) => (
+                     <List
+                        key={list.list_id}
+                        list={list}
+                        cards={cards.filter(card => card.card_related_list === list.list_id)}
+                        refresh={() => setRefresh(refresh + 1)}
+                        handleCardChoosen ={handleCardChoosen}
+                        handleIsModalOpen={handleIsCardModalActive}
+                     />
+                  ))}
+                  <Grid item className={classes.addList} >
+                     {
+                        addListActive ? (
+                           <AddListBtn
+                              btnText="ADD ANOTHER LIST"
+                              labelText="Enter a list title..."
+                              onClick={() => setAddListActive(false)}
+                              refresh={() => setRefresh(refresh + 1)}
+                              relatedBoard={lists[0].board_id}
+                           />
+                        ) : (
+                              <Button
+                                 variant="contained"
+                                 startIcon={<AddIcon />}
+                                 onClick={() => setAddListActive(true)}
+                              >
+                                 Add another List
+                              </Button>
+                           )
+                     }
+                  </Grid>
+
+                  <Modal
+                     isModalOpen={isCardModalActive}
+                     handleIsModalOpen={handleIsCardModalActive}
+                  >
+                     <CardSettingsForm 
+                        card={choosenCard ? choosenCard : null} 
+                        handleIsCardModalActive={handleIsCardModalActive}
+                     />
+                  </Modal>
+
+                  <Modal
+                     isModalOpen={isSettingsModalActive}
+                     handleIsModalOpen={handleIsSettingsModalActive}
+                  >
+                     <BoardSettingsForm
+                        handleIsSettingsModalActive={handleIsSettingsModalActive}
+                        textContent={lists[0]}
+                        refresh={() => setRefresh(refresh + 1)}
+                     />
+                  </Modal>
+               </Grid>
+            </Grid>
+         ) : <Spinner />}
+      </Layout>
+   )
+}
 
 const useStyles = makeStyles((theme) => ({
    root: {
@@ -66,115 +180,12 @@ const useStyles = makeStyles((theme) => ({
          cursor: 'pointer',
          color: '#ddd'
       }
+   },
+   textField: {
+      height: '30px',
 
    }
 }))
-
-const Board = ({ getSingleBoard, singleBoard, loadingSingleBoard }) => {
-   const boardId = useParams().boardID
-   const classes = useStyles();
-   const [isModalOpen, setModalOpen] = useState(false)
-   const [isSettingsOpen, setSettingsOpen] = useState(false)
-   const [choosenCard, setChoosenCard] = useState(null)
-   const [addListActive, setAddListActive] = useState(false)
-   const [refresh, setRefresh] = useState(0)
-
-   const handleIsModalOpen = () => {
-      setModalOpen(!isModalOpen);
-   }
-   const handleIsSettingsOpen = () => {
-      setSettingsOpen(!isSettingsOpen);
-   }
-
-   const handleCardChoosen = (card) => {
-      setChoosenCard(card)
-   }
-
-   let cards, lists
-   if (singleBoard) {
-      lists = singleBoard.lists
-      cards = singleBoard.cards
-   }
-
-   useEffect(() => {
-      getSingleBoard(boardId)
-   }, [getSingleBoard, boardId, refresh]);
-
-   return (
-      <Layout>
-         {loadingSingleBoard === false ? (
-            <Grid container direction="column"
-               className={classes.root}
-            >
-               <Grid
-                  item
-                  className={classes.backgroundImage}
-                  style={{ backgroundImage: `url(${lists[0].board_image_url})` }}
-               />
-               <Grid item container className={classes.titleContainer}>
-                  <Grid item className={[classes.title, classes.header1].join(' ')} >
-                     <Typography variant="h6" component="h1">
-                        {lists[0].board_title}
-                     </Typography>
-                  </Grid>
-                  <Grid item className={classes.iconContainer} onClick={handleIsSettingsOpen}>
-                     <SettingsIcon />
-                  </Grid>
-               </Grid>
-               <Grid
-                  container
-                  wrap="nowrap"
-                  className={classes.listsContainer}
-               >
-                  {lists.map((list) => (
-                     <List
-                        key={list.list_id}
-                        list={list}
-                        cards={cards.filter(card => card.card_related_list === list.list_id)}
-                        refresh={() => setRefresh(refresh + 1)}
-                        handleCardChoosen={handleCardChoosen}
-                        handleIsModalOpen={handleIsModalOpen}
-                     />
-                  ))}
-                  <Grid item className={classes.addList} >
-                     {
-                        addListActive ? (
-                           <AddList
-                              btnText="ADD ANOTHER LIST"
-                              labelText="Enter a list title..."
-                              onClick={() => setAddListActive(false)}
-                              refresh={() => setRefresh(refresh + 1)}
-                              relatedBoard={lists[0].board_id}
-                           />
-                        ) : (
-                              <Button
-                                 variant="contained"
-                                 startIcon={<AddIcon />}
-                                 onClick={() => setAddListActive(true)}
-                              >
-                                 Add another List
-                              </Button>
-                           )
-                     }
-                  </Grid>
-                  <Modal
-                     isModalOpen={isModalOpen}
-                     handleIsModalOpen={handleIsModalOpen}
-                  >
-                     <CardSettings card={choosenCard ? choosenCard : null} />
-                  </Modal>
-                  <Modal
-                     isModalOpen={isSettingsOpen}
-                     handleIsModalOpen={handleIsSettingsOpen}
-                  >
-                     <BoardSettings />
-                  </Modal>
-               </Grid>
-            </Grid>
-         ) : <Spinner />}
-      </Layout>
-   )
-}
 
 const mapStateToProps = (state) => {
    return {
@@ -190,3 +201,5 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Board)
+
+

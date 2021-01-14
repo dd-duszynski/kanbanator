@@ -111,7 +111,7 @@ export const getSingleBoard = (boardId) => {
 
 export const createBoard = (title, description, image_url, author) => {
    const reqBody = {
-      boardId: Math.floor(Math.random() * 1000000),
+      boardId: Math.floor(Math.random() * 899999 + 100000),
       title: title,
       description: description,
       author: author,
