@@ -24,10 +24,16 @@ const useStyles = makeStyles((theme) => ({
       marginRight: '10px',
       fontSize: '30px'
    },
+   anyBoardInfo: {
+      marginBottom: 20
+   }
 }))
 
 const BoardsList = ({ boards }) => {
    const classes = useStyles();
+   console.log("[BoardsList]", boards);
+   const isFavorites = boards.filter(b => b.board_is_favorite === 1)
+
    return (
       <Layout>
          {boards ? (
@@ -46,24 +52,32 @@ const BoardsList = ({ boards }) => {
                      </Typography>
                   </Box>
                </Grid>
-               <Grid
-                  container
-                  direction="row"
-                  justify="flex-start"
-                  alignItems="flex-start"
-               >
-                  {boards.filter(item => item.board_is_favorite).map(item => (
-                     <BoardCard
-                        title={item.board_title}
-                        description={item.board_description}
-                        image={item.board_image_url}
-                        starred={item.board_is_favorite === 1}
-                        link={item.board_id}
-                        type="board"
-                     />
+               {isFavorites.length === 0 ?
+                  (
+                     <Typography variant="body1" className={classes.anyBoardInfo}>
+                        You don't have any favorite board.
+                     </Typography>
+                  ) : (
+                     <Grid
+                        container
+                        direction="row"
+                        justify="flex-start"
+                        alignItems="flex-start"
+                     >
+                        {boards.filter(item => item.board_is_favorite).map(item => (
+                           <BoardCard
+                              title={item.board_title}
+                              description={item.board_description}
+                              image={item.board_image_url}
+                              starred={item.board_is_favorite === 1}
+                              link={item.board_id}
+                              type="board"
+                           />
+                        )
+                        )}
+                     </Grid>
                   )
-                  )}
-               </Grid>
+               }
                <Grid item className={classes.header}>
                   <Box className={classes.boxWithIcon}>
                      <AssignmentIcon className={classes.icon} />

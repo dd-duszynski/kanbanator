@@ -6,7 +6,8 @@ export {
 export {
    getBoards,
    getSingleBoard,
-   createBoard
+   createBoard,
+   deleteBoard
 } from './boards'
 
 export {

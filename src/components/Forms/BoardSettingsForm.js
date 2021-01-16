@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
+import { Redirect, useParams } from 'react-router-dom'
+import { connect } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
 import TextField from '@material-ui/core/TextField';
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import * as actions from '../../store/actions'
+
 
 const useStyles = makeStyles((theme) => ({
    gridContainer: {
@@ -28,11 +27,13 @@ const useStyles = makeStyles((theme) => ({
 }
 ));
 
-const BoardSettingsForm = ({ handleIsSettingsModalActive, textContent, refresh }) => {
+const BoardSettingsForm = ({ deleteBoard, handleIsSettingsModalActive, textContent, refresh }) => {
+   const boardId = useParams().boardID
    const classes = useStyles();
    const [title, setTitle] = useState(textContent.board_title)
    const [description, setDescription] = useState(textContent.board_description)
    const [deleteClicked, setDeleteClicked] = useState(false)
+   const [redirect, setRedirect] = useState(false)
 
    const handleSetTitle = (e) => {
       setTitle(e.target.value);
@@ -40,7 +41,11 @@ const BoardSettingsForm = ({ handleIsSettingsModalActive, textContent, refresh }
    const handleSetDescription = (e) => {
       setDescription(e.target.value);
    }
+   const handleDeleteBtn = (bid) => {
+      deleteBoard(bid)
+      setRedirect(true)
 
+   }
    const handleSaveBtn = () => {
       fetch(`http://localhost:5000/api/boards/board/${textContent.board_id}`, {
          method: 'POST',
@@ -75,7 +80,7 @@ const BoardSettingsForm = ({ handleIsSettingsModalActive, textContent, refresh }
             <Button
                variant="outlined"
                color="secondary"
-               onClick={() => console.log('usune Ci tablice :D')}
+               onClick={() => handleDeleteBtn(boardId)}
             >
                DELETE BOARD
             </Button>
@@ -97,11 +102,12 @@ const BoardSettingsForm = ({ handleIsSettingsModalActive, textContent, refresh }
          alignItems="center"
          className={classes.gridContainer}
       >
+         {redirect ? <Redirect to="/boards" /> : null}
          {deleteClicked ? deleteConfirmation : (
             <>
                <Typography variant="h6" component="h1" display="block" className={classes.header}>
                   Settings
-            </Typography>
+               </Typography>
                <TextField
                   label="Board title"
                   className={classes.textField}
@@ -116,28 +122,11 @@ const BoardSettingsForm = ({ handleIsSettingsModalActive, textContent, refresh }
                   defaultValue={description}
                   onChange={(e) => handleSetDescription(e)}
                />
-               {
-                  deleteClicked ? (
-                     <Typography variant="subtitle1" color="secondary">
-                        Are you sure?
-                     </Typography>
-                  ) : (
-                        <Button
-                           variant="outlined"
-                           color="secondary"
-                           fullWidth
-                           onClick={() => setDeleteClicked(true)}
-                        >
-                           Delete Board
-                        </Button>
-                     )
-               }
                <Grid
                   container
                   direction="row"
                   justify="space-between"
                   alignItems="center"
-                  className={classes.btnContainer}
                >
                   <Button variant="contained" color="primary" onClick={handleSaveBtn}>
                      Save Changes
@@ -146,10 +135,26 @@ const BoardSettingsForm = ({ handleIsSettingsModalActive, textContent, refresh }
                      Discard Changes
                   </Button>
                </Grid>
+               <Button
+                  variant="outlined"
+                  color="secondary"
+                  fullWidth
+                  onClick={() => setDeleteClicked(true)}
+                  className={classes.btnContainer}
+               >
+                  Delete Board
+               </Button>
             </>
          )}
       </Grid>
    )
 }
 
-export default BoardSettingsForm
+
+const mapDispatchToProps = (dispatch) => {
+   return {
+      deleteBoard: (boardId) => dispatch(actions.deleteBoard(boardId))
+   }
+}
+
+export default connect(null, mapDispatchToProps)(BoardSettingsForm)

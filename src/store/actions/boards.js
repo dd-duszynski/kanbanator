@@ -136,3 +136,19 @@ export const createBoard = (title, description, image_url, author) => {
          })
    }
 }
+
+export const deleteBoard = (boardId) => {
+   return (dispatch) => {
+      dispatch(createBoardStart())
+      fetch(`http://localhost:5000/api/boards/board/${boardId}`, {
+         method: 'DELETE',
+      })
+         .then(res => res.json())
+         .then(() => {
+            dispatch(createBoardSuccess())
+         })
+         .catch((err) => {
+            return dispatch(createBoardFail('[deleteBoard]', err))
+         })
+   }
+}

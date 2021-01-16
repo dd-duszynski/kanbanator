@@ -18,6 +18,9 @@ const useStyles = makeStyles(() => ({
    textField: {
       width: '80%',
       marginBottom: '20px'
+   },
+   btnContainer: {
+      marginTop: 20
    }
 }));
 
@@ -48,12 +51,13 @@ const NewBoardForm = ({ createBoard, handleIsModalOpen, userId }) => {
             className={classes.textField}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-         />
+            />
          <Grid
             container
             direction="row"
             justify="space-around"
             alignItems="center"
+            className={classes.btnContainer}
          >
             <Button variant="contained" color="primary" onClick={clickHandler}>
                Create new board

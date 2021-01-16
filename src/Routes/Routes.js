@@ -1,7 +1,6 @@
 import React, { Suspense } from 'react';
 import { Switch, Route, Redirect } from "react-router-dom";
 import BoardsList from '../pages/BoardsList/BoardsList';
-// import * as actions from '../store/actions/auth';
 import SignUp from '../pages/SignUp/SignUp';
 import Home from '../pages/Home/Home';
 import Spinner from '../components/Spinner/Spinner';
@@ -11,7 +10,7 @@ const Template = React.lazy(() => import('../pages/Template/Template'));
 const Login = React.lazy(() => import('../pages/Login/Login'));
 const Settings = React.lazy(() => import('../pages/Settings/Settings'));
 
-const ContentSwitch = () => {
+const Routes = () => {
    const routes = (
       <Switch>
          <Route path="/templates/:templateURL">
@@ -49,4 +48,4 @@ const ContentSwitch = () => {
    );
 }
 
-export default ContentSwitch;
+export default Routes;

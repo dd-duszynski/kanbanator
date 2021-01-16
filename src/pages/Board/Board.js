@@ -51,11 +51,7 @@ const Board = ({ getSingleBoard, singleBoard, loadingSingleBoard }) => {
             <Grid container direction="column"
                className={classes.root}
             >
-               <Grid
-                  item
-                  className={classes.backgroundImage}
-                  style={{ backgroundImage: `url(${lists[0].board_image_url})` }}
-               />
+               
                <Grid item container className={classes.titleContainer}>
                   <Grid item className={[classes.title, classes.header1].join(' ')}>
                      <Typography variant="h6" component="h1">
@@ -77,7 +73,7 @@ const Board = ({ getSingleBoard, singleBoard, loadingSingleBoard }) => {
                         list={list}
                         cards={cards.filter(card => card.card_related_list === list.list_id)}
                         refresh={() => setRefresh(refresh + 1)}
-                        handleCardChoosen ={handleCardChoosen}
+                        handleCardChoosen={handleCardChoosen}
                         handleIsModalOpen={handleIsCardModalActive}
                      />
                   ))}
@@ -107,8 +103,8 @@ const Board = ({ getSingleBoard, singleBoard, loadingSingleBoard }) => {
                      isModalOpen={isCardModalActive}
                      handleIsModalOpen={handleIsCardModalActive}
                   >
-                     <CardSettingsForm 
-                        card={choosenCard ? choosenCard : null} 
+                     <CardSettingsForm
+                        card={choosenCard ? choosenCard : null}
                         handleIsCardModalActive={handleIsCardModalActive}
                      />
                   </Modal>
@@ -124,6 +120,11 @@ const Board = ({ getSingleBoard, singleBoard, loadingSingleBoard }) => {
                      />
                   </Modal>
                </Grid>
+               <Grid
+                  item
+                  className={classes.backgroundImage}
+                  style={{ backgroundImage: `url(${lists[0].board_image_url})` }}
+               />
             </Grid>
          ) : <Spinner />}
       </Layout>
@@ -145,7 +146,9 @@ const useStyles = makeStyles((theme) => ({
       height: '100%',
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover',
-      opacity: 0.2
+      opacity: 0.2,
+      zIndex: -1
+
    },
    titleContainer: {
       position: 'fixed',

@@ -10,45 +10,10 @@ import Layout from '../../components/Layout/Layout';
 import * as actions from '../../store/actions'
 import Spinner from '../../components/Spinner/Spinner'
 
-const useStyles = makeStyles((theme) => ({
-   root: {
-      minHeight: 'calc(100vh - 64px)',
-      overflowX: 'auto',
-      padding: '20px 20px 0',
-      position: 'relative'
-   },
-   backgroundImage: {
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      width: '100%',
-      height: 'calc(100% - 12px)',
-      backgroundRepeat: 'no-repeat',
-      backgroundSize: 'cover',
-      opacity: 0.2
-   },
-   titleContainer: {
-      marginBottom: '12px',
-      position: 'fixed',
-      zIndex: '3'
-   },
-   listsContainer: {
-      zIndex: 2,
-      flexGrow: 1,
-      paddingTop: '50px',
-   },
-   title: {
-      padding: '2px 20px',
-      backgroundColor: '#424242',
-      borderRadius: '4px',
-      marginRight: '12px'
-   }
-}))
-
 const Template = ({ loadingSingleTemplate, templateGetSingle, singleTemplate }) => {
    const templateURL = useParams().templateURL;
    const classes = useStyles();
-   
+
    let cards, lists
    if (singleTemplate) {
       lists = singleTemplate.lists
@@ -67,12 +32,7 @@ const Template = ({ loadingSingleTemplate, templateGetSingle, singleTemplate }) 
             <Grid container direction="column"
                className={classes.root}
             >
-               <Grid
-                  item
-                  className={classes.backgroundImage}
-                  style={{ backgroundImage: `url(${lists[0].template_image_url})` }}
-               />
-               <Grid container className={classes.titleContainer}>
+               <Grid item container className={classes.titleContainer}>
                   <Grid item className={[classes.title, classes.header1].join(' ')} >
                      <Typography variant="h6" component="h1">
                         {lists[0].template_title}
@@ -90,6 +50,7 @@ const Template = ({ loadingSingleTemplate, templateGetSingle, singleTemplate }) 
                   </Grid>
                </Grid>
                <Grid
+                  item
                   container
                   wrap="nowrap"
                   className={classes.listsContainer}
@@ -103,11 +64,52 @@ const Template = ({ loadingSingleTemplate, templateGetSingle, singleTemplate }) 
                      />
                   ))}
                </Grid>
+               <Grid
+                  item
+                  className={classes.backgroundImage}
+                  style={{ backgroundImage: `url(${lists[0].template_image_url})` }}
+               />
             </Grid>
          ) : <Spinner />}
       </Layout>
    )
 }
+
+const useStyles = makeStyles((theme) => ({
+   root: {
+      minHeight: 'calc(100vh - 64px)',
+      overflowX: 'auto',
+      padding: '20px 20px 0',
+      position: 'relative'
+   },
+   backgroundImage: {
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: 'calc(100% - 12px)',
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'cover',
+      opacity: 0.2,
+      zIndex: -1
+   },
+   titleContainer: {
+      marginBottom: '12px',
+      position: 'fixed',
+      zIndex: '3'
+   },
+   listsContainer: {
+      zIndex: 2,
+      flexGrow: 1,
+      paddingTop: '50px',
+   },
+   title: {
+      padding: '2px 20px',
+      backgroundColor: '#424242',
+      borderRadius: '4px',
+      marginRight: '12px'
+   }
+}))
 
 const mapStateToProps = (state) => {
    return {
