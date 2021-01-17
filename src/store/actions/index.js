@@ -11,6 +11,14 @@ export {
 } from './boards'
 
 export {
+   addList,
+} from './lists'
+
+export {
+   addCard,
+} from './cards'
+
+export {
    authStart,
    authSuccess,
    authFail,

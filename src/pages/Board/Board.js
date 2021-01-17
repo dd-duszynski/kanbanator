@@ -22,7 +22,7 @@ const Board = ({ getSingleBoard, singleBoard, loadingSingleBoard }) => {
    const [isCardModalActive, setCardModalActive] = useState(false)
    const [isSettingsModalActive, setSettingsModalActive] = useState(false)
    const [choosenCard, setChoosenCard] = useState(null)
-   const [addListActive, setAddListActive] = useState(false)
+   const [addListBtnActive, setAddListBtnActive] = useState(false)
    const [refresh, setRefresh] = useState(0)
 
    const handleIsCardModalActive = () => {
@@ -51,7 +51,6 @@ const Board = ({ getSingleBoard, singleBoard, loadingSingleBoard }) => {
             <Grid container direction="column"
                className={classes.root}
             >
-               
                <Grid item container className={classes.titleContainer}>
                   <Grid item className={[classes.title, classes.header1].join(' ')}>
                      <Typography variant="h6" component="h1">
@@ -79,11 +78,9 @@ const Board = ({ getSingleBoard, singleBoard, loadingSingleBoard }) => {
                   ))}
                   <Grid item className={classes.addList} >
                      {
-                        addListActive ? (
+                        addListBtnActive ? (
                            <AddListBtn
-                              btnText="ADD ANOTHER LIST"
-                              labelText="Enter a list title..."
-                              onClick={() => setAddListActive(false)}
+                              deactivateBtn={() => setAddListBtnActive(false)}
                               refresh={() => setRefresh(refresh + 1)}
                               relatedBoard={lists[0].board_id}
                            />
@@ -91,7 +88,7 @@ const Board = ({ getSingleBoard, singleBoard, loadingSingleBoard }) => {
                               <Button
                                  variant="contained"
                                  startIcon={<AddIcon />}
-                                 onClick={() => setAddListActive(true)}
+                                 onClick={() => setAddListBtnActive(true)}
                               >
                                  Add another List
                               </Button>
@@ -131,7 +128,7 @@ const Board = ({ getSingleBoard, singleBoard, loadingSingleBoard }) => {
    )
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
    root: {
       height: 'calc(100vh - 64px)',
       overflowX: 'auto',

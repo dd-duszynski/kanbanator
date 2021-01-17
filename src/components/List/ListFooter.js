@@ -7,6 +7,37 @@ import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import AddCardBtn from '../CTA/AddCardBtn'
 
+const ListFooter = ({ userId, refresh, relatedBoard, listID }) => {
+   const classes = useStyles();
+   const [isEdited, setIsEdited] = useState(false);
+   const userIdConvertedToNr = Number(userId)
+
+   const Btn = (
+      <ListItemText onClick={() => { setIsEdited(true) }}>
+         <Button
+            startIcon={<AddIcon />}
+            className={classes.btn}
+         >
+            Add another card
+         </Button>
+      </ListItemText>
+   )
+
+   return (
+      <ListItem className={classes.listItem}>
+         {isEdited ? (
+            <AddCardBtn
+               onClick={() => setIsEdited(false)}
+               refresh={refresh}
+               author={userIdConvertedToNr}
+               relatedBoard={relatedBoard}
+               relatedList={listID}
+            />
+         ) : Btn}
+      </ListItem>
+   )
+}
+
 const useStyles = makeStyles(() => ({
    listItem: {
       '&:hover': {
@@ -18,39 +49,6 @@ const useStyles = makeStyles(() => ({
       width: '100%',
    }
 }))
-
-const ListFooter = ({ userId, text, refresh, relatedBoard, listID }) => {
-   const classes = useStyles();
-   const [isEdited, setIsEdited] = useState(false);
-   const userIdConvertedToNr = Number(userId)
-
-   const Btn = (
-      <ListItemText onClick={() => { setIsEdited(true) }}>
-         <Button
-            startIcon={<AddIcon />}
-            className={classes.btn}
-         >
-            {text}
-         </Button>
-      </ListItemText>
-   )
-
-   return (
-      <ListItem className={classes.listItem}>
-         {isEdited ? (
-            <AddCardBtn
-               onClick={() => setIsEdited(false)}
-               refresh={refresh}
-               btnText="ADD ANOTHER CARD"
-               labelText="Enter a title for this card..."
-               author={userIdConvertedToNr}
-               relatedBoard={relatedBoard}
-               relatedList={listID}
-            />
-         ) : Btn}
-      </ListItem>
-   )
-}
 
 const mapStateToProps = state => {
    return {

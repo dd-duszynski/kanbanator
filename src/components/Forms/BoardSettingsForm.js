@@ -8,31 +8,12 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import * as actions from '../../store/actions'
 
-
-const useStyles = makeStyles((theme) => ({
-   gridContainer: {
-      width: '320px'
-   },
-   textField: {
-      width: '100%',
-      marginBottom: '18px'
-   },
-   btnContainer: {
-      marginTop: '10px'
-   },
-   header: {
-      width: '100%',
-      marginBottom: '8px'
-   }
-}
-));
-
 const BoardSettingsForm = ({ deleteBoard, handleIsSettingsModalActive, textContent, refresh }) => {
    const boardId = useParams().boardID
    const classes = useStyles();
    const [title, setTitle] = useState(textContent.board_title)
    const [description, setDescription] = useState(textContent.board_description)
-   const [deleteClicked, setDeleteClicked] = useState(false)
+   const [deleteBtnClicked, setDeleteBtnClicked] = useState(false)
    const [redirect, setRedirect] = useState(false)
 
    const handleSetTitle = (e) => {
@@ -87,7 +68,7 @@ const BoardSettingsForm = ({ deleteBoard, handleIsSettingsModalActive, textConte
 
             <Button
                variant="outlined"
-               onClick={handleIsSettingsModalActive}
+               onClick={() => setDeleteBtnClicked(false)}
             >
                Discard
             </Button>
@@ -100,10 +81,10 @@ const BoardSettingsForm = ({ deleteBoard, handleIsSettingsModalActive, textConte
          direction="column"
          justify="center"
          alignItems="center"
-         className={classes.gridContainer}
+         className={classes.BoardSettingsForm}
       >
          {redirect ? <Redirect to="/boards" /> : null}
-         {deleteClicked ? deleteConfirmation : (
+         {deleteBtnClicked ? deleteConfirmation : (
             <>
                <Typography variant="h6" component="h1" display="block" className={classes.header}>
                   Settings
@@ -132,14 +113,14 @@ const BoardSettingsForm = ({ deleteBoard, handleIsSettingsModalActive, textConte
                      Save Changes
                   </Button>
                   <Button variant="outlined" onClick={handleIsSettingsModalActive}>
-                     Discard Changes
+                     Discard
                   </Button>
                </Grid>
                <Button
                   variant="outlined"
                   color="secondary"
                   fullWidth
-                  onClick={() => setDeleteClicked(true)}
+                  onClick={() => setDeleteBtnClicked(true)}
                   className={classes.btnContainer}
                >
                   Delete Board
@@ -150,6 +131,23 @@ const BoardSettingsForm = ({ deleteBoard, handleIsSettingsModalActive, textConte
    )
 }
 
+const useStyles = makeStyles((theme) => ({
+   BoardSettingsForm: {
+      width: '260px'
+   },
+   textField: {
+      width: '100%',
+      marginBottom: '18px'
+   },
+   btnContainer: {
+      marginTop: '10px'
+   },
+   header: {
+      width: '100%',
+      marginBottom: '8px'
+   }
+}
+));
 
 const mapDispatchToProps = (dispatch) => {
    return {

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
@@ -6,6 +7,62 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from '@material-ui/icons/Close';
+import * as actions from '../../store/actions'
+
+const AddListBtn = ({ addList, refresh, deactivateBtn, relatedBoard }) => {
+   const [title, setTitle] = useState("")
+
+   const handleSetTitle = (e) => {
+      setTitle(e.target.value)
+   }
+
+   const handleAddList = () => {
+      const reqBody = {
+         title,
+         relatedBoard
+      }
+      addList(reqBody)
+      refresh()
+      deactivateBtn()
+   }
+
+   const classes = useStyles();
+   return (
+      <form className={classes.form} noValidate autoComplete="off">
+         <TextField
+            className={classes.textField}
+            label="Enter a list title..."
+            variant="outlined"
+            size="small"
+            onChange={(e) => handleSetTitle(e)}
+            autoFocus
+         />
+         <Grid
+            container
+            wrap="nowrap"
+            justify="space-between"
+            alignItems="center"
+         >
+            <Grid item>
+               <Button
+                  startIcon={<AddIcon />}
+                  className={classes.addBtn}
+                  color="primary"
+                  variant="contained"
+                  onClick={handleAddList}
+               >
+                  ADD ANOTHER LIST
+               </Button>
+            </Grid>
+            <Grid item>
+               <IconButton color="secondary" aria-label="close" onClick={deactivateBtn} size="small" className={classes.closeBtn}>
+                  <CloseIcon />
+               </IconButton>
+            </Grid>
+         </Grid>
+      </form >
+   )
+}
 
 const useStyles = makeStyles((theme) => ({
    form: {
@@ -24,78 +81,16 @@ const useStyles = makeStyles((theme) => ({
    },
 }))
 
-const AddListBtn = ({ refresh, btnText, labelText, onClick, relatedBoard }) => {
-   const [title, setTitle] = useState("")
-   console.log(relatedBoard);
 
-   const setTitleHandler = (e) => {
-      setTitle(e.target.value)
+const mapStateToProps = state => {
+   return {
+      userId: state.auth.userId
    }
-   const sendList = () => {
-      const reqBody = {
-         title: title,
-         relatedBoard: relatedBoard,
-      }
-      console.log(reqBody);
-      fetch('http://localhost:5000/api/lists/', {
-         method: 'POST',
-         headers: {
-            'Content-Type': 'application/json',
-         },
-         body: JSON.stringify(reqBody),
-      })
-         .then(response => response.json())
-         .then(data => {
-            console.log('Success:', data);
-            refresh()
-         })
-         .catch((error) => {
-            console.error('Error:', error);
-         });
-   }
-
-   const classes = useStyles();
-
-   const clickHandler = (e) => {
-      sendList(e)
-      onClick()
-   }
-   
-   return (
-      <form className={classes.form} noValidate autoComplete="off">
-         <TextField
-            className={classes.textField}
-            label={labelText}
-            variant="outlined"
-            size="small"
-            onChange={(e) => setTitleHandler(e)}
-            autoFocus
-         />
-         <Grid
-            container
-            wrap="nowrap"
-            justify="space-between"
-            alignItems="center"
-         >
-            <Grid item>
-               <Button
-                  startIcon={<AddIcon />}
-                  className={classes.addBtn}
-                  color="primary"
-                  variant="contained"
-                  onClick={(e) => clickHandler(e)}
-               >
-                  {btnText}
-               </Button>
-            </Grid>
-            <Grid item>
-               <IconButton color="secondary" aria-label="close" onClick={onClick} size="small" className={classes.closeBtn}>
-                  <CloseIcon />
-               </IconButton>
-            </Grid>
-         </Grid>
-      </form >
-   )
 }
 
-export default AddListBtn
+const mapDispatchToProps = (dispatch) => {
+   return {
+      addList: (dataObj) => dispatch(actions.addList(dataObj)),
+   }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(AddListBtn)

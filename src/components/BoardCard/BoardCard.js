@@ -17,28 +17,6 @@ import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 
-const useStyles = makeStyles((theme) => ({
-   root: {
-      maxWidth: '300px',
-      marginRight: '15px',
-      marginBottom: '15px',
-      color: '#fff'
-   },
-   media: {
-      height: 0,
-      paddingTop: '56.25%', // 16:9
-   },
-   cardHeader: {
-      color: '#fff',
-   },
-   whiteIcon: {
-      color: '#fff',
-   },
-   redIcon: {
-      color: '#e11',
-   },
-}));
-
 export default function BoardCard({ type, title, starred, image, description, link }) {
    const classes = useStyles();
    const [isStarred, setIsStarred] = useState(starred);
@@ -140,3 +118,25 @@ export default function BoardCard({ type, title, starred, image, description, li
       </Card>
    );
 }
+
+const useStyles = makeStyles((theme) => ({
+   root: {
+      maxWidth: '300px',
+      marginRight: '15px',
+      marginBottom: '15px',
+      color: '#fff'
+   },
+   media: {
+      height: 0,
+      paddingTop: '56.25%', // 16:9
+   },
+   cardHeader: {
+      color: '#fff',
+   },
+   whiteIcon: {
+      color: '#fff',
+   },
+   redIcon: {
+      color: '#e11',
+   },
+}));

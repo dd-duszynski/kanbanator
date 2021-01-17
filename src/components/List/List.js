@@ -7,6 +7,34 @@ import TaskCard from '../TaskCard/TaskCard';
 import ListHeader from './ListHeader';
 import ListFooter from './ListFooter';
 
+const BoardList = ({ list, cards, template, refresh, handleCardChoosen, handleIsModalOpen }) => {
+   const classes = useStyles();
+   return (
+      <Grid item className={classes.BoardList}>
+         <List dense className={classes.list}>
+            <ListHeader text={list.list_title} />
+            <Box className={classes.mainListContainer}>
+               {cards.map((card) => (
+                  <TaskCard
+                     key={card.card_id}
+                     card={card}
+                     handleCardChoosen={handleCardChoosen}
+                     handleIsModalOpen={handleIsModalOpen}
+                  />
+               ))}
+            </Box>
+            {template ? null : (
+               <ListFooter
+                  refresh={refresh}
+                  relatedBoard={list.list_related_board}
+                  listID={list.list_id}
+               />
+            )}
+         </List>
+      </Grid>
+   );
+}
+
 const useStyles = makeStyles((theme) => ({
    BoardList: {
       height: '100%',
@@ -28,34 +56,5 @@ const useStyles = makeStyles((theme) => ({
       overflowY: 'auto',
    },
 }));
-
-const BoardList = ({ list, cards, template, refresh, handleCardChoosen, handleIsModalOpen }) => {
-   const classes = useStyles();
-   return (
-      <Grid item className={classes.BoardList}>
-         <List dense className={classes.list}>
-            <ListHeader text={list.list_title} />
-            <Box className={classes.mainListContainer}>
-               {cards.map((card) => (
-                  <TaskCard
-                     key={card.card_id}
-                     card={card}
-                     handleCardChoosen={handleCardChoosen}
-                     handleIsModalOpen={handleIsModalOpen}
-                  />
-               ))}
-            </Box>
-            {template ? null : (
-               <ListFooter
-                  text="Add another card"
-                  refresh={refresh}
-                  relatedBoard={list.list_related_board}
-                  listID={list.list_id}
-               />
-            )}
-         </List>
-      </Grid>
-   );
-}
 
 export default BoardList;
